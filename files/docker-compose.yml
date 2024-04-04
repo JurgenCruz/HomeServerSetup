@@ -150,7 +150,6 @@ services:
     container_name: pihole
     environment:
       - TZ=America/New_York
-      - FTLCONF_LOCAL_IPV4=192.168.1.253
       - WEBPASSWORD_FILE=/run/secrets/pihole_pwd
       - PIHOLE_DNS_=1.1.1.1;1.0.0.1
       - DNSSEC=true
@@ -165,32 +164,17 @@ services:
       - PIHOLE_DOMAIN=lan
       - DHCP_IPv6=false
       - DHCP_rapid_commit=false
-      - DNSMASQ_LISTENING=all
-    depends_on:
-      - dhcprelay
     networks:
-      pihole:
-        ipv4_address: 172.21.1.100
+      lanvlan:
+        ipv4_address: 192.168.1.11
     volumes:
       - /Apps/pihole/etc-pihole:/etc/pihole:Z
       - /Apps/pihole/etc-dnsmasq.d:/etc/dnsmasq.d:Z
     dns:
       - 127.0.0.1
-    ports:
-      - "53:53/tcp"
-      - "53:53/udp"
-      - "9089:80/tcp"
+      - 1.1.1.1
     secrets:
       - pihole_pwd
-    cap_add:
-      - NET_ADMIN
-    restart: always
-  dhcprelay:
-    build: /Apps/dhcp-relay
-    container_name: dhcprelay
-    network_mode: host
-    privileged: true
-    command: ["-id", "eth0", "-iu", "br-pihole", "172.21.1.100"]
     cap_add:
       - NET_ADMIN
     restart: always
@@ -200,7 +184,9 @@ services:
     environment:
       - TZ=America/New_York
     networks:
-      - nginx
+      nginx:
+      lanvlan:
+        ipv4_address: 192.168.1.10
     privileged: true
 #    security_opt:
 #      - label:disable
@@ -208,8 +194,6 @@ services:
       - /Apps/homeassistant:/config:Z
       - /etc/localtime:/etc/localtime:ro
       - /run/dbus:/run/dbus:ro
-    ports:
-      - 8123:8123
     restart: always
   nginx:
     image: jc21/nginx-proxy-manager:latest
@@ -259,13 +243,6 @@ networks:
       config:
         - subnet: 172.21.0.0/24
           ip_range: 172.21.0.0/24
-  pihole:
-    driver_opts:
-      com.docker.network.bridge.name: br-pihole
-    ipam:
-      config:
-        - subnet: 172.21.1.0/24
-          ip_range: 172.21.1.0/24
   wireguard:
     driver_opts:
       com.docker.network.bridge.name: br-wg
@@ -280,6 +257,17 @@ networks:
       config:
         - subnet: 172.21.3.0/24
           ip_range: 172.21.3.0/24
+  lanvlan:
+    driver: macvlan
+    driver_opts:
+      parent: eth0
+    ipam:
+      config:
+        - subnet: 192.168.1.0/24
+          gateway: 192.168.1.254
+          ip_range: 192.168.1.0/27
+          aux_addresses:
+            host: 192.168.1.12
 secrets:
   pihole_pwd:
     file: /Apps/pihole_pwd.txt

@@ -243,19 +243,22 @@ Now we will configure the ZFS pool and its datasets. If you have 3 to 4 disks, `
 
 > If you performed a migration or reinstallation, there will be certain steps in the guide that you can skip. For example if certain directories or files already existed. It is left to the reader's discretion to see which steps are no longer necessary.
 
-### 5.7. Configure static IP
+### 5.7. Configure host's network
 
-To prevent connection configurations from being broken in the future, it is useful to assign the server a static IP on the local network. We will configure the server to not use DHCP and assign itself an IP on the network. The guide will assume a local network with CIDR range 192.168.1.0/24, with the router at the second to last address (192.168.1.254) and the server at the third to last address (192.168.1.253). If you want to use another range, just replace it with the desired range in the rest of the guide.
+To prevent connection configurations from being broken in the future, it is useful to assign the server a static IP on the local network. We will configure the server to not use DHCP and assign itself an IP on the network. Also, we will create an auxiliary macvlan network to be able to communicate with Home Assistant which will be in a Docker macvlan. The guide will assume a local network with CIDR range 192.168.1.0/24, with the router at the second to last address (192.168.1.254) and the server at the third to last address (192.168.1.253). If you need to use another range, just replace it with the correct range in the rest of the guide.
 
 #### 5.7.1. Steps
 
-1. View the name of the active physical network device, for example `enp1s0` or `eth0`: `nmcli device status`. If there is more than one physical device, select the one that is connected to the router with the best speed. Replace `enp1s0` in the following commands with the correct device.
+1. Look for the name of the active physical network device, for example `enp1s0` or `eth0`: `nmcli device status`. If there is more than one physical device, select the one that is connected to the router with the best speed. Replace `enp1s0` in the following commands with the correct device.
 2. Assign static IP and CIDR range: `nmcli with mod enp1s0 ipv4.addresses 192.168.1.253/24`. Typically home routers use a CIDR range of `/24` or its equivalent subnet mask `255.255.255.0`. Check your router's manual for more information.
 3. Disable DHCP client: `nmcli with mod enp1s0 ipv4.method manual`.
 4. Configure the router IP: `nmcli with mod enp1s0 ipv4.gateway 192.168.1.254`. Normally the router assigns itself a static IP which is the second to last IP in the IP range.
 5. Configure Cloudflare as DNS: `nmcli with mod enp1s0 ipv4.dns 1.1.1.1`. If you like to use another DNS like Google's, you can change it.
 6. Reactivate the device for the changes to take effect: `nmcli con up enp1s0`. This may terminate the SSH session. if so, `ssh` to the server again.
 7. Run: `./scripts/disable_resolved.sh`. We disable the local DNS service "systemd-resolved" to free up the DNS port that Pi-hole needs and configure Cloudflare as DNS. If you like, you can modify the script to use another DNS like Google.
+8. Add auxiliary macvlan connection: `nmcli con add con-name macvlan-shim type macvlan ifname macvlan-shim ip4 192.168.1.12/32 dev enp1s0 mode bridge`. `192.168.1.12` is the server's IP inside this auxiliary network. If your local network is in another prefix, adjust this IP to one inside the prefix but outside the DHCP assignable range to avoid collisions.
+9. Add route to auxiliary connection to macvlan network: `nmcli con mod macvlan-shim +ipv4.routes "192.168.1.0/27"`. `192.168.1.0/27` is the IP range of the macvlan network which matches with the local network's prefix at the same time it is outside the DHCP assignable IP range.
+10. Activate auxiliary connection: `nmcli con up macvlan-shim`.
 
 ### 5.8. Configure shares
 
@@ -309,16 +312,13 @@ We will create a Docker secret to set the Pi-hole password and optionally config
     5. We refresh the label for the change to take effect: `restorecon -v /Apps/pihole_pwd.txt`.
 2. Configure Pi-hole as a DHCP server to be able to assign itself as DNS. If your router has the option to change the DNS assigned by DHCP or if you do not plan to expose your server to the internet, follow path B)
     A) Use Pi-hole as DHCP:
-        1. Copy the Dockerfile of the DHCPRelay container image: `mkdir /Apps/dhcp-relay && cp ./files/Dockerfile /Apps/dhcp-relay/`. DHCPRelay is necessary to redirect DHCP requests to the Pi-hole inside the container.
-        2. Copy DHCP options file to set the server's static IP as DNS: `cp ./files/07-dhcp-options.conf /Apps/pihole/etc-dnsmasq.d/`. Without this file Pi-hole would use its container's internal IP as DNS and would not work. Update the file if your static IP is different.
-        3. Edit the stack file: `nano ./files/docker-compose.yml`.
-        4. Set the `DHCP_START` and `DHCP_END` variables with the IP range of your local network.
-        5. Set the `DHCP_ROUTER` variable with the IP of your router.
-        6. Adjust the `command` attribute of the `dhcprelay` container. Change `eth0` to the name of your network device for example `enp1s0`. You can use `ip addr` to list the devices.
+        1. Edit the stack file: `nano ./files/docker-compose.yml`.
+        2. Set the `DHCP_START` and `DHCP_END` variables with the IP range of your local network. Make sure to leave some IPs unassignable at the beginning of the network. For example if your local network range is 192.168.1.0/24, start at 192.168.1.64.
+        3. Set the `DHCP_ROUTER` variable with the IP of your router.
+        4. Set the attribute `ipv4_address` in the `pihole` container with an IP in the non-assignable range of the DHCP. For example 192.168.1.11.
     B) Do not use Pi-hole as DHCP:
         1. Edit the stack file: `nano ./files/docker-compose.yml`.
-        2. Delete the entire section of the `dhcprelay` container.
-        3. Delete the variables `DHCP_ACTIVE`, `DHCP_START`, `DHCP_END`, `DHCP_ROUTER`, `DHCP_LEASETIME`, `PIHOLE_DOMAIN`, `DHCP_IPv6`, `DHCP_rapid_commit` and `DNSMASQ_LISTENING`; and the `depends_on` attribute of the `pihole` container.
+        2. Delete the variables `DHCP_ACTIVE`, `DHCP_START`, `DHCP_END`, `DHCP_ROUTER`, `DHCP_LEASETIME`, `PIHOLE_DOMAIN`, `DHCP_IPv6` and `DHCP_rapid_commit` of the `pihole` container.
 3. Optional: If you do not want to use Cloudflare as DNS, Set `PIHOLE_DNS_` to the DNS of your choice such as Google. Save and exit with `Ctrl + X, Y, Enter`.
 4. If you are going to expose your server to the internet, configure split horizon DNS: `echo "address=/myhome.duckdns.org/192.168.1.253" > /Apps/pihole/etc-dnsmasq.d/03-my- wildcard-dns.conf`.
 
@@ -343,17 +343,24 @@ We will prepare the anonymous VPN configuration file that qBittorrent requires; 
 
 1. Copy the anonymous VPN configuration file for bittorrent: `scp user@host:/path/to/vpn.conf /Apps/qbittorrent/wireguard/tun0.conf`. Change `{user@host:/path/to/vpn.conf}` to the address of the file on the computer that contains the file. This file must be provided by your VPN provider if you select WireGuard as the protocol. You can also use a USB stick to transfer the configuration file. If your provider requires using OpenVPN you will have to change the container configuration. For more information read the container's guide: https://github.com/Trigus42/alpine-qbittorrentvpn.
 2. If you are going to use a local VPN, run: `./scripts/iptable_setup.sh`. Adds a kernel module at system startup required for WireGuard.
-2. Edit the stack file: `nano ./files/docker-compose.yml`.
-3. Replace `TZ=America/New_York` with your system time zone. You can use this list as a reference: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
-4. Replace the XXX with the `uid` and `gid` of the user `mediacenter`. You can use `id mediacenter` to get the `uid` and `gid`.
-5. If a GPU is not going to be used, delete the `runtime` and `deploy` sections of the `jellyfin` container.
-6. If you are going to use OpenVPN for bittorrent, update the `qbittorrent` container according to the official guide.
-7. If you are not going to use a local VPN, remove the `wireguard` container, otherwise replace `myhome` with the subdomain you registered on DuckDNS.org and set the `ALLOWEDIPS` variable in case `192.168 .1.0/24` is not the CIDR range of your local network. Do not remove `10.13.13.0` as it is the internal WireGuard network and you will lose connectivity if you remove it. The guide assumes 2 clients that will connect to the VPN with the IDs: `phone` and `laptop`. If you require more or fewer clients, add or remove or rename the client IDs as you wish.
-8. If you are not going to expose the server to the internet, remove the `nginx` container.
-8. Copy all contents of the file to the clipboard. Save and exit with `Ctrl + X, Y, Enter`.
-9. Run: `./scripts/container_firewalld_services.sh`. Configure Firewalld for containers. The script opens the ports for DHCP and DNS for Pi-hole; the ports for HTTP and HTTPS for Nginx and the port for WireGuard. If you are not going to use any of these services, edit the script and remove any unnecessary rules.
-10. Run: `./scripts/run_portainer.sh`. This runs a Portainer Community Edition container and will listen on port `9443`.
-11. Configure Portainer from the browser.
+3. Edit the stack file: `nano ./files/docker-compose.yml`.
+4. Replace `TZ=America/New_York` with your system time zone. You can use this list as a reference: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
+5. Replace the XXX with the `uid` and `gid` of the user `mediacenter`. You can use `id mediacenter` to get the `uid` and `gid`.
+6. If a GPU is not going to be used, delete the `runtime` and `deploy` sections of the `jellyfin` container.
+7. If you are going to use OpenVPN for bittorrent, update the `qbittorrent` container according to the official guide.
+8. If you are not going to use a local VPN, remove the `wireguard` container, otherwise replace `myhome` with the subdomain you registered on DuckDNS.org and set the `ALLOWEDIPS` variable in case `192.168 .1.0/24` is not the CIDR range of your local network. Do not remove `10.13.13.0` as it is the internal WireGuard network and you will lose connectivity if you remove it. The guide assumes 2 clients that will connect to the VPN with the IDs: `phone` and `laptop`. If you require more or fewer clients, add or remove or rename the client IDs as you wish.
+9. If you are not going to expose the server to the internet, remove the `nginx` container.
+10. Set the `lanvlan` network.
+    1. Set the `parent` attribute with the device you used to create the auxiliary macvlan network before. For example`enp1s0`.
+    2. Set the `subnet` attribute with your local network's range.
+    3. Set the `gateway` attribute with your router's IP.
+    4. Set the`ip_range` attribute with your local network's range that the DHCP does not assign. The guide configured Pi-hole not to assign the first 64 addresses, thus we use a range of 192.168.1.0/27. If you configured your DHCP with another non-assignable range, use that here.
+    5. Set the `host` attribute with the server's IP in the auxiliary macvlan network.
+11. Set the attribute `ipv4_address` in the `homeassistant` container with an IP in the non-assignable range of the DHCP. For example 192.168.1.10.
+12. Copy all contents of the file to the clipboard. Save and exit with `Ctrl + X, Y, Enter`.
+13. Run: `./scripts/container_firewalld_services.sh`. Configure Firewalld for containers. The script opens the ports for DHCP and DNS for Pi-hole; the ports for HTTP and HTTPS for Nginx and the port for WireGuard. If you are not going to use any of these services, edit the script and remove any unnecessary rules.
+14. Run: `./scripts/run_portainer.sh`. This runs a Portainer Community Edition container and will listen on port `9443`.
+15. Configure Portainer from the browser.
     1. Access Portainer through https://192.168.1.253:9443. If you get a security alert, you can accept the risk since Portainer uses a self-signed SSL certificate.
     2. Set a random password and create user `admin`. Bitwarden is recommended again for this.
     3. Click "Get Started" and then select "local."
@@ -606,7 +613,7 @@ The containers should be running now, however, they require some configuration t
 
 #### 5.13.8. Configure Pi-hole
 
-1. Access Pi-hole through http://192.168.1.253:9089/admin.
+1. Access Pi-hole through http://192.168.1.11/admin.
 2. Enter the Pi-hole password you set in the secret file.
 3. Navigate to "Adlists" and configure.
     1. Add blocklist addresses. Some recommendations of pages where you can get lists: https://easylist.to/ and https://firebog.net/.
@@ -614,7 +621,7 @@ The containers should be running now, however, they require some configuration t
 
 #### 5.13.9. Configure Home Assistant
 
-1. Access Home Assistant through http://192.168.1.253:8123.
+1. Access Home Assistant through http://192.168.1.10:8123.
 2. Use the wizard to create a user account and password. It is again recommended to use Bitwarden for the same.
 3. Configure the name of the Home Assistant instance and your data and preferences with the wizard.
 4. Choose whether you want to send usage data to the Home Assistant page.
@@ -660,7 +667,7 @@ We will automate the following tasks: automatic creation and purging of ZFS snap
 #### 5.14.1. Steps
 
 1. Copy script for managing ZFS snapshots: `cp ./scripts/snapshot-with-purge.sh /usr/local/sbin/`. This script creates recursive snapshots of all datasets in a pool with the same time stamp. Then it purges the old snapshots according to the retention policy. Note that the retention policy is not by time but by the number of snapshots created by the script (snapshots created manually with different naming scheme will be ignored).
-2. Copy notification script using Home Assistant to report problems: `cp ./scripts/notify.sh /usr/local/sbin/`.
+2. Copy notification script using Home Assistant to report problems: `cp ./scripts/notify.sh /usr/local/sbin/`. If you used a different IP for Home Assistant in the macvlan, update the script with `nano /usr/local/sbin/notify.sh` with the correct IP.
 3. If you are not going to use DDNS, edit the cron file: `nano ./files/cron`. Remove the last line referring to DDNS. Save and exit with `Ctrl + X, Y, Enter`.
 3. Upload the cron tasks to the crontab: `crontab < ./files/cron`. We create cron tasks for ZFS pool scrubbing monthly on the 15th at 01:00; creating and purging ZFS snapshots daily at 00:00; container configuration backup daily at 23:00; update Docker images daily at 23:30; and IP update to DDNS every 5 minutes. If any task fails, the user will be notified via the Home Assistant webhook.
 4. Copy notification script for smartd: `cp ./scripts/smart_error_notify.sh /usr/local/sbin/`. With this script we can proxy smartd emails and also call our notification system.
@@ -680,7 +687,7 @@ We will do Port Forwarding of the HTTP and HTTPS ports for Nginx and port 51820 
 1. Configure the router. Each router is different, so you will have to consult your manual to be able to do the following steps.
     1. Forward port 80 and 443 in TCP protocol to the server so that Nginx can reverse proxy the internal services. If you plan to use private VPN with WireGuard, then also forward port 51820 in UDP to the server.
     2. Disable IPv6 because Pi-hole can only do IPv4 with the established configuration and it is more complex to configure it for IPv6.
-    3. If your router allows you to configure the DNS that DHCP assigns to all devices in the house, then use the server's static IP instead of the one provided by the ISP. Otherwise, you will have to disable DHCP so that Pi-hole is the DHCP and can assign itself as DNS.
+    3. If your router allows you to configure the DNS that DHCP assigns to all devices in the house, then use Pi-hole's IP instead of the one provided by the ISP. Otherwise, you will have to disable DHCP so that Pi-hole is the DHCP and can assign itself as DNS. You can find Pi-hole's IP in Portainer if you view the stack in the editor and look at the `pihole` container configuration.
     4. Verify that the Pi-hole or router's DHCP is working (connect a device to the network and verify that it was assigned an IP in the configured range and that the DNS is the server's IP).
 2. Configure proxy hosts in Nginx using DDNS.
     1. Access Nginx through http://192.168.1.253:8181.
@@ -740,7 +747,7 @@ We will do Port Forwarding of the HTTP and HTTPS ports for Nginx and port 51820 
         ```
     3. Save and exit with `Ctrl + X, Y, Enter`.
 4. Reload the Home Assistant settings from the UI for the changes to take effect.
-    1. Access Home Assistant through http://192.168.1.253:8123.
+    1. Access Home Assistant through http://192.168.1.10:8123.
     2. Navigate to `Developer tools`.
     3. Press `Restart`.
 5. You can test that Nginx works by accessing a service through the URL with its subdomain. For example https://jellyfin.myhome.duckdns.org. Try it from inside your local network to test split horizon DNS and from outside to test DDNS.
