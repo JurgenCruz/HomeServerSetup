@@ -1,0 +1,13 @@
+PATH=/root/.local/bin:/root/bin:/sbin:/usr/sbin:/usr/local/sbin:/root/bin:/usr/local/bin:/usr/bin:/bin
+COMPOSE_STATUS_STDOUT=1
+
+# ZFS scrub once a month, on the 15th day of the month at 1 AM
+0 1 15 * * zpool scrub -w Tank > /dev/null || notify.sh "ZFS scrub failed\!" > /dev/null
+# ZFS snapshots daily at midnight with 7 retention days
+0 0 * * * snapshot-with-purge.sh Tank 7 > /dev/null || notify.sh "ZFS snapshot with purge failed\!" > /dev/null
+# RSync of the Apps to Tank for backup. daily at 11 PM
+0 23 * * * rsync -avz --del /Apps/ /mnt/Tank/Apps/ > /dev/null || notify.sh "Apps replication failed\!" > /dev/null
+# Docker apps update. daily at 11:30 PM
+30 23 * * * ( docker-compose -p apps -f /Apps/portainer/compose/1/docker-compose.yml pull > /dev/null && docker-compose -p apps -f /Apps/portainer/compose/1/docker-compose.yml up -d > /dev/null && docker image prune -f > /dev/null ) || notify.sh "Container update and prune failed\!" > /dev/null
+# DuckDNS IP update every 5 minutes.
+*/5 * * * * duck.sh > /dev/null || notify.sh 'Duck is not updating\!' > /dev/null"
