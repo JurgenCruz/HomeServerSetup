@@ -22,7 +22,7 @@ This is a guide on how to set up a home server from scratch. If you are not fami
     11. Prepare Pi-hole configuration
     12. Create Docker stack
     13. Configure applications
-    14. Configure cron tasks
+    14. Configure scheduled tasks
     15. Configure public external traffic
     16. Configure private external traffic
     17. Install Cockpit
@@ -294,9 +294,8 @@ We will install Docker as our container engine; optionally we will install Nvidi
 #### 5.10.1. Steps
 
 1. Run: `./scripts/docker_setup.sh admin`. Adds the Docker repository, installs it, enables the service, and adds the `admin` user to the `docker` group.
-2. Copy the SELinux policies: `cp ./files/{arr.cil,qbittorrent.cil,wireguard.cil} /root`. These are required for some containers to be able to access Samba files and interact with WireGuard.
-3. Run: `./scripts/selinux_setup.sh`. Enables SELinux in Docker, restarts the Docker service for the changes to take effect, and enables the flag that allows containers to manage the network.
-4. Optional: If you have a relatively modern Nvidia card, run: `./scripts/nvidia_setup.sh`. Adds "RPM Fusion" and Nvidia repositories to install the driver and "Nvidia Container Toolkit" for Docker. It also registers the "Akmods" key in the Secure Boot chain. It is necessary to reboot and repeat the key enrollment process as we did with ZFS. After rebooting and logging in, don't forget to assume `root` with `sudo -i`.
+2. Run: `./scripts/selinux_setup.sh`. Enables SELinux in Docker; restarts the Docker service for the changes to take effect; enables the flag that allows containers to manage the network and use the GPU; and installs the SELinux policies. These are required for some containers to be able to access Samba files and interact with WireGuard and for rsync to be able to backup the apps.
+3. Optional: If you have a relatively modern Nvidia card, run: `./scripts/nvidia_setup.sh`. Adds "RPM Fusion" and Nvidia repositories to install the driver and "Nvidia Container Toolkit" for Docker. It also registers the "Akmods" key in the Secure Boot chain. It is necessary to reboot and repeat the key enrollment process as we did with ZFS. After rebooting and logging in, don't forget to assume `root` with `sudo -i`.
 
 ### 5.11. Prepare Pi-hole configuration
 
@@ -660,7 +659,7 @@ The containers should be running now, however, they require some configuration t
         ```
     16. Save.
 
-### 5.14. Configure cron tasks
+### 5.14. Configure scheduled tasks
 
 We will automate the following tasks: automatic creation and purging of ZFS snapshots; ZFS pool scrubbing; container configuration backup; container images update to the latest version; short and long hard drive tests with SMART; and public IP update in DDNS. If you notice that any script does not have the executable flag, make it executable with the command `chmod 775 <file>` replacing `<file>` with the name of the script.
 
@@ -668,13 +667,13 @@ We will automate the following tasks: automatic creation and purging of ZFS snap
 
 1. Copy script for managing ZFS snapshots: `cp ./scripts/snapshot-with-purge.sh /usr/local/sbin/`. This script creates recursive snapshots of all datasets in a pool with the same time stamp. Then it purges the old snapshots according to the retention policy. Note that the retention policy is not by time but by the number of snapshots created by the script (snapshots created manually with different naming scheme will be ignored).
 2. Copy notification script using Home Assistant to report problems: `cp ./scripts/notify.sh /usr/local/sbin/`. If you used a different IP for Home Assistant in the macvlan, update the script with `nano /usr/local/sbin/notify.sh` with the correct IP.
-3. If you are not going to use DDNS, edit the cron file: `nano ./files/cron`. Remove the last line referring to DDNS. Save and exit with `Ctrl + X, Y, Enter`.
-3. Upload the cron tasks to the crontab: `crontab < ./files/cron`. We create cron tasks for ZFS pool scrubbing monthly on the 15th at 01:00; creating and purging ZFS snapshots daily at 00:00; container configuration backup daily at 23:00; update Docker images daily at 23:30; and IP update to DDNS every 5 minutes. If any task fails, the user will be notified via the Home Assistant webhook.
-4. Copy notification script for smartd: `cp ./scripts/smart_error_notify.sh /usr/local/sbin/`. With this script we can proxy smartd emails and also call our notification system.
-5. Copy SMART tests configuration: `cp ./files/smartd.conf /etc/`. We run SHORT test weekly on Sundays at 00:00 and LONG test 1 time every two months, the first of the month at 01:00; and we use our notifications script.
-6. Copy notification script for ZFS-ZED service: `cp ./scripts/process_email.sh /usr/local/sbin/`. With this script we can proxy ZED emails and also call our notification system.
-7. Modify the ZED configuration to intercept emails: `nano /etc/zfs/zed.d/zed.rc`. Modify the `ZED_EMAIL_PROG` line with `ZED_EMAIL_PROG="/usr/local/sbin/process_email.sh"`. Modify the `ZED_EMAIL_OPTS` line with `ZED_EMAIL_OPTS="'@SUBJECT@' @ADDRESS@"`. Save and exit with `Ctrl + X, Y, Enter`.
-8. Install `mailx` to be able to send emails from the scripts: `dnf install -y mailx`.
+3. If you are not going to use DDNS, edit the script: `nano ./scripts/systemd-timers_setup.sh`. Remove the last line referring to DDNS. Save and exit with `Ctrl + X, Y, Enter`.
+4. Run: `./scripts/systemd-timers_setup.sh`. We create scheduled tasks for ZFS pool scrubbing monthly on the 15th at 01:00; creating and purging ZFS snapshots daily at 00:00; container configuration backup daily at 23:00; update Docker images daily at 23:30; and IP update to DDNS every 5 minutes. If any task fails, the user will be notified via the Home Assistant webhook.
+5. Copy notification script for smartd: `cp ./scripts/smart_error_notify.sh /usr/local/sbin/`. With this script we can proxy smartd emails and also call our notification system.
+6. Copy SMART tests configuration: `cp ./files/smartd.conf /etc/`. We run SHORT test weekly on Sundays at 00:00 and LONG test 1 time every two months, the first of the month at 01:00; and we use our notifications script.
+7. Copy notification script for ZFS-ZED service: `cp ./scripts/process_email.sh /usr/local/sbin/`. With this script we can proxy ZED emails and also call our notification system.
+8. Modify the ZED configuration to intercept emails: `nano /etc/zfs/zed.d/zed.rc`. Modify the `ZED_EMAIL_PROG` line with `ZED_EMAIL_PROG="/usr/local/sbin/process_email.sh"`. Modify the `ZED_EMAIL_OPTS` line with `ZED_EMAIL_OPTS="'@SUBJECT@' @ADDRESS@"`. Save and exit with `Ctrl + X, Y, Enter`.
+9. Install `mailx` to be able to send emails from the scripts: `dnf install -y mailx`.
 
 ### 5.15. Configure public external traffic
 
@@ -810,14 +809,6 @@ Cockpit is a web-based graphical interface that allows server administration rem
 ### Containers
 
 It is a virtualization technique at the operating system level so that multiple applications can run in isolated user spaces called containers with their own environment, avoiding collisions with other containers and the same host OS. More information: https://en.wikipedia.org/wiki/Containerization_(computing).
-
-### Cron
-
-Keeping a server running requires several tasks. Luckily, some of them can be automated through scripts and their automatic execution through a task scheduler. Cron is a simple and robust task scheduler commonly used on Linux operating systems. It allows repetitive tasks to be executed periodically on specific dates and times or by time intervals. More information: https://en.wikipedia.org/wiki/Cron.
-
-#### crontab:
-
-The cron table (abbreviated crontab) is a configuration file that handles cron's actions. This specifies the commands to execute and their schedule. Multiple crontabs can exist on a system in specific folders (for example system tasks, and user tasks) and the cron service loads and executes them.
 
 ### DNS
 

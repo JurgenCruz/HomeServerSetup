@@ -1,0 +1,7 @@
+[Unit]
+Description=ZFS scrub the Tank pool
+OnFailure=notify@ZFS\x20scrub\x20failed\x21.service
+
+[Service]
+Type=oneshot
+ExecStart=zpool scrub -w Tank

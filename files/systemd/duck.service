@@ -1,0 +1,7 @@
+[Unit]
+Description=DuckDNS IP update
+OnFailure=notify@Duck\x20is\x20not\x20updating\x21.service
+
+[Service]
+Type=oneshot
+ExecStart=duck.sh

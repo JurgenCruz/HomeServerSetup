@@ -1,0 +1,7 @@
+[Unit]
+Description=ZFS snapshots with 7 retention snapshots
+OnFailure=notify@ZFS\x20snapshot\x20with\x20purge\x20failed\x21.service
+
+[Service]
+Type=oneshot
+ExecStart=snapshot-with-purge.sh Tank 7

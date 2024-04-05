@@ -1,0 +1,9 @@
+[Unit]
+Description=Docker apps update
+OnFailure=notify@Container\x20update\x20and\x20prune\x20failed\x21.service
+
+[Service]
+Type=oneshot
+ExecStart=docker compose -p apps -f /Apps/portainer/compose/1/docker-compose.yml pull
+ExecStart=docker compose -p apps -f /Apps/portainer/compose/1/docker-compose.yml up -d
+ExecStart=docker image prune -f

@@ -1,0 +1,7 @@
+[Unit]
+Description=RSync of the Apps to Tank for backup
+OnFailure=notify@Apps\x20replication\x20failed\x21.service
+
+[Service]
+Type=oneshot
+ExecStart=rsync -avz --del /Apps/ /mnt/Tank/Apps/

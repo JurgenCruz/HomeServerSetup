@@ -1,0 +1,2 @@
+(typeattributeset cil_gen_require rsync_t)
+(allow rsync_t self (capability (dac_override)))

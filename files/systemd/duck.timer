@@ -1,0 +1,9 @@
+[Unit]
+Description=DuckDNS IP update every 5 minutes.
+
+[Timer]
+OnActiveSec=5m
+OnUnitActiveSec=5m
+
+[Install]
+WantedBy=timers.target
