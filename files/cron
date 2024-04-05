@@ -10,4 +10,4 @@ COMPOSE_STATUS_STDOUT=1
 # Docker apps update. daily at 11:30 PM
 30 23 * * * ( docker-compose -p apps -f /Apps/portainer/compose/1/docker-compose.yml pull > /dev/null && docker-compose -p apps -f /Apps/portainer/compose/1/docker-compose.yml up -d > /dev/null && docker image prune -f > /dev/null ) || notify.sh "Container update and prune failed\!" > /dev/null
 # DuckDNS IP update every 5 minutes.
-*/5 * * * * duck.sh > /dev/null || notify.sh 'Duck is not updating\!' > /dev/null"
+*/5 * * * * duck.sh > /dev/null || notify.sh "Duck is not updating\!" > /dev/null
