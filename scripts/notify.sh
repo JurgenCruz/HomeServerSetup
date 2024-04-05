@@ -10,4 +10,5 @@ if [[ -z "$1" ]]; then
   exit 2
 fi
 
-curl -X POST -H "Content-Type: application/json" -d "{ \"problem\": \"{$1}\"}" http://192.168.1.10:8123/api/webhook/notify
+message=$(echo "$1" | jq -R)
+curl -X POST -H "Content-Type: application/json" -d "{ \"problem\": $message}" http://192.168.1.10:8123/api/webhook/notify
