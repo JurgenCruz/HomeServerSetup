@@ -668,11 +668,11 @@ Automatizaremos las tareas siguientes: creación y purga automática de snapshot
 2. Copiar script de notificaciones usando Home Assistant para reportar problemas: `cp ./scripts/notify.sh /usr/local/sbin/`. Si usó un IP diferente para Home Assistant en la macvlan, ajuste el script con `nano /usr/local/sbin/notify.sh` con el IP correcto.
 3. Si no va a usar DDNS, editar el script: `nano ./scripts/systemd-timers_setup.sh`. Remover la última linea referente a DDNS. Guardar y salir con `Ctrl + X, Y, Enter`.
 4. Ejecutar: `./scripts/systemd-timers_setup.sh`. Creamos tareas programadas para limpieza de albercas de ZFS mensualmente el día 15 a la 01:00; creación y purga de snapshots de ZFS diario a las 00:00; respaldo de configuración de los contenedores diario a las 23:00; actualización de las imágenes de Docker diario a las 23:30; y actualización del IP al DDNS cada 5 minutos. Si cualquier tarea falla, se notificará al usuario a través del webhook de Home Assistant.
-5. Copiar script de notificaciones para smartd: `cp ./scripts/smart_error_notify.sh /usr/local/sbin/`. Con este script podemos hacer proxy a los correos de smartd y también llamar a nuestro sistema de notificaciones.
+5. Copiar script de notificaciones para smartd: `cp ./scripts/smart_error_notify.sh /usr/local/sbin/`. Con este script escribiremos al log del sistema y también llamaremos a nuestro sistema de notificaciones.
 6. Copiar configuración de los SMART tests: `cp ./files/smartd.conf /etc/`. Configuramos prueba SHORT semanalmente los domingos a las 00:00 y prueba LONG 1 vez cada dos meses, el primero del mes a la 01:00; y usamos nuestro script de notificaciones.
-7. Copiar script de notificaciones para servicio ZFS-ZED: `cp ./scripts/process_email.sh /usr/local/sbin/`. Con este script podemos hacer proxy a los correos de ZED y también llamar a nuestro sistema de notificaciones.
-8. Modificar la configuración de ZED para interceptar los correos: `nano /etc/zfs/zed.d/zed.rc`. Modificar la linea de `ZED_EMAIL_PROG` con `ZED_EMAIL_PROG="/usr/local/sbin/process_email.sh"`. Modificar la linea de `ZED_EMAIL_OPTS` con `ZED_EMAIL_OPTS="'@SUBJECT@' @ADDRESS@"`. Guardar y salir con `Ctrl + X, Y, Enter`.
-9. Instalar `mailx` para poder mandar correos desde los scripts: `dnf install -y mailx`.
+7. Recargar smartd para que surtan efecto los cambios: `systemctl restart smartd.service`.
+8. Modificar la configuración de ZED para interceptar los correos: `nano /etc/zfs/zed.d/zed.rc`. Modificar la linea de `ZED_EMAIL_PROG` con `ZED_EMAIL_PROG="/usr/local/sbin/notify.sh"`. Modificar la linea de `ZED_EMAIL_OPTS` con `ZED_EMAIL_OPTS="'@SUBJECT@'"`. Guardar y salir con `Ctrl + X, Y, Enter`.
+9. Recargar ZED para que surtan efecto los cambios: `systemctl restart zed.service`.
 
 ### 5.15. Configurar tráfico externo público
 
