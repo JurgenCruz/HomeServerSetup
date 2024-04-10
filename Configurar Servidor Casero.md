@@ -27,6 +27,7 @@ Esta es una guía de como configurar un servidor casero desde cero. Si usted no 
     16. Configurar tráfico externo privado
     17. Instalar Cockpit
 6. Glosario
+7. Cómprame un café
 
 ## 1. Objetivo
 
@@ -718,12 +719,8 @@ Haremos Port Forwarding de los puertos HTTP y HTTPS para Nginx y el puerto 51820
 
             # Proxy main Jellyfin traffic
             proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
             proxy_set_header X-Forwarded-Protocol $scheme;
             proxy_set_header X-Forwarded-Host $http_host;
-            proxy_set_header Host $host;
-            proxy_set_header Upgrade $http_upgrade;
-            proxy_set_header Connection "upgrade";
             proxy_headers_hash_max_size 2048;
             proxy_headers_hash_bucket_size 128;
 

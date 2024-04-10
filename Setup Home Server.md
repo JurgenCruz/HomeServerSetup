@@ -719,12 +719,8 @@ We will do Port Forwarding of the HTTP and HTTPS ports for Nginx and port 51820 
 
             # Proxy main Jellyfin traffic
             proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
             proxy_set_header X-Forwarded-Protocol $scheme;
             proxy_set_header X-Forwarded-Host $http_host;
-            proxy_set_header Host $host;
-            proxy_set_header Upgrade $http_upgrade;
-            proxy_set_header Connection "upgrade";
             proxy_headers_hash_max_size 2048;
             proxy_headers_hash_bucket_size 128;
 
