@@ -1,12 +1,6 @@
 (block arr
     (blockinherit container)
-    (blockinherit restricted_net_container)
-    (allow process unreserved_port_t ( tcp_socket (  name_bind name_connect )))
-    (allow process cyphesis_port_t ( tcp_socket (  name_bind name_connect )))
-    (allow process neutron_port_t ( tcp_socket (  name_bind name_connect )))
-    (allow process http_cache_port_t ( tcp_socket ( name_bind name_connect )))
-    (allow process unreserved_port_t ( udp_socket (  name_bind )))
-    (allow process ssdp_port_t ( udp_socket (  name_bind )))
+    (blockinherit net_container)
     (allow process container_file_t ( dir ( add_name create getattr ioctl lock open read remove_name rmdir search setattr write )))
     (allow process container_file_t ( file ( append create getattr ioctl lock map open read rename setattr unlink write )))
     (allow process container_file_t ( fifo_file ( getattr read write append ioctl lock open )))
