@@ -243,6 +243,8 @@ Now we will configure the ZFS pool and its datasets. If you have 3 to 4 disks, `
 
 > If you performed a migration or reinstallation, there will be certain steps in the guide that you can skip. For example if certain directories or files already existed. It is left to the reader's discretion to see which steps are no longer necessary.
 
+> Tip: To adjust the max size of ZFS ARC use the command `echo {size_in_bytes} > /sys/module/zfs/parameters/zfs_arc_max` replacing `{size_in_bytes}` with the size in bytes you wish to set. To make the change permanent execute the command `echo "options zfs zfs_arc_max={size_in_bytes}" > /etc/modprobe.d/zfs.conf && dracut --force`. Caution! assigning a very high value can cause instability in the system, only change it if you know what you are doing.
+
 ### 5.7. Configure host's network
 
 To prevent connection configurations from being broken in the future, it is useful to assign the server a static IP on the local network. We will configure the server to not use DHCP and assign itself an IP on the network. Also, we will create an auxiliary macvlan network to be able to communicate with Home Assistant which will be in a Docker macvlan. The guide will assume a local network with CIDR range 192.168.1.0/24, with the router at the second to last address (192.168.1.254) and the server at the third to last address (192.168.1.253). If you need to use another range, just replace it with the correct range in the rest of the guide.

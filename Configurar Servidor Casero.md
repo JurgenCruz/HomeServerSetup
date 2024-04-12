@@ -243,6 +243,8 @@ Ahora configuraremos la alberca de ZFS y sus datasets. Si tiene de 3 a 4 discos,
 
 > Si realizó una migración o reinstalación, habrá ciertos pasos en la guía que podrá omitir. Por ejemplo si ya existían ciertos directorios o archivos. Se deja a discreción del lector ver cuales pasos ya no son necesarios.
 
+> Tip: Para ajustar el tamaño máximo de ZFS ARC use el comando `echo {size_in_bytes} > /sys/module/zfs/parameters/zfs_arc_max` reemplazando `{size_in_bytes}` por el tamaño en bytes que desea establecer. Para hacer el cambio permanente ejecute el comando `echo "options zfs zfs_arc_max={size_in_bytes}" > /etc/modprobe.d/zfs.conf && dracut --force`. Precaución! asignar un valor muy alto puede causar inestabilidad en el sistema, solo cámbielo si sabe lo que hace.
+
 ### 5.7. Configurar red del anfitrión
 
 Para evitar que las configuraciones de las conexiones se rompan en el futuro, es útil asignar al servidor un IP estático en la red local. Configuraremos el servidor para no usar DHCP y asignarse un IP en la red. Además crearemos una red macvlan auxiliar para poder comunicarnos con Home Assistant que estará en una macvlan de Docker. La guía asumirá una red local con rango CIDR 192.168.1.0/24, con el router en la penúltima dirección (192.168.1.254) y el servidor en la antepenúltima (192.168.1.253). Si necesita usar otro rango, solo reemplazar por el rango correcto en el resto de la guía.
