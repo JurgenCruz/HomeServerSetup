@@ -4,30 +4,30 @@ Esta es una guía de como configurar un servidor casero desde cero. Si usted no 
 
 ## Indice
 
-1. Objetivo
-2. Características
-3. Diseño y justificación
-4. Prerequisitos mínimos
-5. Guía
-    1. Instalar Fedora Server
-    2. Configurar Secure Boot
-    3. Instalar y configurar Zsh (Opcional)
-    4. Configurar usuarios
-    5. Instalar ZFS
-    6. Configurar ZFS
-    7. Configurar IP estático
-    8. Configurar shares
-    9. Registrar DDNS
-    10. Instalar Docker
-    11. Preparar configuración de Pi-hole
-    12. Crear stack de Docker
-    13. Configurar aplicaciones
-    14. Configurar tareas programadas
-    15. Configurar tráfico externo público
-    16. Configurar tráfico externo privado
-    17. Instalar Cockpit
-6. Glosario
-7. Cómprame un café
+1. [Objetivo](#1-objetivo)
+2. [Características](#2-características)
+3. [Diseño y justificación](#3-diseño-y-justificación)
+4. [Prerequisitos mínimos](#4-prerequisitos-mínimos)
+5. [Guía](#5-guía)
+    1. [Instalar Fedora Server](#51-instalar-fedora-server)
+    2. [Configurar Secure Boot](#52-configurar-secure-boot)
+    3. [Instalar y configurar Zsh (Opcional)](#53-instalar-y-configurar-zsh-opcional)
+    4. [Configurar usuarios](#54-configurar-usuarios)
+    5. [Instalar ZFS](#55-instalar-zfs)
+    6. [Configurar ZFS](#56-configurar-zfs)
+    7. [Configurar red del anfitrión](#57-configurar-red-del-anfitrión)
+    8. [Configurar shares](#58-configurar-shares)
+    9. [Registrar DDNS](#59-registrar-ddns)
+    10. [Instalar Docker](#510-instalar-docker)
+    11. [Preparar configuración de Pi-hole](#511-preparar-configuración-de-pi-hole)
+    12. [Crear stack de Docker](#512-crear-stack-de-docker)
+    13. [Configurar aplicaciones](#513-configurar-aplicaciones)
+    14. [Configurar tareas programadas](#514-configurar-tareas-programadas)
+    15. [Configurar tráfico externo público](#515-configurar-tráfico-externo-público)
+    16. [Configurar tráfico externo privado](#516-configurar-tráfico-externo-privado)
+    17. [Instalar Cockpit](#517-instalar-cockpit)
+6. [Glosario](#6-glosario)
+7. [Cómprame un café](#7-cómprame-un-café)
 
 ## 1. Objetivo
 

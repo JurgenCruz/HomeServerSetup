@@ -4,30 +4,30 @@ This is a guide on how to set up a home server from scratch. If you are not fami
 
 ## Index
 
-1. Objective
-2. Features
-3. Design and justification
-4. Minimum prerequisites
-5. Guide
-    1. Install Fedora Server
-    2. Configure Secure Boot
-    3. Install and configure Zsh (Optional)
-    4. Configure users
-    5. Install ZFS
-    6. Configure ZFS
-    7. Configure static IP
-    8. Configure shares
-    9. Register DDNS
-    10. Install Docker
-    11. Prepare Pi-hole configuration
-    12. Create Docker stack
-    13. Configure applications
-    14. Configure scheduled tasks
-    15. Configure public external traffic
-    16. Configure private external traffic
-    17. Install Cockpit
-6. Glossary
-7. Buy me a coffee
+1. [Objective](#1-objective)
+2. [Features](#2-features)
+3. [Design and justification](#3-design-and-justification)
+4. [Minimum prerequisites](#4-minimum-prerequisites)
+5. [Guide](#5-guide)
+    1. [Install Fedora Server](#51-install-fedora-server)
+    2. [Configure Secure Boot](#52-configure-secure-boot)
+    3. [Install and configure Zsh (Optional)](#53-install-and-configure-zsh-optional)
+    4. [Configure users](#54-configure-users)
+    5. [Install ZFS](#55-install-zfs)
+    6. [Configure ZFS](#56-configure-zfs)
+    7. [Configure host's network](#57-configure-hosts-network)
+    8. [Configure shares](#58-configure-shares)
+    9. [Register DDNS](#59-register-ddns)
+    10. [Install Docker](#510-install-docker)
+    11. [Prepare Pi-hole configuration](#511-prepare-pi-hole-configuration)
+    12. [Create Docker stack](#512-create-docker-stack)
+    13. [Configure applications](#513-configure-applications)
+    14. [Configure scheduled tasks](#514-configure-scheduled-tasks)
+    15. [Configure public external traffic](#515-configure-public-external-traffic)
+    16. [Configure private external traffic](#516-configure-private-external-traffic)
+    17. [Install Cockpit](#517-install-cockpit)
+6. [Glossary](#6-glossary)
+7. [Buy me a coffee](#7-buy-me-a-coffee)
 
 ## 1. Objective
 
