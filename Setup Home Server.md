@@ -84,7 +84,10 @@ This guide is just that, a guide. Feel free to modify and adapt the steps to you
 
 To install Fedora Server we will need a USB stick and to download the ISO from the official Fedora website. We will write the ISO to the USB and start the operating system installer. We'll configure our installation and let the wizard do the rest. The guide assumes that you will prepare the installation media from a Linux operating system. If you are doing this from Windows, you can try using the Rufus tool and its guide: https://rufus.ie/.
 
+> [!CAUTION]
 > **Before starting make sure to backup the data on the USB stick as it will be formatted and all the data on it will be lost!**
+
+> [!CAUTION]
 > **Before starting make sure to backup the data on the server disks as these will be formatted and all data on them will be lost!**
 
 #### 5.1.1 Steps
@@ -241,9 +244,14 @@ Now we will configure the ZFS pool and its datasets. If you have 3 to 4 disks, `
       2. Mount all datasets and load the key if necessary: ​​`zfs mount -al`.
 3. Run: `./scripts/generate_dataset_mount_units.sh`. This will generate Systemd units that will mount the datasets in `Tank` automatically after loading the key upon rebooting the server. Run this command `cat /etc/zfs/zfs-list.cache/Tank` to verify that the cache file is not empty. If it is empty, try running the script again as it means the cache and units were not generated.
 
+> [!NOTE]
 > If you performed a migration or reinstallation, there will be certain steps in the guide that you can skip. For example if certain directories or files already existed. It is left to the reader's discretion to see which steps are no longer necessary.
 
-> Tip: To adjust the max size of ZFS ARC use the command `echo {size_in_bytes} > /sys/module/zfs/parameters/zfs_arc_max` replacing `{size_in_bytes}` with the size in bytes you wish to set. To make the change permanent execute the command `echo "options zfs zfs_arc_max={size_in_bytes}" > /etc/modprobe.d/zfs.conf && dracut --force`. Caution! assigning a very high value can cause instability in the system, only change it if you know what you are doing.
+> [!TIP]
+> To adjust the max size of ZFS ARC use the command `echo {size_in_bytes} > /sys/module/zfs/parameters/zfs_arc_max` replacing `{size_in_bytes}` with the size in bytes you wish to set. To make the change permanent execute the command `echo "options zfs zfs_arc_max={size_in_bytes}" > /etc/modprobe.d/zfs.conf && dracut --force`.
+
+> [!Caution]
+> Assigning a very high value can cause instability in the system, only change it if you know what you are doing.
 
 ### 5.7. Configure host's network
 
@@ -753,7 +761,8 @@ We will do Port Forwarding of the HTTP and HTTPS ports for Nginx and port 51820 
 
 WireGuard has actually already been configured in the Portainer stack and should already be running the VPN. The only thing left is to configure the clients that are going to connect to it. This can be done in 2 ways: through a QR code or through a `.conf` file. Once connected to this VPN, we will be able to access services that we did not expose publicly with our Reverse Proxy such as Portainer and Cockpit, which are too critical to expose to attacks on the public internet.
 
-> Note: WireGuard was configured with split tunneling. If you want to redirect all client traffic, then you must change the `ALLOWEDIPS` variable in the stack in Portainer to `0.0.0.0/0`.
+> [!NOTE]
+> WireGuard was configured with split tunneling. If you want to redirect all client traffic, then you must change the `ALLOWEDIPS` variable in the stack in Portainer to `0.0.0.0/0`.
 
 #### 5.16.1. Steps
 
