@@ -186,7 +186,7 @@ will be lost!**
 14. Click on `Software Selection`.
 15. `Fedora Server Edition` should be selected by default, if not, select it. In `Additional Software` you don't need to
     select anything, but if you like you can install whatever you want. Press `Done` to return to the main menu.
-16. Click `Network & Host Name` and set the `Host Name`. The guide will use `server` but you can use another name.
+16. Click `Network & Host Name` and set the `Host Name`. The guide will use `server.lan` but you can use another name.
     Press `Done` to return to the main menu.
 17. Click on `User Creation`. Enter `admin` in `User name` (if you want to use another name, use another one, but the
     guide will assume `admin` and you will need to adjust files in the future with the name you choose). Do not uncheck
@@ -510,6 +510,7 @@ itself as DNS and do split horizon DNS.
    Save and exit with `Ctrl + X, Y, Enter`.
 4. If you are going to expose your server to the internet, configure split horizon
    DNS: `echo "address=/myhome.duckdns.org/192.168.1.253" > /Apps/pihole/etc-dnsmasq.d/03-my- wildcard-dns.conf`.
+5. Configure the server's hostname since the server will not be part of the DHCP network: `echo "192.168.1.253 server.lan" > /Apps/pihole/etc-pihole/custom.list`.
 
 ### 6.12. Create Docker stack
 
