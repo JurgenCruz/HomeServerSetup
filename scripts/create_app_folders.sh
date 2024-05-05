@@ -9,8 +9,7 @@ mkdir /Apps/prowlarr
 mkdir -p /Apps/qbittorrent/wireguard
 mkdir /Apps/radarr
 mkdir /Apps/sonarr
-mkdir -p /Apps/pihole/etc-pihole
-mkdir /Apps/pihole/etc-dnsmasq.d
+mkdir -p /Apps/technitium/config
 mkdir /Apps/homeassistant
 mkdir -p /Apps/nginx/data
 mkdir /Apps/nginx/etc-letsencrypt

@@ -102,7 +102,7 @@ services:
       resources:
         reservations:
           devices:
-            - capabilities: [gpu]
+            - capabilities: [ gpu ]
     restart: always
   jellyseerr:
     image: fallenbagel/jellyseerr:latest
@@ -145,36 +145,25 @@ services:
       - net.ipv4.conf.all.src_valid_mark=1
       - net.ipv6.conf.all.disable_ipv6=0
     restart: always
-  pihole:
-    image: pihole/pihole:latest
-    container_name: pihole
+  technitium:
+    image: technitium/dns-server:latest
+    container_name: technitium
     environment:
       - TZ=America/New_York
-      - WEBPASSWORD_FILE=/run/secrets/pihole_pwd
-      - PIHOLE_DNS_=1.1.1.1;1.0.0.1
-      - DNSSEC=false
-      - DNS_BOGUS_PRIV=true
-      - DNS_FQDN_REQUIRED=true
-      - REV_SERVER=false
-      - DHCP_ACTIVE=true
-      - DHCP_START=192.168.1.64
-      - DHCP_END=192.168.1.252
-      - DHCP_ROUTER=192.168.1.254
-      - DHCP_LEASETIME=24
-      - PIHOLE_DOMAIN=lan
-      - DHCP_IPv6=false
-      - DHCP_rapid_commit=false
+      - DNS_SERVER_DOMAIN=technitium
+      - DNS_SERVER_WEB_SERVICE_ENABLE_HTTPS=true
+      - DNS_SERVER_WEB_SERVICE_USE_SELF_SIGNED_CERT=true
+      - DNS_SERVER_WEB_SERVICE_HTTP_PORT=80
+      - DNS_SERVER_WEB_SERVICE_HTTPS_PORT=443
+      - DNS_SERVER_LOG_USING_LOCAL_TIME=true
     networks:
       lanvlan:
-        ipv4_address: 192.168.1.11
+        ipv4_address: 192.168.1.10
     volumes:
-      - /Apps/pihole/etc-pihole:/etc/pihole:Z
-      - /Apps/pihole/etc-dnsmasq.d:/etc/dnsmasq.d:Z
+      - /Apps/technitium/config:/etc/dns:Z
     dns:
       - 127.0.0.1
       - 1.1.1.1
-    secrets:
-      - pihole_pwd
     cap_add:
       - NET_ADMIN
     restart: always
@@ -186,10 +175,10 @@ services:
     networks:
       nginx:
       lanvlan:
-        ipv4_address: 192.168.1.10
+        ipv4_address: 192.168.1.11
     privileged: true
-#    security_opt:
-#      - label:disable
+    # security_opt:
+    #   - label:disable
     volumes:
       - /Apps/homeassistant:/config:Z
       - /etc/localtime:/etc/localtime:ro
@@ -268,6 +257,3 @@ networks:
           ip_range: 192.168.1.0/27
           aux_addresses:
             host: 192.168.1.12
-secrets:
-  pihole_pwd:
-    file: /Apps/pihole_pwd.txt
