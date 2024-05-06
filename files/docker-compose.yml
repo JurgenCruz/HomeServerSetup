@@ -208,6 +208,7 @@ services:
       - TZ=America/New_York
       - SERVERURL=wg.micasa.duckdns.org
       - PEERS=phone,laptop
+      - PEERDNS=10.13.13.1,192.168.1.10
       - ALLOWEDIPS=192.168.1.0/24,10.13.13.0/24
       - PERSISTENTKEEPALIVE_PEERS=all
       - LOG_CONFS=true
