@@ -1,7 +1,7 @@
 # Servidor NAS, Media Center y Home Automation
 
-[![en](https://img.shields.io/badge/lang-en-blue.svg)](https://github.com/jurgencruz/homeserversetup/blob/master/README.md)
-[![es](https://img.shields.io/badge/lang-es-blue.svg)](https://github.com/jurgencruz/homeserversetup/blob/master/README.es.md)
+[![en](https://img.shields.io/badge/lang-en-blue.svg)](README.md)
+[![es](https://img.shields.io/badge/lang-es-blue.svg)](README.es.md)
 
 Esta es una guía de como configurar un servidor casero desde cero. Si usted no está familiarizado con algún concepto, la guía provee un glosario al final de la misma para su conveniencia.
 
