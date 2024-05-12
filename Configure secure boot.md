@@ -1,13 +1,23 @@
-# NAS, Media Center and Home Automation Server
+# Configure Secure Boot
 
-[![en](https://img.shields.io/badge/lang-en-blue.svg)](README.md)
-[![es](https://img.shields.io/badge/lang-es-blue.svg)](README.es.md)
+[![en](https://img.shields.io/badge/lang-en-blue.svg)](Configure%20secure%20boot.md)
+[![es](https://img.shields.io/badge/lang-es-blue.svg)](Configure%20secure%20boot.es.md)
 
-This is a guide on how to set up a home server from scratch. If you are not familiar with a concept, the guide provides a glossary at the end of the guide for your convenience.
+Secure Boot will be configured with owner keys and a password will be set to the BIOS to prevent its deactivation.
 
-## Index
+## Steps
 
-<details open><summary>Expand</summary>
+1. Turn on the server and enter the BIOS (usually with the `F2` key).
+2. Configure Secure Boot in "Setup" mode, save and reboot.
+3. After logging in with `admin`, run: `sudo ./scripts/secureboot.sh`.
+4. If there were no errors, then run `reboot` to reboot and enter the BIOS again.
+5. Exit "Setup" mode and enable Secure Boot.
+6. Set a password to the BIOS, save and reboot.
+7. After logging in with `admin`, run: `sbctl status`. The message should say that it is installed and Secure Boot is enabled.
+
+[<img width="50%" src="buttons/prev-Install fedora server.svg" alt="Install Fedora Server">](Install%20fedora%20server.md)[<img width="50%" src="buttons/next-Install and configure zsh optional.svg" alt="Install and configure Zsh (Optional)">](Install%20and%20configure%20zsh%20optional.md)
+
+<details><summary>Index</summary>
 
 1. [Objective](Objective.md)
 2. [Motivation](Motivation.md)
@@ -34,12 +44,3 @@ This is a guide on how to set up a home server from scratch. If you are not fami
 7. [Glossary](Glossary.md)
 
 </details>
-
-[<img width="100%" src="buttons/next-Objective.svg" alt="Objective">](Objective.md)
-
-## Buy me a coffee
-
-You can always buy me a coffee here:
-
-[![PayPal](https://img.shields.io/badge/PayPal-Donate-blue.svg?logo=paypal&style=for-the-badge)](https://www.paypal.com/donate/?business=AKVCM878H36R6&no_recurring=0&item_name=Buy+me+a+coffee&currency_code=USD)
-[![Ko-Fi](https://img.shields.io/badge/Ko--fi-Donate-blue.svg?logo=kofi&style=for-the-badge)](https://ko-fi.com/jurgencruz)

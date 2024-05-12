@@ -1,0 +1,49 @@
+# Design and justification
+
+[![en](https://img.shields.io/badge/lang-en-blue.svg)](Design%20and%20justification.md)
+[![es](https://img.shields.io/badge/lang-es-blue.svg)](Design%20and%20justification.es.md)
+
+- Fedora Server: Fedora Server provides a combination of stability and modernity as an operating system. By having a short release cycle we can have access to new technologies and it is not necessary to do a complete update like Debian. At the same time, it is not a rolling release distribution, so we will not have instabilities after updating.
+- Entire system encryption: A secure and private system requires avoiding modification and reading of the system without user consent. This is why it is necessary to encrypt data on all media. The OS is encrypted using LUKS with a password, while the hard drives will be encrypted using native ZFS encryption with a key. The key will remain in the encrypted OS partition, such that it cannot be accessed without first unlocking the OS with the password, while also allowing not to require a second password.
+- Secure Boot enabled: To ensure the security and privacy of the server, it is necessary to secure the computer's boot chain. This can only be achieved with Secure Boot enabled.
+- ZFS File system: ZFS is a robust file system selected for using COW (copy-on-write), RAIDZ feature for disk redundancy, native snapshots, native encryption and compression. It is one of the best options as a file system for a NAS.
+- Samba shares for multiple users: Samba allows remote access to NAS files securely and compatible with multiple operating systems. Allows the use of ACLs to specify file access permissions and ensure privacy.
+- Docker as a containerization engine: Docker is the most used and simplest containerization engine. To keep the server accessible, we are going to avoid using other more complex engines such as Kubernetes and Podman.
+- ARR application ecosystem: This group of microservices provides a home entertainment system with access to movies and series that is completely automated and customizable with an intuitive interface and complete control.
+- Technitium as DNS and DHCP server: Technitium helps us block domains from advertising, tracking and malware while allowing us to configure split horizon DNS and DHCP in a single service.
+- Home Assistant as a home automation system: Home Assistant is free software and completely independent of the cloud, providing privacy, security and complete control of your home.
+- Cockpit as server manager: Cockpit provides a one-stop remote server administration through a web browser with a graphical user interface for greater convenience.
+- Portainer as a container manager: Although Cockpit has the ability to manage containers, it only supports Podman and not Docker. Portainer allows us to manage containers remotely from a web browser with a graphical interface, instead of the terminal, and is compatible with Docker.
+- qBittorrent with VPN: The bittorrent protocol allows access to a very large, distributed, free and, in most cases, public file library. In order to maintain online privacy, a remote anonymous VPN for the bittorrent protocol is necessary.
+- WireGuard as protocol for local VPN: To be able to access critical systems remotely, it is necessary not to expose them publicly but through a secure VPN. WireGuard is an open source, modern, secure and efficient VPN protocol and is ideal for creating a personal VPN connected to our local network.
+- DuckDNS: DuckDNS offers a free DDNS service that also supports multiple subdomain levels. For example: `myhome.duckdns.org` and `jellyfin.myhome.duckdns.org` will be mapped to the same IP. This is very useful as it allows us to have our own subdomains that the reverse proxy can use in its rules.
+
+[<img width="50%" src="buttons/prev-Features.svg" alt="Features">](Features.md)[<img width="50%" src="buttons/next-Minimum prerequisites.svg" alt="Minimum prerequisites">](Minimum%20prerequisites.md)
+
+<details><summary>Index</summary>
+
+1. [Objective](Objective.md)
+2. [Motivation](Motivation.md)
+3. [Features](Features.md)
+4. [Design and justification](Design%20and%20justification.md)
+5. [Minimum prerequisites](Minimum%20prerequisites.md)
+6. [Guide](Guide.md)
+    1. [Install Fedora Server](Install%20fedora%20server.md)
+    2. [Configure Secure Boot](Configure%20secure%20boot.md)
+    3. [Install and configure Zsh (Optional)](Install%20and%20configure%20zsh%20optional.md)
+    4. [Configure users](Configure%20users.md)
+    5. [Install ZFS](Install%20zfs.md)
+    6. [Configure ZFS](Configure%20zfs.md)
+    7. [Configure host's network](Configure%20hosts%20network.md)
+    8. [Configure shares](Configure%20shares.md)
+    9. [Register DDNS](Register%20ddns.md)
+    10. [Install Docker](Install%20docker.md)
+    11. [Create Docker stack](Create%20docker%20stack.md)
+    12. [Configure applications](Configure%20applications.md)
+    13. [Configure scheduled tasks](Configure%20scheduled%20tasks.md)
+    14. [Configure public external traffic](Configure%20public%20external%20traffic.md)
+    15. [Configure private external traffic](Configure%20private%20external%20traffic.md)
+    16. [Install Cockpit](Install%20cockpit.md)
+7. [Glossary](Glossary.md)
+
+</details>

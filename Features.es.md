@@ -1,13 +1,21 @@
-# Servidor NAS, Media Center y Home Automation
+# Características
 
-[![en](https://img.shields.io/badge/lang-en-blue.svg)](README.md)
-[![es](https://img.shields.io/badge/lang-es-blue.svg)](README.es.md)
+[![en](https://img.shields.io/badge/lang-en-blue.svg)](Features.md)
+[![es](https://img.shields.io/badge/lang-es-blue.svg)](Features.es.md)
 
-Esta es una guía de como configurar un servidor casero desde cero. Si usted no está familiarizado con algún concepto, la guía provee un glosario al final de la misma para su conveniencia.
+- Seguro.
+- Privado.
+- Robusto.
+- Resiliente.
+- Respaldo de archivos y acceso remoto a los mismos.
+- Servicio de medios.
+- Automatización del hogar.
+- Administración del servidor a través de un explorador e interfaz gráfica.
+- Usar código abierto y gratuito.
 
-## Indice
+[<img width="50%" src="buttons/prev-Motivation.es.svg" alt="Motivación">](Motivation.es.md)[<img width="50%" src="buttons/next-Design and justification.es.svg" alt="Diseño y justificación">](Design%20and%20justification.es.md)
 
-<details open><summary>Expandir</summary>
+<details><summary>Indice</summary>
 
 1. [Objetivo](Objective.es.md)
 2. [Motivación](Motivation.es.md)
@@ -34,12 +42,3 @@ Esta es una guía de como configurar un servidor casero desde cero. Si usted no 
 7. [Glosario](Glossary.es.md)
 
 </details>
-
-[<img width="100%" src="buttons/next-Objective.es.svg" alt="Objetivo">](Objective.es.md)
-
-## Cómprame un café
-
-Siempre puede invitarme un café aquí:
-
-[![PayPal](https://img.shields.io/badge/PayPal-Donate-blue.svg?logo=paypal&style=for-the-badge)](https://www.paypal.com/donate/?business=AKVCM878H36R6&no_recurring=0&item_name=Buy+me+a+coffee&currency_code=USD)
-[![Ko-Fi](https://img.shields.io/badge/Ko--fi-Donate-blue.svg?logo=kofi&style=for-the-badge)](https://ko-fi.com/jurgencruz)

@@ -1,13 +1,25 @@
-# NAS, Media Center and Home Automation Server
+# Install ZFS
 
-[![en](https://img.shields.io/badge/lang-en-blue.svg)](README.md)
-[![es](https://img.shields.io/badge/lang-es-blue.svg)](README.es.md)
+[![en](https://img.shields.io/badge/lang-en-blue.svg)](Install%20zfs.md)
+[![es](https://img.shields.io/badge/lang-es-blue.svg)](Install%20zfs.es.md)
 
-This is a guide on how to set up a home server from scratch. If you are not familiar with a concept, the guide provides a glossary at the end of the guide for your convenience.
+Since ZFS is a kernel module, it means that it also has to pass the Secure Boot check. We will install ZFS and register the key used to sign it in the Secure Boot boot chain. This registration requires restarting the server and navigating a wizard as explained later.
 
-## Index
+## Steps
 
-<details open><summary>Expand</summary>
+1. Run: `./scripts/zfs_setup.sh`. The script will ask you to enter a password. This password will be used one time on the next reboot to add the signature to the Secure Boot chain. You can use a temporary password or you can reuse your user's password if you wish.
+2. Reboot with: `reboot`.
+3. A blue screen with a menu will appear. Select the following options:
+    1. "Enroll MOK".
+    2. "Continue."
+    3. "Yes."
+    4. Enter the password you defined in the first step.
+    5. "OK."
+    6. "Reboot".
+
+[<img width="50%" src="buttons/prev-Configure users.svg" alt="Configure users">](Configure%20users.md)[<img width="50%" src="buttons/next-Configure zfs.svg" alt="Configure ZFS">](Configure%20zfs.md)
+
+<details><summary>Index</summary>
 
 1. [Objective](Objective.md)
 2. [Motivation](Motivation.md)
@@ -34,12 +46,3 @@ This is a guide on how to set up a home server from scratch. If you are not fami
 7. [Glossary](Glossary.md)
 
 </details>
-
-[<img width="100%" src="buttons/next-Objective.svg" alt="Objective">](Objective.md)
-
-## Buy me a coffee
-
-You can always buy me a coffee here:
-
-[![PayPal](https://img.shields.io/badge/PayPal-Donate-blue.svg?logo=paypal&style=for-the-badge)](https://www.paypal.com/donate/?business=AKVCM878H36R6&no_recurring=0&item_name=Buy+me+a+coffee&currency_code=USD)
-[![Ko-Fi](https://img.shields.io/badge/Ko--fi-Donate-blue.svg?logo=kofi&style=for-the-badge)](https://ko-fi.com/jurgencruz)

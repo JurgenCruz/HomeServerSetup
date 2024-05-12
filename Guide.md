@@ -1,13 +1,13 @@
-# NAS, Media Center and Home Automation Server
+# Guide
 
-[![en](https://img.shields.io/badge/lang-en-blue.svg)](README.md)
-[![es](https://img.shields.io/badge/lang-es-blue.svg)](README.es.md)
+[![en](https://img.shields.io/badge/lang-en-blue.svg)](Guide.md)
+[![es](https://img.shields.io/badge/lang-es-blue.svg)](Guide.es.md)
 
-This is a guide on how to set up a home server from scratch. If you are not familiar with a concept, the guide provides a glossary at the end of the guide for your convenience.
+This guide is just that, a guide. Feel free to modify and adapt the steps to your taste and convenience. The guide will use some names and parameters that you can customize, please be aware if you decide to use different names or parameters you will need to adjust some steps and files of the guide.
 
-## Index
+[<img width="50%" src="buttons/prev-Minimum prerequisites.svg" alt="Minimum prerequisites">](Minimum%20prerequisites.md)[<img width="50%" src="buttons/next-Install fedora server.svg" alt="Install Fedora Server">](Install%20fedora%20server.md)
 
-<details open><summary>Expand</summary>
+<details><summary>Index</summary>
 
 1. [Objective](Objective.md)
 2. [Motivation](Motivation.md)
@@ -34,12 +34,3 @@ This is a guide on how to set up a home server from scratch. If you are not fami
 7. [Glossary](Glossary.md)
 
 </details>
-
-[<img width="100%" src="buttons/next-Objective.svg" alt="Objective">](Objective.md)
-
-## Buy me a coffee
-
-You can always buy me a coffee here:
-
-[![PayPal](https://img.shields.io/badge/PayPal-Donate-blue.svg?logo=paypal&style=for-the-badge)](https://www.paypal.com/donate/?business=AKVCM878H36R6&no_recurring=0&item_name=Buy+me+a+coffee&currency_code=USD)
-[![Ko-Fi](https://img.shields.io/badge/Ko--fi-Donate-blue.svg?logo=kofi&style=for-the-badge)](https://ko-fi.com/jurgencruz)

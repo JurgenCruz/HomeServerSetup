@@ -1,13 +1,20 @@
-# NAS, Media Center and Home Automation Server
+# Install Cockpit
 
-[![en](https://img.shields.io/badge/lang-en-blue.svg)](README.md)
-[![es](https://img.shields.io/badge/lang-es-blue.svg)](README.es.md)
+[![en](https://img.shields.io/badge/lang-en-blue.svg)](Install%20cockpit.md)
+[![es](https://img.shields.io/badge/lang-es-blue.svg)](Install%20cockpit.es.md)
 
-This is a guide on how to set up a home server from scratch. If you are not familiar with a concept, the guide provides a glossary at the end of the guide for your convenience.
+Finally we will install Cockpit with some plugins and configure the firewall to allow the Cockpit service to the local network.
 
-## Index
+## Steps
 
-<details open><summary>Expand</summary>
+1. Run: `./scripts/cockpit_setup.sh`. Installs Cockpit and its plugins and configures Firewalld to allow Cockpit on the network.
+2. To test that it worked, access Cockpit through https://server.lan:9090. Use your `admin` credentials.
+
+**Congratulations! You now have your home server up and running and ready to go!**
+
+[<img width="50%" src="buttons/prev-Configure private external traffic.svg" alt="Configure private external traffic">](Configure%20private%20external%20traffic.md)[<img width="50%" src="buttons/next-Glossary.svg" alt="Glossary">](Glossary.md)
+
+<details><summary>Index</summary>
 
 1. [Objective](Objective.md)
 2. [Motivation](Motivation.md)
@@ -34,12 +41,3 @@ This is a guide on how to set up a home server from scratch. If you are not fami
 7. [Glossary](Glossary.md)
 
 </details>
-
-[<img width="100%" src="buttons/next-Objective.svg" alt="Objective">](Objective.md)
-
-## Buy me a coffee
-
-You can always buy me a coffee here:
-
-[![PayPal](https://img.shields.io/badge/PayPal-Donate-blue.svg?logo=paypal&style=for-the-badge)](https://www.paypal.com/donate/?business=AKVCM878H36R6&no_recurring=0&item_name=Buy+me+a+coffee&currency_code=USD)
-[![Ko-Fi](https://img.shields.io/badge/Ko--fi-Donate-blue.svg?logo=kofi&style=for-the-badge)](https://ko-fi.com/jurgencruz)

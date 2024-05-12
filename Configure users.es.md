@@ -1,13 +1,18 @@
-# Servidor NAS, Media Center y Home Automation
+# Configurar usuarios
 
-[![en](https://img.shields.io/badge/lang-en-blue.svg)](README.md)
-[![es](https://img.shields.io/badge/lang-es-blue.svg)](README.es.md)
+[![en](https://img.shields.io/badge/lang-en-blue.svg)](Configure%20users.md)
+[![es](https://img.shields.io/badge/lang-es-blue.svg)](Configure%20users.es.md)
 
-Esta es una guía de como configurar un servidor casero desde cero. Si usted no está familiarizado con algún concepto, la guía provee un glosario al final de la misma para su conveniencia.
+Aparte del usuario `admin`, es necesario un usuario que llamaremos `mediacenter` para administrar el acceso a los archivos del Media Center y manejar el ecosistema de aplicaciones AAR. También es necesario un usuario por cada Samba share que se desee hacer. La guía usará 2 Samba shares de ejemplo y por ende, 2 usuarios: `nasj` y `nask`. El usuario `admin` será agregado a los grupos de cada usuario creado de manera que también tenga acceso a los archivos.
 
-## Indice
+## Pasos
 
-<details open><summary>Expandir</summary>
+1. Asumir el rol de `root` ejecutando `sudo -i`.
+2. Creamos usuarios `nasj`, `nask` y `mediacenter` y agregamos a `admin` a sus grupos: `printf "nasj\nnask\nmediacenter" | ./scripts/users_setup.sh admin`.
+
+[<img width="50%" src="buttons/prev-Install and configure zsh optional.es.svg" alt="Instalar y configurar Zsh (Opcional)">](Install%20and%20configure%20zsh%20optional.es.md)[<img width="50%" src="buttons/next-Install zfs.es.svg" alt="Instalar ZFS">](Install%20zfs.es.md)
+
+<details><summary>Indice</summary>
 
 1. [Objetivo](Objective.es.md)
 2. [Motivación](Motivation.es.md)
@@ -34,12 +39,3 @@ Esta es una guía de como configurar un servidor casero desde cero. Si usted no 
 7. [Glosario](Glossary.es.md)
 
 </details>
-
-[<img width="100%" src="buttons/next-Objective.es.svg" alt="Objetivo">](Objective.es.md)
-
-## Cómprame un café
-
-Siempre puede invitarme un café aquí:
-
-[![PayPal](https://img.shields.io/badge/PayPal-Donate-blue.svg?logo=paypal&style=for-the-badge)](https://www.paypal.com/donate/?business=AKVCM878H36R6&no_recurring=0&item_name=Buy+me+a+coffee&currency_code=USD)
-[![Ko-Fi](https://img.shields.io/badge/Ko--fi-Donate-blue.svg?logo=kofi&style=for-the-badge)](https://ko-fi.com/jurgencruz)

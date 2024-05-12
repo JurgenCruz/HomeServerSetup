@@ -1,13 +1,20 @@
-# Servidor NAS, Media Center y Home Automation
+# Instalar Cockpit
 
-[![en](https://img.shields.io/badge/lang-en-blue.svg)](README.md)
-[![es](https://img.shields.io/badge/lang-es-blue.svg)](README.es.md)
+[![en](https://img.shields.io/badge/lang-en-blue.svg)](Install%20cockpit.md)
+[![es](https://img.shields.io/badge/lang-es-blue.svg)](Install%20cockpit.es.md)
 
-Esta es una guía de como configurar un servidor casero desde cero. Si usted no está familiarizado con algún concepto, la guía provee un glosario al final de la misma para su conveniencia.
+Finalmente instalaremos Cockpit con algunos plugins y configuraremos el cortafuegos para permitir el servicio de Cockpit a la red local.
 
-## Indice
+## Pasos
 
-<details open><summary>Expandir</summary>
+1. Ejecutar: `./scripts/cockpit_setup.sh`. Instala Cockpit y sus plugins ademas de configurar Firewalld para permitir Cockpit en la red.
+2. Para probar que funcionó acceder a Cockpit a través de https://server.lan:9090. Usar sus credenciales de `admin`.
+
+**Felicidades! ahora tiene su servidor casero funcionando y listo para trabajar!**
+
+[<img width="50%" src="buttons/prev-Configure private external traffic.es.svg" alt="Configurar tráfico externo privado">](Configure%20private%20external%20traffic.es.md)[<img width="50%" src="buttons/next-Glossary.es.svg" alt="Glosario">](Glossary.es.md)
+
+<details><summary>Indice</summary>
 
 1. [Objetivo](Objective.es.md)
 2. [Motivación](Motivation.es.md)
@@ -34,12 +41,3 @@ Esta es una guía de como configurar un servidor casero desde cero. Si usted no 
 7. [Glosario](Glossary.es.md)
 
 </details>
-
-[<img width="100%" src="buttons/next-Objective.es.svg" alt="Objetivo">](Objective.es.md)
-
-## Cómprame un café
-
-Siempre puede invitarme un café aquí:
-
-[![PayPal](https://img.shields.io/badge/PayPal-Donate-blue.svg?logo=paypal&style=for-the-badge)](https://www.paypal.com/donate/?business=AKVCM878H36R6&no_recurring=0&item_name=Buy+me+a+coffee&currency_code=USD)
-[![Ko-Fi](https://img.shields.io/badge/Ko--fi-Donate-blue.svg?logo=kofi&style=for-the-badge)](https://ko-fi.com/jurgencruz)
