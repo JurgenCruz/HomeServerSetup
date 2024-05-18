@@ -13,5 +13,6 @@
     (allow process samba_share_t ( file ( append create getattr ioctl link lock map open read rename setattr unlink write )))
     (allow process samba_share_t ( fifo_file ( getattr read write append ioctl lock open )))
     (allow process samba_share_t ( sock_file ( append getattr open read write )))
+    (allow process tmpfs_t ( file ( map execute )))
     (allow process proc_t ( file ( lock )))
 )
