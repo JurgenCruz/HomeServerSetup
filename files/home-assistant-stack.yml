@@ -1,0 +1,27 @@
+name: home-assistant
+
+services:
+  homeassistant:
+    image: ghcr.io/home-assistant/home-assistant:stable
+    container_name: homeassistant
+    environment:
+      - TZ=America/New_York
+    networks:
+      nginx:
+      lanvlan:
+        ipv4_address: 192.168.1.11
+    privileged: true
+    # security_opt:
+    #   - label:disable
+    volumes:
+      - /Apps/homeassistant:/config:Z
+      - /etc/localtime:/etc/localtime:ro
+      - /run/dbus:/run/dbus:ro
+    restart: always
+networks:
+  nginx:
+    name: nginx
+    external: true
+  lanvlan:
+    name: lanvlan
+    external: true

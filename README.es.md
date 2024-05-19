@@ -7,8 +7,6 @@ Esta es una guía de como configurar un servidor casero desde cero. Si usted no 
 
 ## Indice
 
-<details open><summary>Expandir</summary>
-
 1. [Objetivo](Objective.es.md)
 2. [Motivación](Motivation.es.md)
 3. [Características](Features.es.md)
@@ -18,26 +16,32 @@ Esta es una guía de como configurar un servidor casero desde cero. Si usted no 
     1. [Instalar Fedora Server](Install%20fedora%20server.es.md)
     2. [Configurar Secure Boot](Configure%20secure%20boot.es.md)
     3. [Instalar y configurar Zsh (Opcional)](Install%20and%20configure%20zsh%20optional.es.md)
-    4. [Configurar usuarios](Configure%20users.es.md)
-    5. [Instalar ZFS](Install%20zfs.es.md)
-    6. [Configurar ZFS](Configure%20zfs.es.md)
-    7. [Configurar red del anfitrión](Configure%20hosts%20network.es.md)
-    8. [Configurar shares](Configure%20shares.es.md)
-    9. [Registrar DDNS](Register%20ddns.es.md)
+    4. [Instalar Cockpit](Install%20cockpit.es.md)
+    5. [Registrar DDNS (Opcional)](Register%20ddns%20optional.es.md)
+    6. [Configurar usuarios](Configure%20users.es.md)
+    7. [Instalar ZFS](Install%20zfs.es.md)
+    8. [Configurar ZFS](Configure%20zfs.es.md)
+        1. [Crear alberca ZFS](Create%20zfs%20pool.es.md)
+        2. [Importar alberca ZFS existente](Import%20existing%20zfs%20pool.es.md)
+        3. [Migrar discos de la alberca ZFS](Migrate%20zfs%20pool%20drives.es.md)
+    9. [Configurar shares](Configure%20shares.es.md)
     10. [Instalar Docker](Install%20docker.es.md)
-    11. [Crear stack de Docker](Create%20docker%20stack.es.md)
-    12. [Configurar aplicaciones](Configure%20applications.es.md)
-    13. [Configurar tareas programadas](Configure%20scheduled%20tasks.es.md)
-    14. [Configurar tráfico externo público](Configure%20public%20external%20traffic.es.md)
-    15. [Configurar tráfico externo privado](Configure%20private%20external%20traffic.es.md)
-    16. [Instalar Cockpit](Install%20cockpit.es.md)
+    11. [Crear stack de redes compartidas](Create%20shared%20networks%20stack.es.md)
+    12. [Crear y configurar stack de Home Assistant](Create%20and%20configure%20home%20assistant%20stack.es.md)
+    13. [Crear y configurar stack de tráfico externo privado (Opcional)](Create%20and%20configure%20private%20external%20traffic%20stack%20optional.es.md)
+    14. [Crear y configurar stack de aplicaciones arr](Create%20and%20configure%20arr%20applications%20stack.es.md)
+    15. [Configurar DNS](Configure%20dns.es.md)
+        1. [Configurar DNS del router](Configure%20router%20dns.es.md)
+        2. [Configurar DNS de Technitium](Configure%20technitium%20dns.es.md)
+            1. [Configurar DHCP del router](Configure%20router%20dhcp.es.md)
+            2. [Configurar DHCP de Technitium](Configure%20technitium%20dhcp.es.md)
+    16. [Crear y configurar stack de tráfico externo público (Opcional)](Create%20and%20configure%20public%20external%20traffic%20stack%20optional.es.md)
+    17. [Configurar tareas programadas](Configure%20scheduled%20tasks.es.md)
 7. [Glosario](Glossary.es.md)
-
-</details>
 
 [<img width="100%" src="buttons/next-Objective.es.svg" alt="Objetivo">](Objective.es.md)
 
-## Cómprame un café
+## Cómpreme un café
 
 Siempre puede invitarme un café aquí:
 

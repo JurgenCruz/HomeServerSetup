@@ -1,0 +1,28 @@
+<svg fill="none" viewBox="0 0 1012 54" width="1012" height="54" xmlns="http://www.w3.org/2000/svg">
+  <foreignObject width="100%" height="100%">
+    <div xmlns="http://www.w3.org/1999/xhtml">
+      <style>
+        .nav {
+        display: flex;
+        justify-content: space-between;
+        }
+        .nav-item {
+        font-family: -apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans',Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji';
+        display: flex;
+        margin: 5px;
+        padding: 10px;
+        flex-grow: 1;
+        border: 1px solid #7f7f7f;
+        border-radius: 5px;
+        color: #ddd;
+        }
+        .reverse {
+        flex-direction: row-reverse;
+        }
+      </style>
+      <div class="nav">
+        <div class="nav-item reverse">Configure Technitium DNS &gt;</div>
+      </div>
+    </div>
+  </foreignObject>
+</svg>

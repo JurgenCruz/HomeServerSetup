@@ -1,0 +1,161 @@
+name: arr
+
+services:
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    environment:
+      - PUID=XXX
+      - PGID=XXX
+      - TZ=America/New_York
+    networks:
+      - arr
+      - nginx
+    security_opt:
+      - label:type:arr.process
+    volumes:
+      - /Apps/radarr:/config:Z
+      - /mnt/Tank/MediaCenter:/MediaCenter
+    ports:
+      - 7878:7878
+    restart: always
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    environment:
+      - PUID=XXX
+      - PGID=XXX
+      - TZ=America/New_York
+    networks:
+      - arr
+      - nginx
+    security_opt:
+      - label:type:arr.process
+    volumes:
+      - /Apps/sonarr:/config:Z
+      - /mnt/Tank/MediaCenter:/MediaCenter
+    ports:
+      - 8989:8989
+    restart: always
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:latest
+    container_name: prowlarr
+    environment:
+      - PUID=XXX
+      - PGID=XXX
+      - TZ=America/New_York
+    networks:
+      - arr
+      - nginx
+    volumes:
+      - /Apps/prowlarr:/config:Z
+    ports:
+      - 9696:9696
+    restart: always
+  flaresolverr:
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    container_name: flaresolverr
+    environment:
+      - LOG_LEVEL=info
+      - LOG_HTML=false
+      - CAPTCHA_SOLVER=none
+      - TZ=America/New_York
+    networks:
+      - arr
+    ports:
+      - 8191:8191
+    restart: always
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr
+    environment:
+      - PUID=XXX
+      - PGID=XXX
+      - TZ=America/New_York
+    networks:
+      - arr
+      - nginx
+    security_opt:
+      - label:type:arr.process
+    volumes:
+      - /Apps/bazarr:/config:Z
+      - /mnt/Tank/MediaCenter:/MediaCenter
+    ports:
+      - 6767:6767
+    restart: always
+  jellyfin:
+    image: jellyfin/jellyfin
+    container_name: jellyfin
+    environment:
+      - TZ=America/New_York
+    networks:
+      - arr
+      - nginx
+    security_opt:
+      - label:type:arr.process
+    volumes:
+      - /Apps/jellyfin/config:/config:Z
+      - /Apps/jellyfin/cache:/cache:Z
+      - /mnt/Tank/MediaCenter:/MediaCenter
+    ports:
+      - 8096:8096
+    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [ gpu ]
+    restart: always
+  jellyseerr:
+    image: fallenbagel/jellyseerr:latest
+    container_name: jellyseerr
+    environment:
+      - LOG_LEVEL=info
+      - TZ=America/New_York
+    networks:
+      - arr
+      - nginx
+    volumes:
+      - /Apps/jellyseerr:/app/config:Z
+    ports:
+      - 5055:5055
+    restart: always
+  qbittorrent:
+    image: trigus42/qbittorrentvpn:latest
+    container_name: qbittorrent
+    environment:
+      - VPN_TYPE=wireguard
+      - BIND_INTERFACE=yes
+      - PUID=XXX
+      - PGID=XXX
+      - TZ=America/New_York
+      - WEBUI_PASSWORD=adminadmin
+    networks:
+      - arr
+      - nginx
+    security_opt:
+      - label:type:qbittorrent.process
+    volumes:
+      - /Apps/qbittorrent:/config:Z
+      - /dev/null:/downloads
+      - /mnt/Tank/MediaCenter:/MediaCenter
+    ports:
+      - 10095:8080
+    cap_add:
+      - NET_ADMIN
+    sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1
+      - net.ipv6.conf.all.disable_ipv6=0
+    restart: always
+networks:
+  arr:
+    name: arr
+    driver_opts:
+      com.docker.network.bridge.name: br-arr
+    ipam:
+      config:
+        - subnet: 172.21.0.0/24
+          ip_range: 172.21.0.0/24
+  nginx:
+    name: nginx
+    external: true

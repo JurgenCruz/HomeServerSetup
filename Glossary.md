@@ -139,32 +139,4 @@ COW allows retaining old blocks that would be discarded in a "snapshot" that all
 
 It is a technology that allows multiple physical disks to be combined into one or more logical drives for the purpose of data redundancy, performance improvement, or both. ZFS has its own RAID implementation. In ZFS `raidz` is equivalent to RAID5 which allows you to have one redundant disk, that is, a single disk can fail before the pool loses data. While `raidz2` is equivalent to RAID6 it allows 2 redundant disks.
 
-[<img width="100%" src="buttons/prev-Install cockpit.svg" alt="Install Cockpit">](Install%20cockpit.md)
-
-<details><summary>Index</summary>
-
-1. [Objective](Objective.md)
-2. [Motivation](Motivation.md)
-3. [Features](Features.md)
-4. [Design and justification](Design%20and%20justification.md)
-5. [Minimum prerequisites](Minimum%20prerequisites.md)
-6. [Guide](Guide.md)
-    1. [Install Fedora Server](Install%20fedora%20server.md)
-    2. [Configure Secure Boot](Configure%20secure%20boot.md)
-    3. [Install and configure Zsh (Optional)](Install%20and%20configure%20zsh%20optional.md)
-    4. [Configure users](Configure%20users.md)
-    5. [Install ZFS](Install%20zfs.md)
-    6. [Configure ZFS](Configure%20zfs.md)
-    7. [Configure host's network](Configure%20hosts%20network.md)
-    8. [Configure shares](Configure%20shares.md)
-    9. [Register DDNS](Register%20ddns.md)
-    10. [Install Docker](Install%20docker.md)
-    11. [Create Docker stack](Create%20docker%20stack.md)
-    12. [Configure applications](Configure%20applications.md)
-    13. [Configure scheduled tasks](Configure%20scheduled%20tasks.md)
-    14. [Configure public external traffic](Configure%20public%20external%20traffic.md)
-    15. [Configure private external traffic](Configure%20private%20external%20traffic.md)
-    16. [Install Cockpit](Install%20cockpit.md)
-7. [Glossary](Glossary.md)
-
-</details>
+[<img width="50%" src="buttons/prev-Configure scheduled tasks.svg" alt="Configure scheduled tasks">](Configure%20scheduled%20tasks.md)[<img width="50%" src="buttons/jump-Index2.svg" alt="Index">](README.md)

@@ -1,0 +1,38 @@
+name: private-traffic
+
+services:
+  wireguard:
+    image: lscr.io/linuxserver/wireguard:latest
+    container_name: wireguard
+    environment:
+      - PUID=XXX
+      - PGID=XXX
+      - TZ=America/New_York
+      - SERVERURL=wg.micasa.duckdns.org
+      - PEERS=phone,laptop
+      - PEERDNS=10.13.13.1,192.168.1.10
+      - ALLOWEDIPS=192.168.1.0/24,10.13.13.0/24
+      - PERSISTENTKEEPALIVE_PEERS=all
+      - LOG_CONFS=true
+    networks:
+      - wireguard
+    security_opt:
+      - label:type:wireguard.process
+    volumes:
+      - /Apps/wireguard:/config:Z
+    ports:
+      - 51820:51820/udp
+    cap_add:
+      - NET_ADMIN
+    sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1
+    restart: always
+networks:
+  wireguard:
+    name: wireguard
+    driver_opts:
+      com.docker.network.bridge.name: br-wg
+    ipam:
+      config:
+        - subnet: 172.21.2.0/24
+          ip_range: 172.21.2.0/24

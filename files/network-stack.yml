@@ -1,0 +1,32 @@
+name: networks
+
+services:
+  # Dummy Service because compose files must have at least 1 service
+  dummy:
+    image: busybox
+    container_name: dummy
+    hostname: dummy
+    networks:
+      nginx:
+      lanvlan:
+networks:
+  nginx:
+    name: nginx
+    driver_opts:
+      com.docker.network.bridge.name: br-nginx
+    ipam:
+      config:
+        - subnet: 172.21.3.0/24
+          ip_range: 172.21.3.0/24
+  lanvlan:
+    name: lanvlan
+    driver: macvlan
+    driver_opts:
+      parent: eth0
+    ipam:
+      config:
+        - subnet: 192.168.1.0/24
+          gateway: 192.168.1.254
+          ip_range: 192.168.1.0/27
+          aux_addresses:
+            host: 192.168.1.12

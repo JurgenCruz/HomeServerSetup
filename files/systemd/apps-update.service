@@ -4,10 +4,5 @@ OnFailure=notify@Container\x20update\x20and\x20prune\x20failed\x21.service
 
 [Service]
 Type=oneshot
-ExecStart=docker compose -p apps -f /Apps/portainer/compose/1/docker-compose.yml pull
-ExecStart=docker compose -p apps -f /Apps/portainer/compose/1/docker-compose.yml up -d
-ExecStart=docker pull portainer/portainer-ce:latest
-ExecStart=-docker stop portainer
-ExecStart=-docker rm portainer
-ExecStart=docker run -d --privileged -p 9443:9443 --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v /Apps/portainer:/data:Z portainer/portainer-ce:latest
+ExecStart=apps-update.sh
 ExecStart=docker image prune -f

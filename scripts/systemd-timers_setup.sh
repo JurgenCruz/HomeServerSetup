@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mv ./files/systemd/* /usr/local/lib/systemd/system/
+cp ./files/systemd/* /usr/local/lib/systemd/system/
 
 systemctl daemon-reload
 systemctl enable --now zfs-scrub.timer

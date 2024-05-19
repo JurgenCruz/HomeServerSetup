@@ -1,0 +1,29 @@
+name: technitium
+
+services:
+  technitium:
+    image: technitium/dns-server:latest
+    container_name: technitium
+    environment:
+      - TZ=America/New_York
+      - DNS_SERVER_DOMAIN=technitium
+      - DNS_SERVER_WEB_SERVICE_ENABLE_HTTPS=true
+      - DNS_SERVER_WEB_SERVICE_USE_SELF_SIGNED_CERT=true
+      - DNS_SERVER_WEB_SERVICE_HTTP_PORT=80
+      - DNS_SERVER_WEB_SERVICE_HTTPS_PORT=443
+      - DNS_SERVER_LOG_USING_LOCAL_TIME=true
+    networks:
+      lanvlan:
+        ipv4_address: 192.168.1.10
+    volumes:
+      - /Apps/technitium/config:/etc/dns:Z
+    dns:
+      - 127.0.0.1
+      - 1.1.1.1
+    cap_add:
+      - NET_ADMIN
+    restart: always
+networks:
+  lanvlan:
+    name: lanvlan
+    external: true

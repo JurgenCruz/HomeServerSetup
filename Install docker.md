@@ -10,33 +10,11 @@ We will install Docker as our container engine; optionally we will install Nvidi
 1. Run: `./scripts/docker_setup.sh admin`. Adds the Docker repository, installs it, enables the service, and adds the `admin` user to the `docker` group.
 2. Run: `./scripts/selinux_setup.sh`. Enables SELinux in Docker; restarts the Docker service for the changes to take effect; enables the flag that allows containers to manage the network and use the GPU; and installs the SELinux policies. These are required for some containers to be able to access Samba files and interact with WireGuard and for rsync to be able to backup the apps.
 3. Optional: If you have a relatively modern Nvidia card, run: `./scripts/nvidia_setup.sh`. Adds "RPM Fusion" and Nvidia repositories to install the driver and "Nvidia Container Toolkit" for Docker. It also registers the "Akmods" key in the Secure Boot chain. It is necessary to reboot and repeat the key enrollment process as we did with ZFS. After rebooting and logging in, don't forget to assume `root` with `sudo -i`.
+4. Run: `./scripts/create_portainer_folder.sh` to generate the container directory on the SSD.
+5. Run: `./scripts/run_portainer.sh`. This runs a Portainer Community Edition container and will listen on port `9443`.
+6. Configure Portainer from the browser.
+    1. Access Portainer through https://192.168.1.253:9443. If you get a security alert, you can accept the risk since Portainer uses a self-signed SSL certificate.
+    2. Set a random password and create user `admin`. Bitwarden is recommended again for this.
+    3. Navigate to "Environments" > "local" and change "Public IP" with the server's hostname `server.lan`.
 
-[<img width="50%" src="buttons/prev-Register ddns.svg" alt="Register DDNS">](Register%20ddns.md)[<img width="50%" src="buttons/next-Create docker stack.svg" alt="Create Docker stack">](Create%20docker%20stack.md)
-
-<details><summary>Index</summary>
-
-1. [Objective](Objective.md)
-2. [Motivation](Motivation.md)
-3. [Features](Features.md)
-4. [Design and justification](Design%20and%20justification.md)
-5. [Minimum prerequisites](Minimum%20prerequisites.md)
-6. [Guide](Guide.md)
-    1. [Install Fedora Server](Install%20fedora%20server.md)
-    2. [Configure Secure Boot](Configure%20secure%20boot.md)
-    3. [Install and configure Zsh (Optional)](Install%20and%20configure%20zsh%20optional.md)
-    4. [Configure users](Configure%20users.md)
-    5. [Install ZFS](Install%20zfs.md)
-    6. [Configure ZFS](Configure%20zfs.md)
-    7. [Configure host's network](Configure%20hosts%20network.md)
-    8. [Configure shares](Configure%20shares.md)
-    9. [Register DDNS](Register%20ddns.md)
-    10. [Install Docker](Install%20docker.md)
-    11. [Create Docker stack](Create%20docker%20stack.md)
-    12. [Configure applications](Configure%20applications.md)
-    13. [Configure scheduled tasks](Configure%20scheduled%20tasks.md)
-    14. [Configure public external traffic](Configure%20public%20external%20traffic.md)
-    15. [Configure private external traffic](Configure%20private%20external%20traffic.md)
-    16. [Install Cockpit](Install%20cockpit.md)
-7. [Glossary](Glossary.md)
-
-</details>
+[<img width="33.3%" src="buttons/prev-Configure shares.svg" alt="Configure shares">](Configure%20shares.md)[<img width="33.3%" src="buttons/jump-Index.svg" alt="Index">](README.md)[<img width="33.3%" src="buttons/next-Create shared networks stack.svg" alt="Create shared networks stack">](Create%20shared%20networks%20stack.md)

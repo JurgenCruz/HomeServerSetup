@@ -1,0 +1,22 @@
+name: public-traffic
+
+services:
+  nginx:
+    image: jc21/nginx-proxy-manager:latest
+    container_name: nginx
+    environment:
+      - TZ=America/New_York
+    networks:
+      - nginx
+    volumes:
+      - /Apps/nginx/data:/data:Z
+      - /Apps/nginx/etc-letsencrypt:/etc/letsencrypt:Z
+    ports:
+      - 80:80
+      - 443:443
+      - 8181:81
+    restart: always
+networks:
+  nginx:
+    name: nginx
+    external: true

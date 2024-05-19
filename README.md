@@ -7,8 +7,6 @@ This is a guide on how to set up a home server from scratch. If you are not fami
 
 ## Index
 
-<details open><summary>Expand</summary>
-
 1. [Objective](Objective.md)
 2. [Motivation](Motivation.md)
 3. [Features](Features.md)
@@ -18,22 +16,28 @@ This is a guide on how to set up a home server from scratch. If you are not fami
     1. [Install Fedora Server](Install%20fedora%20server.md)
     2. [Configure Secure Boot](Configure%20secure%20boot.md)
     3. [Install and configure Zsh (Optional)](Install%20and%20configure%20zsh%20optional.md)
-    4. [Configure users](Configure%20users.md)
-    5. [Install ZFS](Install%20zfs.md)
-    6. [Configure ZFS](Configure%20zfs.md)
-    7. [Configure host's network](Configure%20hosts%20network.md)
-    8. [Configure shares](Configure%20shares.md)
-    9. [Register DDNS](Register%20ddns.md)
+    4. [Install Cockpit](Install%20cockpit.md)
+    5. [Register DDNS (Optional)](Register%20ddns%20optional.md)
+    6. [Configure users](Configure%20users.md)
+    7. [Install ZFS](Install%20zfs.md)
+    8. [Configure ZFS](Configure%20zfs.md)
+        1. [Create ZFS pool](Create%20zfs%20pool.md)
+        2. [Import existing ZFS pool](Import%20existing%20zfs%20pool.md)
+        3. [Migrate ZFS pool drives](Migrate%20zfs%20pool%20drives.md)
+    9. [Configure shares](Configure%20shares.md)
     10. [Install Docker](Install%20docker.md)
-    11. [Create Docker stack](Create%20docker%20stack.md)
-    12. [Configure applications](Configure%20applications.md)
-    13. [Configure scheduled tasks](Configure%20scheduled%20tasks.md)
-    14. [Configure public external traffic](Configure%20public%20external%20traffic.md)
-    15. [Configure private external traffic](Configure%20private%20external%20traffic.md)
-    16. [Install Cockpit](Install%20cockpit.md)
+    11. [Create shared networks stack](Create%20shared%20networks%20stack.md)
+    12. [Create and configure Home Assistant stack](Create%20and%20configure%20home%20assistant%20stack.md)
+    13. [Create and configure private external traffic stack (Optional)](Create%20and%20configure%20private%20external%20traffic%20stack%20optional.md)
+    14. [Create and configure arr applications stack](Create%20and%20configure%20arr%20applications%20stack.md)
+    15. [Configure DNS](Configure%20dns.md)
+        1. [Configure router DNS](Configure%20router%20dns.md)
+        2. [Configure Technitium DNS](Configure%20technitium%20dns.md)
+            1. [Configure router DHCP](Configure%20router%20dhcp.md)
+            2. [Configure Technitium DHCP](Configure%20technitium%20dhcp.md)
+    16. [Create and configure public external traffic stack (Optional)](Create%20and%20configure%20public%20external%20traffic%20stack%20optional.md)
+    17. [Configure scheduled tasks](Configure%20scheduled%20tasks.md)
 7. [Glossary](Glossary.md)
-
-</details>
 
 [<img width="100%" src="buttons/next-Objective.svg" alt="Objective">](Objective.md)
 
