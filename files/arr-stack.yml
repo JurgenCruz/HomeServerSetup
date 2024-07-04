@@ -62,6 +62,8 @@ services:
       - TZ=America/New_York
     networks:
       - arr
+    security_opt:
+      - label:type:flaresolverr.process
     ports:
       - 8191:8191
     restart: always

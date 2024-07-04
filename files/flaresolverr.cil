@@ -1,0 +1,6 @@
+(block flaresolverr
+    (blockinherit container)
+    (blockinherit net_container)
+    (allow process proc_t ( file ( ioctl )))
+    (allow process flaresolverr.process ( process ( execheap )))
+)
