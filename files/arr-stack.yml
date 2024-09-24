@@ -106,7 +106,9 @@ services:
       resources:
         reservations:
           devices:
-            - capabilities: [ gpu ]
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
     restart: always
   jellyseerr:
     image: fallenbagel/jellyseerr:latest
