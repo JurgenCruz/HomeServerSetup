@@ -6,6 +6,8 @@ services:
     container_name: portainer
     environment:
       - TZ=America/New_York
+    networks:
+      - portainer
     privileged: true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -13,3 +15,12 @@ services:
     ports:
       - 9443:9443
     restart: always
+networks:
+  portainer:
+    name: portainer
+    driver_opts:
+      com.docker.network.bridge.name: br-portainer
+    ipam:
+      config:
+        - subnet: 172.21.4.0/24
+          ip_range: 172.21.4.0/24
