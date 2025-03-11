@@ -34,5 +34,5 @@ networks:
       com.docker.network.bridge.name: br-wg
     ipam:
       config:
-        - subnet: 172.21.2.0/24
-          ip_range: 172.21.2.0/24
+        - subnet: 172.21.4.0/24
+          ip_range: 172.21.4.0/24

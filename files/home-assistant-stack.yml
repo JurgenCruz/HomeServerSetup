@@ -7,7 +7,7 @@ services:
     environment:
       - TZ=America/New_York
     networks:
-      nginx:
+      homeassistant:
       lanvlan:
         ipv4_address: 192.168.1.11
     privileged: true
@@ -19,9 +19,14 @@ services:
       - /run/dbus:/run/dbus:ro
     restart: always
 networks:
-  nginx:
-    name: nginx
-    external: true
+  homeassistant:
+    name: homeassistant
+    driver_opts:
+      com.docker.network.bridge.name: br-ha
+    ipam:
+      config:
+        - subnet: 172.21.1.0/24
+          ip_range: 172.21.1.0/24
   lanvlan:
     name: lanvlan
     external: true
