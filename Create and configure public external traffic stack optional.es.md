@@ -73,7 +73,7 @@ Configuraremos el stack de Docker de tráfico público; configuraremos el cortaf
         http:
             use_x_forwarded_for: true
             trusted_proxies:
-                - 172.21.3.0/24
+                - 172.21.1.0/24
         ```
     3. Guardar y salir con `Ctrl + X, Y, Enter`.
 10. Recargar la configuración de Home Assistant desde el UI para que surtan efecto los cambios.

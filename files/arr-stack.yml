@@ -10,7 +10,6 @@ services:
       - TZ=America/New_York
     networks:
       - arr
-      - nginx
     security_opt:
       - label:type:arr.process
     volumes:
@@ -28,7 +27,6 @@ services:
       - TZ=America/New_York
     networks:
       - arr
-      - nginx
     security_opt:
       - label:type:arr.process
     volumes:
@@ -46,7 +44,6 @@ services:
       - TZ=America/New_York
     networks:
       - arr
-      - nginx
     volumes:
       - /Apps/prowlarr:/config:Z
     ports:
@@ -76,7 +73,6 @@ services:
       - TZ=America/New_York
     networks:
       - arr
-      - nginx
     security_opt:
       - label:type:arr.process
     volumes:
@@ -92,7 +88,6 @@ services:
       - TZ=America/New_York
     networks:
       - arr
-      - nginx
     security_opt:
       - label:type:arr.process
     volumes:
@@ -108,7 +103,7 @@ services:
           devices:
             - driver: nvidia
               count: all
-              capabilities: [gpu]
+              capabilities: [ gpu ]
     restart: always
   jellyseerr:
     image: fallenbagel/jellyseerr:latest
@@ -118,7 +113,6 @@ services:
       - TZ=America/New_York
     networks:
       - arr
-      - nginx
     volumes:
       - /Apps/jellyseerr:/app/config:Z
     ports:
@@ -136,7 +130,6 @@ services:
       - WEBUI_PASSWORD=adminadmin
     networks:
       - arr
-      - nginx
     security_opt:
       - label:type:qbittorrent.process
     volumes:
@@ -158,8 +151,5 @@ networks:
       com.docker.network.bridge.name: br-arr
     ipam:
       config:
-        - subnet: 172.21.0.0/24
-          ip_range: 172.21.0.0/24
-  nginx:
-    name: nginx
-    external: true
+        - subnet: 172.21.3.0/24
+          ip_range: 172.21.3.0/24

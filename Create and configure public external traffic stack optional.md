@@ -73,7 +73,7 @@ We will configure the public traffic Docker stack; we will configure the firewal
         http:
             use_x_forwarded_for: true
             trusted_proxies:
-                - 172.21.3.0/24
+                - 172.21.1.0/24
         ```
     3. Save and exit with `Ctrl + X, Y, Enter`.
 10. Reload the Home Assistant settings from the UI for the changes to take effect.

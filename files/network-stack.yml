@@ -7,17 +7,8 @@ services:
     container_name: dummy
     hostname: dummy
     networks:
-      nginx:
       lanvlan:
 networks:
-  nginx:
-    name: nginx
-    driver_opts:
-      com.docker.network.bridge.name: br-nginx
-    ipam:
-      config:
-        - subnet: 172.21.3.0/24
-          ip_range: 172.21.3.0/24
   lanvlan:
     name: lanvlan
     driver: macvlan
