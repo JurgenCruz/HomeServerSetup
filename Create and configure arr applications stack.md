@@ -55,7 +55,7 @@ We will prepare the anonymous VPN configuration file that qBittorrent requires; 
     1. Change the password to a more secure one. It is again recommended to use Bitwarden for the same.
     2. Enable "Bypass authentication for clients on localhost".
     3. Enable "Bypass authentication for clients in whitelisted IP subnets".
-    4. Add `172.21.0.0/24` to the list below. This will allow containers in Docker's `arr` network to be accessed without a password.
+    4. Add `172.21.3.0/24` to the list below. This will allow containers in Docker's `arr` network to be accessed without a password.
 9. Configure `Advanced` tab. Make the following changes:
     1. Ensure that the "Network Interface" is `tun0`. If not it means you are not using your VPN and the traffic will not be anonymous.
     2. Enable "Reannounce to all trackers when IP or port changed".

@@ -26,7 +26,7 @@ Prepararemos el archivo de configuración de la VPN anónima que requiere qBitto
 8. Si no se va a exponer el servidor al internet, quitar la red de `nginx`.
 9. Copiar todo el contenido del archivo al portapapeles. Guardar y salir con `Ctrl + X, Y, Enter`.
 10. Agregar stack en Portainer desde el navegador.
-    1. Acceder a Portainer a través de https://192.168.1.253:9443. Si sale una alerta de seguridad, puede aceptar el riesgo ya que Portainer usa un certificado de SSL autofirmado.
+    1. Acceder a Portainer a través de https://192.168.1.253:9443. Si sale una alerta de seguridad, puede aceptar el riesgo, ya que Portainer usa un certificado de SSL autofirmado.
     2. Darle clic en "Get Started" y luego seleccionar "local".
     3. Seleccionar "Stacks" y crear un nuevo stack.
     4. Ponerle nombre "arr" y pegar el contenido del docker-compose.yml que copió al portapapeles y crear el stack. Desde ahora modificaciones al stack se deben de hacer a través de Portainer y no en el archivo.
@@ -52,10 +52,10 @@ Prepararemos el archivo de configuración de la VPN anónima que requiere qBitto
     1. Deshabilitar `Enable Local Peer Discovery to find more peers` ya que no hay nada local en el contenedor.
     2. Si gusta dejar de ser semilla después de una meta, puede habilitar y ajustar los límites aquí. Por ejemplo "Cuando la taza llegue a 1".
 8. Configurar pestaña `Web UI`. Hacer los siguientes cambios:
-    1. Cambiar la contraseña por una más seguro. Se recomienda nuevamente el uso de Bitwarden para lo mismo.
+    1. Cambiar la contraseña por una más segura. Se recomienda nuevamente el uso de Bitwarden para lo mismo.
     2. Habilitar "Bypass authentication for clients on localhost".
     3. Habilitar "Bypass authentication for clients in whitelisted IP subnets".
-    4. Agregar `172.21.0.0/24` a la lista debajo. Esto permitirá a los contenedores en la red `arr` de Docker acceder sin contraseña.
+    4. Agregar `172.21.3.0/24` a la lista debajo. Esto permitirá a los contenedores en la red `arr` de Docker acceder sin contraseña.
 9. Configurar pestaña `Advanced`. Hacer los siguientes cambios:
     1. Asegurar que el "Network Interface" sea `tun0`. Si no quiere decir que no está usando su VPN y el tráfico no será anónimo.
     2. Habilitar "Reannounce to all trackers when IP or port changed".
@@ -79,7 +79,7 @@ Prepararemos el archivo de configuración de la VPN anónima que requiere qBitto
     6. "Category": "movies".
     7. Hacer clic en "Test" y luego "Save".
 5. Navegar a "Settings" > "General".
-6. Copiar el "API Key" a un bloc de notas ya que lo necesitaremos más tarde.
+6. Copiar el "API Key" a un bloc de notas, ya que lo necesitaremos más tarde.
 7. Para configurar las pestañas de "Profiles", "Quality" y "Custom Formats" se recomienda el uso de la siguiente guía: https://trash-guides.info/Radarr/
 
 ## Configurar Sonarr
@@ -101,7 +101,7 @@ Prepararemos el archivo de configuración de la VPN anónima que requiere qBitto
     6. "Category": "tv".
     7. Hacer clic en "Test" y luego "Save".
 5. Navegar a "Settings" > "General".
-6. Copiar el "API Key" a un bloc de notas ya que lo necesitaremos más tarde.
+6. Copiar el "API Key" a un bloc de notas, ya que lo necesitaremos más tarde.
 7. Para configurar las pestañas de "Profiles", "Quality" y "Custom Formats" se recomienda el uso de la siguiente guía: https://trash-guides.info/Sonarr/
 
 ## Configurar Prowlarr
