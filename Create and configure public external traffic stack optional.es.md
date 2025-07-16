@@ -47,7 +47,7 @@ Configuraremos el stack de Docker de tráfico público; configuraremos el cortaf
             - "HTTP/2 Support": activado.
             - "HSTS Enabled": activado.
             - "HSTS Subdomains": activado.
-        3. En la pestaña de `Avanzado` llenar (Nota: esto es solo necesario para Jellyfin, los otros servicios no requieren nada en la pestaña `Avanzado`):
+        3. En la pestaña de `Avanzado` llenar (Nota: esto es solo necesario para Jellyfin, los otros servicios (excepto Nextcloud) no requieren nada en la pestaña `Avanzado`):
             ```sh
             # Disable buffering when the nginx proxy gets very resource heavy upon streaming
             proxy_buffering off;
@@ -65,7 +65,13 @@ Configuraremos el stack de Docker de tráfico público; configuraremos el cortaf
             add_header X-XSS-Protection "0";
             add_header X-Content-Type-Options "nosniff";
             ```
-        4. Repetir este paso para Bazarr, Home Assistant, Jellyseerr, Prowlarr, Radarr, Sonarr y qBittorrent. **No exponga Portainer ni Cockpit con Nginx!**
+        4. Repetir este paso para Home Assistant, Jellyseerr, Prowlarr, Bazarr, Radarr, Sonarr y qBittorrent. **No exponga Portainer ni Cockpit con Nginx!**
+        5. Repetir este paso para Nextcloud, pero en la pestaña de `Avanzado` llenar lo siguiente:
+            ```sh
+            client_body_buffer_size 512k;
+            proxy_read_timeout 86400s;
+            client_max_body_size 0;
+            ```
 9. Configurar Home Assistant para permitir tráfico redireccionado por el Reverse Proxy de Nginx.
     1. Editar la configuración de Home Assistant: `nano /Apps/homeassistant/configuration.yaml`.
     2. Agregar la siguiente sección al final del archivo. Permitimos proxies de la red `172.21.1.0/24` que es la red de `homeassistant` que configuramos en el stack en Portainer.

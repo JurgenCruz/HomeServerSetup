@@ -8,6 +8,7 @@ services:
       - TZ=America/New_York
     networks:
       - homeassistant
+      - nextcloud
       - arr
     volumes:
       - /Apps/nginx/data:/data:Z
@@ -20,6 +21,9 @@ services:
 networks:
   homeassistant:
     name: homeassistant
+    external: true
+  nextcloud:
+    name: nextcloud
     external: true
   arr:
     name: arr

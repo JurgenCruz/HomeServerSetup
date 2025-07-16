@@ -26,4 +26,4 @@ Crearemos una red macvlan auxiliar para poder comunicarnos con Home Assistant qu
     3. Seleccionar "Stacks" y crear un nuevo stack.
     4. Ponerle nombre "networks" y pegar el contenido del network-stack.yml que copió al portapapeles y crear el stack. Desde ahora modificaciones al stack se deben de hacer a través de Portainer y no en el archivo.
 
-[<img width="33.3%" src="buttons/prev-Install docker.es.svg" alt="Instalar Docker">](Install%20docker.es.md)[<img width="33.3%" src="buttons/jump-Index.es.svg" alt="Índice">](README.es.md)[<img width="33.3%" src="buttons/next-Create and configure home assistant stack.es.svg" alt="Crear y configurar stack de Home Assistant">](Create%20and%20configure%20home%20assistant%20stack.es.md)
+[<img width="33.3%" src="buttons/prev-Install docker.es.svg" alt="Instalar Docker">](Install%20docker.es.md)[<img width="33.3%" src="buttons/jump-Index.es.svg" alt="Índice">](README.es.md)[<img width="33.3%" src="buttons/next-Create and configure nextcloud stack.es.svg" alt="Crear y configurar stack de Nextcloud">](Create%20and%20configure%20nextcloud%20stack.es.md)

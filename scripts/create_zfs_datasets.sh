@@ -32,3 +32,8 @@ fi
 chown -h mediacenter:mediacenter /mnt/Tank/MediaCenter
 semanage fcontext -a -t samba_share_t "/mnt/Tank/MediaCenter(/.*)?"
 restorecon -R -v /mnt/Tank/MediaCenter
+zfs create -o canmount=on -o mountpoint=/mnt/Tank/NextCloud Tank/NextCloud
+if [ $? -ne 0 ]; then
+  echo "Error creating dataset Tank/NextCloud. Aborting" >&2
+  exit 1
+fi
