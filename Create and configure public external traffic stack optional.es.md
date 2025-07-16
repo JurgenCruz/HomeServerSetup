@@ -5,7 +5,7 @@
 
 Si usted no piensa acceder a su servidor fuera de su red local, puede omitir esta sección.
 
-Configuraremos el stack de Docker de tráfico público; configuraremos el cortafuegos para permitir los puertos necesarios; y levantaremos el stack a través de Portainer; haremos Port Forwarding de los puertos HTTP y HTTPS para Nginx; configuraremos Nginx para redireccionar el trafico a los contenedores; y permitiremos a Nginx actuar como proxy de Home Assistant. El stack consiste de los siguientes contenedores:
+Configuraremos el stack de Docker de tráfico público; configuraremos el cortafuegos para permitir los puertos necesarios; y levantaremos el stack a través de Portainer; haremos Port Forwarding de los puertos HTTP y HTTPS para Nginx; configuraremos Nginx para redireccionar el tráfico a los contenedores; y permitiremos a Nginx actuar como proxy de Home Assistant. El stack consiste de los siguientes contenedores:
 
 - Nginx Proxy Manager: Motor y administrador de Reverse Proxy.
 
@@ -68,7 +68,7 @@ Configuraremos el stack de Docker de tráfico público; configuraremos el cortaf
         4. Repetir este paso para Bazarr, Home Assistant, Jellyseerr, Prowlarr, Radarr, Sonarr y qBittorrent. **No exponga Portainer ni Cockpit con Nginx!**
 9. Configurar Home Assistant para permitir tráfico redireccionado por el Reverse Proxy de Nginx.
     1. Editar la configuración de Home Assistant: `nano /Apps/homeassistant/configuration.yaml`.
-    2. Agregar la siguiente sección al final del archivo. Permitimos proxies de la red `172.21.3.0/24` que es la red de `nginx` que configuramos en el stack en Portainer.
+    2. Agregar la siguiente sección al final del archivo. Permitimos proxies de la red `172.21.1.0/24` que es la red de `homeassistant` que configuramos en el stack en Portainer.
         ```yml
         http:
             use_x_forwarded_for: true

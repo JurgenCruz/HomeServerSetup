@@ -23,9 +23,8 @@ Prepararemos el archivo de configuración de la VPN anónima que requiere qBitto
 5. Reemplazar las XXX con el `uid` y `gid` del usuario `mediacenter`. Se puede usar `id mediacenter` para obtener el `uid` y `gid`.
 6. Si no se va a usar GPU, borrar las secciones de `runtime` y `deploy` del contenedor `jellyfin`.
 7. Si se va a usar OpenVPN para bittorrent, actualizar el contenedor `qbittorrent` de acuerdo a la guía oficial.
-8. Si no se va a exponer el servidor al internet, quitar la red de `nginx`.
-9. Copiar todo el contenido del archivo al portapapeles. Guardar y salir con `Ctrl + X, Y, Enter`.
-10. Agregar stack en Portainer desde el navegador.
+8. Copiar todo el contenido del archivo al portapapeles. Guardar y salir con `Ctrl + X, Y, Enter`.
+9. Agregar stack en Portainer desde el navegador.
     1. Acceder a Portainer a través de https://192.168.1.253:9443. Si sale una alerta de seguridad, puede aceptar el riesgo, ya que Portainer usa un certificado de SSL autofirmado.
     2. Darle clic en "Get Started" y luego seleccionar "local".
     3. Seleccionar "Stacks" y crear un nuevo stack.
@@ -194,7 +193,7 @@ Prepararemos el archivo de configuración de la VPN anónima que requiere qBitto
     6. Si gusta puede configurar otros parámetros a su gusto.
     7. Guardar.
 5. Navegar a "Networking" y configurar:
-    1. "Known proxies": "nginx".
+    1. "Known proxies": "nginx". Si no se va a exponer el servidor al internet, puede omitir este paso.
     2. Guardar.
 6. Navegar a "Plugins" > "Catalog" y configurar.
     1. Si va a haber Anime en su colección, instalar "AniDB" y "AniList".

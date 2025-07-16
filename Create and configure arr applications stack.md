@@ -23,9 +23,8 @@ We will prepare the anonymous VPN configuration file that qBittorrent requires; 
 5. Replace the XXX with the `uid` and `gid` of the user `mediacenter`. You can use `id mediacenter` to get the `uid` and `gid`.
 6. If a GPU is not going to be used, delete the `runtime` and `deploy` sections of the `jellyfin` container.
 7. If you are going to use OpenVPN for bittorrent, update the `qbittorrent` container according to the official guide.
-8. If you are not going to expose the server to the internet, remove the `nginx` network.
-9. Copy all contents of the file to the clipboard. Save and exit with `Ctrl + X, Y, Enter`.
-10. Add stack in Portainer from the browser.
+8. Copy all contents of the file to the clipboard. Save and exit with `Ctrl + X, Y, Enter`.
+9. Add stack in Portainer from the browser.
     1. Access Portainer through https://192.168.1.253:9443. If you get a security alert, you can accept the risk since Portainer uses a self-signed SSL certificate.
     2. Click "Get Started" and then select "local."
     3. Select "Stacks" and create a new stack.
@@ -194,7 +193,7 @@ We will prepare the anonymous VPN configuration file that qBittorrent requires; 
     6. If you like, you can configure other parameters to your liking.
     7. Save.
 5. Navigate to "Networking" and configure:
-    1. "Known proxies": "nginx".
+    1. "Known proxies": "nginx". If you are not going to expose the server to the internet, you can skip this step.
     2. Save.
 6. Navigate to "Plugins" > "Catalog" and configure.
     1. If there will be Anime in your collection, install "AniDB" and "AniList".

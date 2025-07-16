@@ -68,7 +68,7 @@ We will configure the public traffic Docker stack; we will configure the firewal
         4. Repeat this step for Bazarr, Home Assistant, Jellyseerr, Prowlarr, Radarr, Sonarr and qBittorrent. **Do not expose Portainer or Cockpit with Nginx!**
 9. Configure Home Assistant to allow traffic redirected by the Nginx Reverse Proxy.
     1. Edit Home Assistant configuration: `nano /Apps/homeassistant/configuration.yaml`.
-    2. Add the following section to the end of the file. We allow proxies from the `172.21.3.0/24` network which is the `nginx` network that we configured in the stack in Portainer.
+    2. Add the following section to the end of the file. We allow proxies from the `172.21.1.0/24` network which is the `homeassistant` network that we configured in the stack in Portainer.
         ```yml
         http:
             use_x_forwarded_for: true

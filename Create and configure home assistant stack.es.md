@@ -12,20 +12,19 @@ Configuraremos el stack de Docker de Home Assistant y levantaremos el stack a tr
 1. Ejecutar: `./scripts/create_home_assistant_folder.sh` para generar el directorio del contenedor en el SSD.
 2. Editar el archivo del stack: `nano ./files/home-assistant-stack.yml`.
 3. Reemplazar `TZ=America/New_York` por el huso horario de su sistema. Puede usar esta lista como referencia: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
-4. Si no se va a exponer el servidor al internet, quitar la red de `nginx`.
-5. Ajustar el atributo `ipv4_address` en el contenedor `homeassistant` con un IP en el rango no asignable por el DHCP. Por ejemplo 192.168.1.11.
-6. Copiar todo el contenido del archivo al portapapeles. Guardar y salir con `Ctrl + X, Y, Enter`.
-7. Agregar stack en Portainer desde el navegador.
+4. Ajustar el atributo `ipv4_address` en el contenedor `homeassistant` con un IP en el rango no asignable por el DHCP. Por ejemplo 192.168.1.11.
+5. Copiar todo el contenido del archivo al portapapeles. Guardar y salir con `Ctrl + X, Y, Enter`.
+6. Agregar stack en Portainer desde el navegador.
     1. Acceder a Portainer a través de https://192.168.1.253:9443. Si sale una alerta de seguridad, puede aceptar el riesgo ya que Portainer usa un certificado de SSL autofirmado.
     2. Darle clic en "Get Started" y luego seleccionar "local".
     3. Seleccionar "Stacks" y crear un nuevo stack.
     4. Ponerle nombre "home-assistant" y pegar el contenido del home-assistant-stack.yml que copió al portapapeles y crear el stack. Desde ahora modificaciones al stack se deben de hacer a través de Portainer y no en el archivo.
-8. Acceder a Home Assistant a través de http://192.168.1.11:8123.
-9. Usar el asistente para crear una cuenta de usuario y contraseña. Se recomienda nuevamente el uso de Bitwarden para lo mismo.
-10. Configurar con el asistente nombre de la instancia de Home Assistant y sus datos y preferencias.
-11. Escoja si quiere mandar datos de uso a la pagina de Home Assistant.
-12. Finalizar el asistente.
-13. Configurar Webhook para notificaciones.
+7. Acceder a Home Assistant a través de http://192.168.1.11:8123.
+8. Usar el asistente para crear una cuenta de usuario y contraseña. Se recomienda nuevamente el uso de Bitwarden para lo mismo.
+9. Configurar con el asistente nombre de la instancia de Home Assistant y sus datos y preferencias.
+10. Escoja si quiere mandar datos de uso a la pagina de Home Assistant.
+11. Finalizar el asistente.
+12. Configurar Webhook para notificaciones.
     1. Navegar a "Settings" > "Automations & Scenes".
     2. Hacer clic en "Create Automation".
     3. Hacer clic en "Create new Automation".
