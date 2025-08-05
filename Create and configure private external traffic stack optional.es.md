@@ -5,7 +5,7 @@
 
 Si no se va a usar una VPN local, puede omitir esta sección.
 
-Configuraremos el stack de Docker de tráfico privado; configuraremos el cortafuegos para permitir el puerto necesario; y levantaremos el stack a través de Portainer. Haremos Port Forwarding del puerto 51820 para WireGuard. Finalmente, configuraremos los clientes que se van a conectar a ella. Esto se puede hacer de 2 formas: a través de un código QR o a través de un archivo `.conf`. Una vez conectados a esta VPN, podremos acceder a servicios que no expusimos públicamente con nuestro Reverse Proxy como Portainer y Cockpit, los cuales son demasiado críticos como para exponer a ataques en la internet publica. El stack consiste del siguiente contenedor:
+Configuraremos el stack de Docker de tráfico privado; configuraremos el cortafuegos para permitir el puerto necesario; y levantaremos el stack a través de Portainer. Haremos Port Forwarding del puerto 51820 para WireGuard. Finalmente, configuraremos los clientes que se van a conectar a ella. Esto se puede hacer de 2 formas: a través de un código QR o a través de un archivo `.conf`. Una vez conectados a esta VPN, podremos acceder a servicios que no expusimos públicamente con nuestro Reverse Proxy como Portainer y Cockpit, los cuales son demasiado críticos como para exponer a ataques en la internet pública. El stack consiste del siguiente contenedor:
 
 - WireGuard: VPN para la red local.
 
@@ -23,7 +23,7 @@ Configuraremos el stack de Docker de tráfico privado; configuraremos el cortafu
 7. Copiar todo el contenido del archivo al portapapeles. Guardar y salir con `Ctrl + X, Y, Enter`.
 8. Ejecutar: `./scripts/wireguard_firewalld_services.sh`. Configura Firewalld para WireGuard. El script abre el puerto para WireGuard.
 9. Agregar stack en Portainer desde el navegador.
-    1. Acceder a Portainer a través de https://192.168.1.253:9443. Si sale una alerta de seguridad, puede aceptar el riesgo ya que Portainer usa un certificado de SSL autofirmado.
+    1. Acceder a Portainer a través de https://portainer.micasa.duckdns.org.
     2. Darle clic en "Get Started" y luego seleccionar "local".
     3. Seleccionar "Stacks" y crear un nuevo stack.
     4. Ponerle nombre "private-traffic" y pegar el contenido del private-traffic-stack.yml que copió al portapapeles y crear el stack. Desde ahora modificaciones al stack se deben de hacer a través de Portainer y no en el archivo.
@@ -45,6 +45,6 @@ Configuraremos el stack de Docker de tráfico privado; configuraremos el cortafu
     4. Regresar a la consola del dispositivo cliente con `exit` o abrir una nueva consola.
     5. Creamos el archivo de configuración para una red virtual con nombre `wg0`: `sudo nano /etc/wireguard/wg0.conf`.
     6. Pegar el contenido del portapapeles. Guardar y salir con `Ctrl + X, Y, Enter`.
-    7. Si desea probar que funciona correctamente, desconectar su dispositivo de la red local (conectarse a su red Wifi de invitado o desde la red publica de un café o use su celular como módem) y habilitar la red virtual `wg0` con: `wg-quick up wg0`. Intentar acceder a una IP de su red local.
+    7. Si desea probar que funciona correctamente, desconectar su dispositivo de la red local (conectarse a su red Wifi de invitado o desde la red pública de un café o use su celular como módem) y habilitar la red virtual `wg0` con: `wg-quick up wg0`. Intentar acceder a una IP de su red local.
 
-[<img width="33.3%" src="buttons/prev-Create and configure home assistant stack.es.svg" alt="Crear y configurar stack de Home Assistant">](Create%20and%20configure%20home%20assistant%20stack.es.md)[<img width="33.3%" src="buttons/jump-Index.es.svg" alt="Índice">](README.es.md)[<img width="33.3%" src="buttons/next-Create and configure arr applications stack.es.svg" alt="Crear y configurar stack de aplicaciones arr">](Create%20and%20configure%20arr%20applications%20stack.es.md)
+[<img width="33.3%" src="buttons/prev-Create and configure home assistant stack.es.svg" alt="Crear y configurar stack de Home Assistant">](Create%20and%20configure%20home%20assistant%20stack.es.md)[<img width="33.3%" src="buttons/jump-Index.es.svg" alt="Índice">](README.es.md)[<img width="33.3%" src="buttons/next-Configure scheduled tasks.es.svg" alt="Configurar tareas programadas">](Configure%20scheduled%20tasks.es.md)

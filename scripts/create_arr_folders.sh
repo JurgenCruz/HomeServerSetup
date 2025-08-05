@@ -8,6 +8,7 @@ mkdir /Apps/prowlarr
 mkdir -p /Apps/qbittorrent/wireguard
 mkdir /Apps/radarr
 mkdir /Apps/sonarr
+mkdir /Apps/gotify
 chown mediacenter:mediacenter /Apps/bazarr
 chmod 774 /Apps/bazarr
 chown -R mediacenter:mediacenter /Apps/jellyfin
@@ -22,3 +23,5 @@ chown mediacenter:mediacenter /Apps/radarr
 chmod 774 /Apps/radarr
 chown mediacenter:mediacenter /Apps/sonarr
 chmod 774 /Apps/sonarr
+chown mediacenter:mediacenter /Apps/gotify
+chmod 774 /Apps/gotify

@@ -16,7 +16,7 @@ Technitium is a DNS and DHCP server that runs from a Docker container. We will c
 5. Copy all contents of the file to the clipboard. Save and exit with `Ctrl + X, Y, Enter`.
 6. Run: `./scripts/dns_firewalld_services.sh`. Configure Firewalld for containers. The script opens the port for DNS for Technitium.
 7. Add stack in Portainer from the browser.
-    1. Access Portainer through https://192.168.1.253:9443. If you get a security alert, you can accept the risk since Portainer uses a self-signed SSL certificate.
+    1. Access Portainer through https://server.lan:9443. If you get a security alert, you can accept the risk since Portainer uses a self-signed SSL certificate.
     2. Click "Get Started" and then select "local."
     3. Select "Stacks" and create a new stack.
     4. Name it "technitium" and paste the content of the docker-compose.yml that you copied to the clipboard and create the stack. From now on, modifications to the stack must be made through Portainer and not in the file.
@@ -44,7 +44,7 @@ Technitium is a DNS and DHCP server that runs from a Docker container. We will c
     5. `Name`: `server`. This will configure our server in our `lan` domain since our server has static IP and doesn't use DHCP.
     6. `IPv4 Address`: `192.168.1.253`. Use the static IP you assigned to your server.
     7. Click the `Add Record` button.
-    8. `Name`: `homeassistant`. This will configure Home Assistant in our `lan` domain since it has static IP and doesn't use DHCP.
+    8. `Name`: `homeassistant`. This will configure Home Assistant in our `lan` domain with a static IP since it won't use DHCP. We have not created Home Assistant service yet, but it will have its IP ready.
     9. `IPv4 Address`: `192.168.1.11`. Use the static IP you assigned to Home Assistant in `home-assistant-stack.yml`.
     10. Click the `Add Record` button.
     11. `Name`: `technitium`. This will configure Technitium in our `lan` domain since it doesn't add itself.

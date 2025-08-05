@@ -17,13 +17,13 @@ We will create an auxiliary macvlan network to be able to communicate with Home 
     1. Set the `parent` attribute with the device you used to create the auxiliary macvlan network before. For example`enp1s0`.
     2. Set the `subnet` attribute with your local network's range.
     3. Set the `gateway` attribute with your router's IP.
-    4. Set the`ip_range` attribute with your local network's range that the DHCP does not assign. The guide configured Technitium not to assign the first 64 addresses, thus we use a range of 192.168.1.0/27. If you configured your DHCP with another non-assignable range, use that here.
+    4. Set the`ip_range` attribute with your local network's range that the DHCP does not assign. The guide will configure the DHCP not to assign the first 64 addresses, thus we use a range of 192.168.1.0/27. If you will configure your DHCP with another non-assignable range, use that here.
     5. Set the `host` attribute with the server's IP in the auxiliary macvlan network.
 6. Copy all contents of the file to the clipboard. Save and exit with `Ctrl + X, Y, Enter`.
 7. Add stack in Portainer from the browser.
-    1. Access Portainer through https://192.168.1.253:9443. If you get a security alert, you can accept the risk since Portainer uses a self-signed SSL certificate.
+    1. Access Portainer through https://server.lan:9443. If you get a security alert, you can accept the risk since Portainer uses a self-signed SSL certificate.
     2. Click "Get Started" and then select "local."
     3. Select "Stacks" and create a new stack.
     4. Name it "networks" and paste the content of the network-stack.yml that you copied to the clipboard and create the stack. From now on, modifications to the stack must be made through Portainer and not in the file.
 
-[<img width="33.3%" src="buttons/prev-Install docker.svg" alt="Install Docker">](Install%20docker.md)[<img width="33.3%" src="buttons/jump-Index.svg" alt="Index">](README.md)[<img width="33.3%" src="buttons/next-Create and configure nextcloud stack.svg" alt="Create and configure Nextcloud stack">](Create%20and%20configure%20nextcloud%20stack.md)
+[<img width="33.3%" src="buttons/prev-Install docker.svg" alt="Install Docker">](Install%20docker.md)[<img width="33.3%" src="buttons/jump-Index.svg" alt="Index">](README.md)[<img width="33.3%" src="buttons/next-Configure dns.svg" alt="Configure DNS">](Configure%20dns.md)

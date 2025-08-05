@@ -19,7 +19,7 @@ We will configure Technitium as a DHCP server so that it is able to assign itsel
 10. Click the `Enable` button on the `Default` scope row.
 11. Navigate to your router's web portal.
 12. Disable DHCP so that it won't collide with Technitium's.
-13. Deshabilitar IPv6 porque Technitium solo puede hacer IPv4 con la configuración establecida y es mas complejo configurarlo para IPv6.
+13. Deshabilitar IPv6 porque Technitium solo puede hacer IPv4 con la configuración establecida y es más complejo configurarlo para IPv6.
 14. Verify that the Technitium's DHCP is working (connect a device to the network and verify that it was assigned an IP in the configured range and that the DNS is the server's IP).
 
-[<img width="33.3%" src="buttons/prev-Configure technitium dns.svg" alt="Configure Technitium DNS">](Configure%20technitium%20dns.md)[<img width="33.3%" src="buttons/jump-Index.svg" alt="Index">](README.md)[<img width="33.3%" src="buttons/next-Create and configure public external traffic stack optional.svg" alt="Create and configure public external traffic stack (Optional)">](Create%20and%20configure%20public%20external%20traffic%20stack%20optional.md)
+[<img width="33.3%" src="buttons/prev-Configure technitium dns.svg" alt="Configure Technitium DNS">](Configure%20technitium%20dns.md)[<img width="33.3%" src="buttons/jump-Index.svg" alt="Index">](README.md)[<img width="33.3%" src="buttons/next-Create and configure public external traffic stack optional.svg" alt="Create and configure public external traffic stack">](Create%20and%20configure%20public%20external%20traffic%20stack.md)

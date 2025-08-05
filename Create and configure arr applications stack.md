@@ -5,6 +5,7 @@
 
 We will prepare the anonymous VPN configuration file that qBittorrent requires; we will configure the arr apps Docker stack; and we will bring the stack up through Portainer. The stack consists of the following containers:
 
+- Gotify: Notification engine.
 - qBittorrent: Download manager through the bittorrent protocol.
 - Sonarr: Series manager.
 - Radarr: Movie manager.
@@ -25,14 +26,29 @@ We will prepare the anonymous VPN configuration file that qBittorrent requires; 
 7. If you are going to use OpenVPN for bittorrent, update the `qbittorrent` container according to the official guide.
 8. Copy all contents of the file to the clipboard. Save and exit with `Ctrl + X, Y, Enter`.
 9. Add stack in Portainer from the browser.
-    1. Access Portainer through https://192.168.1.253:9443. If you get a security alert, you can accept the risk since Portainer uses a self-signed SSL certificate.
-    2. Click "Get Started" and then select "local."
+    1. Access Portainer through https://portainer.myhome.duckdns.org.
+    2. Click "Get Started" and then select "local".
     3. Select "Stacks" and create a new stack.
     4. Name it "arr" and paste the content of the docker-compose.yml that you copied to the clipboard and create the stack. From now on, modifications to the stack must be made through Portainer and not in the file.
 
+## Configure Gotify
+
+1. Access Gotify through https://gotify.myhome.duckdns.org.
+2. Use `admin` and `admin` as username and password.
+3. Click on `Admin` on the top and change the password to a more secure one. It is again recommended to use Bitwarden for the same.
+4. Click on `Apps` on the top and create 3 Apps:
+
+   |      Name      |         Description          | Priority |
+   |:--------------:|:----------------------------:|:--------:|
+   | Home Assistant | Home Assistant notifications |    0     |
+   |      Arr       |      Arr notifications       |    0     |
+   |      NAS       |   NAS system notifications   |    8     |
+
+5. Copy and write down the tokens generated for each App.
+
 ## Configure qBittorrent
 
-1. Access qBittorrent through http://192.168.1.253:10095.
+1. Access qBittorrent through https://qbittorrent.myhome.duckdns.org.
 2. Use `admin` and `adminadmin` as username and password.
 3. Click the `Options` button.
 4. Configure `Downloads` tab. Make the following changes:
@@ -64,7 +80,7 @@ We will prepare the anonymous VPN configuration file that qBittorrent requires; 
 
 ## Configure Radarr
 
-1. Access Radarr through http://192.168.1.253:7878.
+1. Access Radarr through https://radarr.myhome.duckdns.org.
 2. Set password. It is again recommended to use Bitwarden for the same. Leave the authentication method as `Forms` and do not disable authentication.
 3. Navigate to "Settings" > "Media Management" and configure.
     1. "Standard Movie Format": `{Movie CleanTitle} {(Release Year)} [imdbid-{ImdbId}] - {Edition Tags }{[Custom Formats]}{[Quality Full]}{[MediaInfo 3D]}{ [MediaInfo VideoDynamicRangeType]}{[Mediainfo AudioCodec}{ Mediainfo AudioChannels}]{MediaInfo AudioLanguages}[{MediaInfo VideoBitDepth}bit][{Mediainfo VideoCodec}]{-Release Group}`.
@@ -76,14 +92,22 @@ We will prepare the anonymous VPN configuration file that qBittorrent requires; 
     4. "Host": "qbittorrent".
     5. "Port": "8080".
     6. "Category": "movies".
-    7. Click "Test" and then "Save."
-5. Navigate to "Settings" > "General".
-6. Copy the API Key to a notepad as we will need it later.
-7. To configure the "Profiles", "Quality" and "Custom Formats" tabs, it is recommended to use the following guide: https://trash-guides.info/Radarr/
+    7. Click "Test" and then "Save".
+5. Navigate to "Settings" > "Connect" and configure.
+    1. Add new connection.
+    2. Select "Gotify".
+    3. "Name": "Gotify".
+    4. Enable the triggers you wish to receive notifications for.
+    5. "Gotify Server": "http://gotify".
+    6. "App Token": Enter the token you generated in Gotify for Arr Apps.
+    7. Click "Test" and then "Save".
+6. Navigate to "Settings" > "General".
+7. Copy the API Key to a notepad as we will need it later.
+8. To configure the "Profiles", "Quality" and "Custom Formats" tabs, it is recommended to use the following guide: https://trash-guides.info/Radarr/
 
 ## Configure Sonarr
 
-1. Access Sonarr through http://192.168.1.253:8989.
+1. Access Sonarr through https://sonarr.myhome.duckdns.org.
 2. Set password. It is again recommended to use Bitwarden for the same. Leave the authentication method as `Forms` and do not disable authentication.
 3. Navigate to "Settings" > "Media Management" and configure.
     1. "Standard Episode Format": `{Series TitleYear} - S{season:00}E{episode:00} - {Episode CleanTitle} [{Custom Formats }{Quality Full}]{[MediaInfo VideoDynamicRangeType]}{[Mediainfo AudioCodec}{ Mediainfo AudioChannels]}{[MediaInfo VideoCodec]}{-Release Group}`.
@@ -99,13 +123,21 @@ We will prepare the anonymous VPN configuration file that qBittorrent requires; 
     5. "Port": "8080".
     6. "Category": "tv".
     7. Click "Test" and then "Save."
-5. Navigate to "Settings" > "General".
-6. Copy the API Key to a notepad as we will need it later.
-7. To configure the "Profiles", "Quality" and "Custom Formats" tabs, it is recommended to use the following guide: https://trash-guides.info/Sonarr/
+5. Navigate to "Settings" > "Connect" and configure.
+    1. Add new connection.
+    2. Select "Gotify".
+    3. "Name": "Gotify".
+    4. Enable the triggers you wish to receive notifications for.
+    5. "Gotify Server": "http://gotify".
+    6. "App Token": Enter the token you generated in Gotify for Arr Apps.
+    7. Click "Test" and then "Save".
+6. Navigate to "Settings" > "General".
+7. Copy the API Key to a notepad as we will need it later.
+8. To configure the "Profiles", "Quality" and "Custom Formats" tabs, it is recommended to use the following guide: https://trash-guides.info/Sonarr/
 
 ## Configure Prowlarr
 
-1. Access Prowlarr through http://192.168.1.253:8989.
+1. Access Prowlarr through https://prowlarr.myhome.duckdns.org.
 2. Set password. It is again recommended to use Bitwarden for the same. Leave the authentication method as `Forms` and do not disable authentication.
 3. Navigate to "Settings" > "Indexers" and configure.
     1. Add new proxy.
@@ -148,10 +180,18 @@ We will prepare the anonymous VPN configuration file that qBittorrent requires; 
     4. "Tags": Add "sonarr" if you want to use this indexer with Sonarr. Add "radarr" if you want to use this indexer with Radarr. Add "proxy" if this indexer requires FlareSolverr.
     5. Click "Test" and then "Save."
     6. Repeat the steps for any other indexers you want. Prowlarr will push the indexers' details to Radarr and Sonarr.
+7. Navigate to "Settings" > "Notifications" and configure.
+    1. Add new connection.
+    2. Select "Gotify".
+    3. "Name": "Gotify".
+    4. Enable the triggers you wish to receive notifications for.
+    5. "Gotify Server": "http://gotify".
+    6. "App Token": Enter the token you generated in Gotify for Arr Apps.
+    7. Click "Test" and then "Save".
 
 ## Configure Bazarr
 
-1. Access Bazarr through http://192.168.1.253:6767.
+1. Access Bazarr through https://bazarr.myhome.duckdns.org.
 2. Set password. It is again recommended to use Bitwarden for the same. Leave the authentication method as `Forms` and do not disable authentication.
 3. Navigate to "Settings" > "Languages" and configure.
     1. "Languages Filter": Select the languages you are interested in downloading. It's a good idea to have a backup language in case one doesn't exist for your preferred one.
@@ -177,11 +217,17 @@ We will prepare the anonymous VPN configuration file that qBittorrent requires; 
     3. "Host" > "Port": "7878".
     4. "Host" > "API Key": Paste the Radarr API Key that we copied before.
     5. Click "Test" and then "Save."
-7. To configure other tabs, it is recommended to use the following guide: https://trash-guides.info/Bazarr/
+7. Navigate to "Settings" > "Notifications" and configure.
+    1. Add new connection.
+    2. Select "Gotify".
+    3. "URL": "gotify://gotify/{token}". Replace `{token}` with the token you generated in Gotify for Arr Apps.
+    4. Click "Test" and then "Save".
+    5. Click "Save" at the top.
+8. To configure other tabs, it is recommended to use the following guide: https://trash-guides.info/Bazarr/
 
 ## Configure Jellyfin
 
-1. Access Jellyfin through http://192.168.1.253:8096.
+1. Access Jellyfin through https://jellyfin.myhome.duckdns.org.
 2. Follow the wizard to create a new username and password. It is again recommended to use Bitwarden for the same.
 3. Open side panel and navigate to "Administration" > "Dashboard".
 4. If you have GPU, navigate to "Playback" and configure.
@@ -226,7 +272,7 @@ We will prepare the anonymous VPN configuration file that qBittorrent requires; 
 
 ## Configure Jellyseerr
 
-1. Access Jellyseerr through http://192.168.1.253:5055.
+1. Access Jellyseerr through https://jellyseerr.myhome.duckdns.org.
 2. Login with Jellyfin.
     1. Click "Use Jellyfin Account".
     2. "Jellyfin URL": "http://jellyfin:8096"
@@ -267,6 +313,14 @@ We will prepare the anonymous VPN configuration file that qBittorrent requires; 
     1. Navigate to "Users".
     2. Click on "Import Jellyfin Users".
     3. You can configure users by clicking "Edit" in the row of the user you want to configure.
-6. If you wish to configure more options, Navigate to "Settings" and make the desired changes.
+6. Navigate to "Settings" > "Notifications" and configure.
+    1. Select "Gotify".
+    2. Enable Agent.
+    3. "Server URL": "http://gotify".
+    4. "Application Token": Enter the token you generated in Gotify for Arr Apps.
+    5. "Priority": 5.
+    6. Enable the triggers you wish to receive notifications for.
+    7. Click "Test" and then "Save Changes".
+7. If you wish to configure more options, Navigate to "Settings" and make the desired changes.
 
-[<img width="33.3%" src="buttons/prev-Create and configure private external traffic stack optional.svg" alt="Create and configure private external traffic stack (Optional)">](Create%20and%20configure%20private%20external%20traffic%20stack%20optional.md)[<img width="33.3%" src="buttons/jump-Index.svg" alt="Index">](README.md)[<img width="33.3%" src="buttons/next-Configure dns.svg" alt="Configure DNS">](Configure%20dns.md)
+[<img width="33.3%" src="buttons/prev-Create and configure nextcloud stack.svg" alt="Create and configure Nextcloud stack">](Create%20and%20configure%20nextcloud%20stack.md)[<img width="33.3%" src="buttons/jump-Index.svg" alt="Index">](README.md)[<img width="33.3%" src="buttons/next-Create and configure home assistant stack.svg" alt="Create and configure Home Assistant stack">](Create%20and%20configure%20home%20assistant%20stack.md)

@@ -10,6 +10,7 @@
 - Samba shares for multimedia files: Samba allows remote access to NAS files securely and compatible with multiple operating systems. Allows the use of ACLs to specify file access permissions and ensure privacy.
 - Nextcloud for multi-user file backup: Nextcloud allows file access and syncing across multiple devices and supports different users for better privacy.
 - Docker as a containerization engine: Docker is the most used and simplest containerization engine. To keep the server accessible, we are going to avoid using other more complex engines such as Kubernetes and Podman.
+- Gotify as notifications engine: Gotify allows communication between services and clients through websockets and push notifications with no dependency on third-parties.
 - ARR application ecosystem: This group of microservices provides a home entertainment system with access to movies and series that is completely automated and customizable with an intuitive interface and complete control.
 - Technitium as DNS and DHCP server: Technitium helps us block domains from advertising, tracking and malware while allowing us to configure split horizon DNS and DHCP in a single service.
 - Home Assistant as a home automation system: Home Assistant is free software and completely independent of the cloud, providing privacy, security and complete control of your home.

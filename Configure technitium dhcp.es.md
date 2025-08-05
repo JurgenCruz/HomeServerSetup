@@ -3,7 +3,7 @@
 [![en](https://img.shields.io/badge/lang-en-blue.svg)](Configure%20technitium%20dhcp.md)
 [![es](https://img.shields.io/badge/lang-es-blue.svg)](Configure%20technitium%20dhcp.es.md)
 
-Configuraremos Technitium como servidor DHCP para que pueda autoasignarse como DNS ya que el router no nos permite cambiar el DNS del DHCP. Configuraremos el cortafuegos para permitir los puertos necesarios; deshabilitaremos IPv6 ya que complicaría demasiado la configuración; y finalmente, desactivaremos el DHCP del router.
+Configuraremos Technitium como servidor DHCP para que pueda autoasignarse como DNS ya que el router no nos permite cambiar el DNS del DHCP. Configuraremos el cortafuegos para permitir los puertos necesarios; deshabilitaremos IPv6, ya que complicaría demasiado la configuración; y finalmente, desactivaremos el DHCP del router.
 
 ## Pasos
 
@@ -22,4 +22,4 @@ Configuraremos Technitium como servidor DHCP para que pueda autoasignarse como D
 13. Disable IPv6 because Technitium can only do IPv4 with the established configuration and it is more complex to configure it for IPv6.
 14. Verificar que el DHCP de Technitium esté funcionando (conectar un dispositivo a la red y verificar que se le asignara un IP en el rango configurado y que el DNS sea la IP del servidor).
 
-[<img width="33.3%" src="buttons/prev-Configure technitium dns.es.svg" alt="Configurar DNS de Technitium">](Configure%20technitium%20dns.es.md)[<img width="33.3%" src="buttons/jump-Index.es.svg" alt="Índice">](README.es.md)[<img width="33.3%" src="buttons/next-Create and configure public external traffic stack optional.es.svg" alt="Crear y configurar stack de tráfico externo público (Opcional)">](Create%20and%20configure%20public%20external%20traffic%20stack%20optional.es.md)
+[<img width="33.3%" src="buttons/prev-Configure technitium dns.es.svg" alt="Configurar DNS de Technitium">](Configure%20technitium%20dns.es.md)[<img width="33.3%" src="buttons/jump-Index.es.svg" alt="Índice">](README.es.md)[<img width="33.3%" src="buttons/next-Create and configure public external traffic stack optional.es.svg" alt="Crear y configurar stack de tráfico externo público">](Create%20and%20configure%20public%20external%20traffic%20stack.es.md)

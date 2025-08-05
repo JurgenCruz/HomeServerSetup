@@ -29,8 +29,8 @@ services:
       - BEAM_SIZE=5
     networks:
       - homeassistant
-    ports:
-      - 10300:10300
+    #ports:
+    #  - 10300:10300
     volumes:
       - /Apps/whisper:/data:Z
     runtime: nvidia
@@ -49,8 +49,8 @@ services:
   #     - TZ=America/New_York
   #   networks:
   #     - homeassistant
-  #   ports:
-  #     - 10300:10300
+  ##   ports:
+  ##     - 10300:10300
   #   volumes:
   #     - /Apps/whisper:/data:Z
   #   command: [ "--model", "medium-int8", "--language", "en" ]
@@ -63,8 +63,8 @@ services:
       - PIPER_VOICE=en_US-hfc_female-medium
     networks:
       - homeassistant
-    ports:
-      - 10200:10200
+    #ports:
+    #  - 10200:10200
     volumes:
       - /Apps/piper:/data:Z
     runtime: nvidia
@@ -83,8 +83,8 @@ services:
   #     - TZ=America/New_York
   #   networks:
   #     - homeassistant
-  #   ports:
-  #     - 10200:10200
+  ##   ports:
+  ##     - 10200:10200
   #   volumes:
   #     - /Apps/piper:/data:Z
   #   command: [ "--voice", "en_US-hfc_female-medium" ]
@@ -96,8 +96,8 @@ services:
       - TZ=America/New_York
     networks:
       - homeassistant
-    ports:
-      - 11434:11434
+    #ports:
+    #  - 11434:11434
     volumes:
       - /Apps/ollama:/root/.ollama:Z
     runtime: nvidia
@@ -111,12 +111,7 @@ services:
 networks:
   homeassistant:
     name: homeassistant
-    driver_opts:
-      com.docker.network.bridge.name: br-ha
-    ipam:
-      config:
-        - subnet: 172.21.1.0/24
-          ip_range: 172.21.1.0/24
+    external: true
   lanvlan:
     name: lanvlan
     external: true

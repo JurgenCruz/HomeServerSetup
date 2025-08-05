@@ -9,4 +9,4 @@ Dependiendo de su hardware, el DNS se configurará de manera diferente. Por favo
 
 [<img width="100%" src="buttons/jump-Configure router dns.es.svg" alt="Configurar DNS del router">](Configure%20router%20dns.es.md)
 [<img width="100%" src="buttons/jump-Configure technitium dns.es.svg" alt="Configurar DNS Technitium">](Configure%20technitium%20dns.es.md)
-[<img width="33.3%" src="buttons/prev-Create and configure arr applications stack.es.svg" alt="Crear y configurar stack de aplicaciones arr">](Create%20and%20configure%20arr%20applications%20stack.es.md)[<img width="33.3%" src="buttons/jump-Index.es.svg" alt="Índice">](README.es.md)[<img width="33.3%" src="buttons/next-Configure router dns.es.svg" alt="Configurar DNS del router">](Configure%20router%20dns.es.md)
+[<img width="33.3%" src="buttons/prev-Create shared networks stack.es.svg" alt="Crear stack de redes compartidas">](Create%20shared%20networks%20stack.es.md)[<img width="33.3%" src="buttons/jump-Index.es.svg" alt="Índice">](README.es.md)[<img width="33.3%" src="buttons/next-Configure router dns.es.svg" alt="Configurar DNS del router">](Configure%20router%20dns.es.md)

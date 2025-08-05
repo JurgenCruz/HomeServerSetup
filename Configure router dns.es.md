@@ -3,9 +3,9 @@
 [![en](https://img.shields.io/badge/lang-en-blue.svg)](Configure%20router%20dns.md)
 [![es](https://img.shields.io/badge/lang-es-blue.svg)](Configure%20router%20dns.es.md)
 
-Cada router es diferente, asi que tal vez requiera leer el manual para saber como hacer pasos específicos. La guía va a usar un router con OpenWrt como ejemplo ya que su naturaleza de código abierto se alínea con el espíritu de esta guía.
+Cada router es diferente, asi que tal vez requiera leer el manual para saber como hacer pasos específicos. La guía va a usar un router con OpenWrt como ejemplo, ya que su naturaleza de código abierto se alínea con el espíritu de esta guía.
 
-Configuraremos nuestro DNS ascendente y usaremos DNS-sobre-HTTPS (DoH) para mejor privacidad; configuraremos el rango de IPs del DHCP; estableceremos un IP estático para el servidor; configuraremos el DNS para agregar los dispositivos con IPs estáticos al dominio `lan`; y finalmente, configuraremos el Split Horizon para nuestro subdominio de DuckDNS.org, para poder usarlo desde adentro de nuestra LAN.
+Configuraremos nuestro DNS ascendente y usaremos DNS-sobre-HTTPS (DoH) para mejor privacidad; configuraremos el rango de IPs del DHCP; estableceremos una IP estática para el servidor; configuraremos el DNS para agregar los dispositivos con IPs estáticas al dominio `lan`; y finalmente, configuraremos el Split Horizon para nuestro subdominio de DuckDNS.org, para poder usarlo desde adentro de nuestra LAN.
 
 ## Pasos
 
@@ -38,10 +38,10 @@ Configuraremos nuestro DNS ascendente y usaremos DNS-sobre-HTTPS (DoH) para mejo
     1. Ver el nombre del dispositivo de red físico activo, por ejemplo `enp1s0` o `eth0`: `nmcli device status`. Si existe más de un dispositivo físico, seleccionar el que esté conectado al router con mejor velocidad. Reemplazar en los comandos siguientes `enp1s0` por el dispositivo correcto.
     2. Asignar IP estático y rango CIDR: `nmcli con mod enp1s0 ipv4.addresses 192.168.1.253/24`. Normalmente los routers de hogar usan un rango CIDR de `/24` o su equivalente mascara de subred `255.255.255.0`. Revise el manual de su router para más información.
     3. Deshabilitar cliente DHCP: `nmcli con mod enp1s0 ipv4.method manual`.
-    4. Configurar el IP del router: `nmcli con mod enp1s0 ipv4.gateway 192.168.1.254`. Normalmente el router se asigna un IP estático que es el penúltimo IP del rango de IPs.
+    4. Configurar la IP del router: `nmcli con mod enp1s0 ipv4.gateway 192.168.1.254`. Normalmente el router se asigna un IP estático que es el penúltimo IP del rango de IPs.
     5. Configurar el router como DNS y Cloudflare como DNS de respaldo: `nmcli con mod enp1s0 ipv4.dns "192.168.1.254 1.1.1.1"`. Si gusta usar otro DNS como el de Google, puede cambiarlo.
     6. Reactivar el dispositivo para que surtan efecto los cambios: `nmcli con up enp1s0`. Esto puede terminar la sesión SSH. de ser así, vuelva a hacer `ssh` al servidor.
-7. Agregar servicios con IP estático al dominio `lan`. Como estos no usan DHCP. el router no los agrega a la lista de hosts.
+7. Agregar servicios con IP estática al dominio `lan`. Como estos no usan DHCP. el router no los agrega a la lista de hosts. Aún no hemos creado el servicio de Home Assistant, pero su IP estará lista.
     1. Navegar a "Network" > "DHCP and DNS" > "Hostnames".
     2. Hacer clic en el botón `Add`.
     3. `Hostname`: `server`.
@@ -57,4 +57,4 @@ Configuraremos nuestro DNS ascendente y usaremos DNS-sobre-HTTPS (DoH) para mejo
     2. `Addresses`: `/.micasa.duckdns.org/192.168.1.253`
     3. Hacer clic en el botón `Save & Apply`.
 
-[<img width="33.3%" src="buttons/prev-Configure dns.es.svg" alt="Configurar DNS">](Configure%20dns.es.md)[<img width="33.3%" src="buttons/jump-Index.es.svg" alt="Índice">](README.es.md)[<img width="33.3%" src="buttons/next-Create and configure public external traffic stack optional.es.svg" alt="Crear y configurar stack de tráfico externo público (Opcional)">](Create%20and%20configure%20public%20external%20traffic%20stack%20optional.es.md)
+[<img width="33.3%" src="buttons/prev-Configure dns.es.svg" alt="Configurar DNS">](Configure%20dns.es.md)[<img width="33.3%" src="buttons/jump-Index.es.svg" alt="Índice">](README.es.md)[<img width="33.3%" src="buttons/next-Create and configure public external traffic stack optional.es.svg" alt="Crear y configurar stack de tráfico externo público">](Create%20and%20configure%20public%20external%20traffic%20stack.es.md)

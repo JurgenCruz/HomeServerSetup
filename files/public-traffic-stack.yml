@@ -7,6 +7,7 @@ services:
     environment:
       - TZ=America/New_York
     networks:
+      - portainer
       - homeassistant
       - nextcloud
       - arr
@@ -21,10 +22,29 @@ services:
 networks:
   homeassistant:
     name: homeassistant
-    external: true
+    driver_opts:
+      com.docker.network.bridge.name: br-ha
+    ipam:
+      config:
+        - subnet: 172.21.1.0/24
+          ip_range:
+            172.21.1.0/24
   nextcloud:
     name: nextcloud
-    external: true
+    driver_opts:
+      com.docker.network.bridge.name: br-nextcloud
+    ipam:
+      config:
+        - subnet: 172.21.2.0/24
+          ip_range: 172.21.2.0/24
   arr:
     name: arr
+    driver_opts:
+      com.docker.network.bridge.name: br-arr
+    ipam:
+      config:
+        - subnet: 172.21.3.0/24
+          ip_range: 172.21.3.0/24
+  portainer:
+    name: portainer
     external: true

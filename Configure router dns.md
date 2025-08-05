@@ -41,7 +41,7 @@ We will configure our upstream DNS and use DNS-over-HTTPS (DoH) for better priva
     4. Configure the router IP: `nmcli con mod enp1s0 ipv4.gateway 192.168.1.254`. Normally the router assigns itself a static IP which is the second to last IP in the IP range.
     5. Configure the router as DNS and Cloudflare as fallback DNS: `nmcli con mod enp1s0 ipv4.dns "192.168.1.254 1.1.1.1"`. If you like to use another DNS like Google's, you can change it.
     6. Reactivate the device for the changes to take effect: `nmcli con up enp1s0`. This may terminate the SSH session. if so, `ssh` to the server again.
-7. Add services with static IP to the `lan` domain. Since they don't use DHCP, the router won't add them to the hosts list.
+7. Add services with static IP to the `lan` domain. Since they don't use DHCP, the router won't add them to the hosts list. We have not created Home Assistant service yet, but it will have its IP ready.
     1. Navigate to "Network" > "DHCP and DNS" > "Hostnames".
     2. Click the `Add` button.
     3. `Hostname`: `server`.
@@ -57,4 +57,4 @@ We will configure our upstream DNS and use DNS-over-HTTPS (DoH) for better priva
     2. `Addresses`: `/.myhome.duckdns.org/192.168.1.253`
     3. Click the `Save & Apply` button.
 
-[<img width="33.3%" src="buttons/prev-Configure dns.svg" alt="Configure DNS">](Configure%20dns.md)[<img width="33.3%" src="buttons/jump-Index.svg" alt="Index">](README.md)[<img width="33.3%" src="buttons/next-Create and configure public external traffic stack optional.svg" alt="Create and configure public external traffic stack (Optional)">](Create%20and%20configure%20public%20external%20traffic%20stack%20optional.md)
+[<img width="33.3%" src="buttons/prev-Configure dns.svg" alt="Configure DNS">](Configure%20dns.md)[<img width="33.3%" src="buttons/jump-Index.svg" alt="Index">](README.md)[<img width="33.3%" src="buttons/next-Create and configure public external traffic stack optional.svg" alt="Create and configure public external traffic stack">](Create%20and%20configure%20public%20external%20traffic%20stack.md)

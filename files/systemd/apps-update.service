@@ -5,4 +5,5 @@ OnFailure=notify@Container\x20update\x20and\x20prune\x20failed\x21.service
 [Service]
 Type=oneshot
 ExecStart=apps-update.sh
-ExecStart=docker image prune -f
+ExecStart=docker image prune -af
+ExecStart=docker builder prune -af

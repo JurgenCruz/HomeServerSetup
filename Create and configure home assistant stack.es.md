@@ -20,48 +20,36 @@ Configuraremos el stack de Docker de Home Assistant y levantaremos el stack a tr
 6. Si lo desea, puede cambiar el modelo del contenedor whisper (`medium-int8`) a uno más pequeño o más grande dependiendo de su hardware. Opciones disponibles: `tiny, base, small, medium, large & turbo`.
 7. Copiar todo el contenido del archivo al portapapeles. Guardar y salir con `Ctrl + X, Y, Enter`.
 8. Agregar stack en Portainer desde el navegador.
-    1. Acceder a Portainer a través de https://192.168.1.253:9443. Si sale una alerta de seguridad, puede aceptar el riesgo ya que Portainer usa un certificado de SSL autofirmado.
+    1. Acceder a Portainer a través de https://portainer.micasa.duckdns.org.
     2. Darle clic en "Get Started" y luego seleccionar "local".
     3. Seleccionar "Stacks" y crear un nuevo stack.
     4. Ponerle nombre "home-assistant" y pegar el contenido del home-assistant-stack.yml que copió al portapapeles y crear el stack. Desde ahora modificaciones al stack se deben de hacer a través de Portainer y no en el archivo.
-9. Acceder a Home Assistant a través de http://192.168.1.11:8123.
+9. Acceder a Home Assistant a través de https://homeassistant.micasa.duckdns.org.
 10. Usar el asistente para crear una cuenta de usuario y contraseña. Se recomienda nuevamente el uso de Bitwarden para lo mismo.
 11. Configurar con el asistente nombre de la instancia de Home Assistant y sus datos y preferencias.
 12. Escoja si quiere mandar datos de uso a la pagina de Home Assistant.
 13. Finalizar el asistente.
-14. Configurar Webhook para notificaciones.
-    1. Navegar a "Settings" > "Automations & Scenes".
-    2. Hacer clic en "Create Automation".
-    3. Hacer clic en "Create new Automation".
-    4. Hacer clic en "Add Trigger".
-    5. Buscar "Webhook" y seleccionar.
-    6. Nombrar el trigger "A Problem is reported".
-    7. Cambiar el id del webhook a "notify".
-    8. Hacer clic en el engrane de configuración y habilitar unicamente "POST" y "Only accessible from the local network".
-    9. Hacer clic en "Add Action".
-    10. Buscar "send persistent notification" y seleccionar.
-    11. Hacer clic en el Menú de la acción y seleccionar "Edit in YAML" y agregar lo siguiente:
-        ```yaml
-        alias: Notify Web
-        service: notify.persistent_notification
-        metadata: {}
-        data:
-            title: Issue found in server!
-            message: "Issue in server: {{trigger.json.problem}}"
+14. Configurar Restful Command para notificaciones.
+    1. Editar la configuración de Home Assistant: `nano /Apps/homeassistant/configuration.yaml`.
+    2. Agregar la siguiente sección al final del archivo. Reemplazar `{your_token_here}` con el token generado para Home Assistant en Gotify y `micasa` por su dominio registrado en DuckDNS. Registramos un restful command que se comunica con Gotify para mandar notificaciones.
+        ```yml
+       rest_command:
+            notify_through_gotify:
+                url: "https://gotify.micasa.duckdns.org/message?token={your_token_here}"
+                method: "post"
+                content_type: "application/json"
+                payload: '{ "title": "{{ title }}", "message": "{{ message }}", "priority": {{ priority }} }'
         ```
-    12. Si desea recibir notificaciones en su celular, primero deberá descargar la aplicación a su celular e iniciar sesión en Home Assistant desde él. Después configurar lo siguiente:
-    13. Hacer clic en "Add Action".
-    14. Buscar "mobile" y seleccionar "Send notification via mobile_app".
-    15. Hacer clic en el Menú de la acción y seleccionar "Edit in YAML" y agregar lo siguiente:
-        ```yaml
-        alias: Notify Mobile
-        service: notify.mobile_app_{mobile_name}
-        metadata: {}
-        data:
-            title: Issue found in server!
-            message: "Issue in server: {{trigger.json.problem}}"
+    3. Agregar la siguiente sección al final del archivo. Permitimos proxies de la red `172.21.1.0/24` que es la red de `homeassistant` que configuramos en el stack en Portainer.
+        ```yml
+        http:
+            use_x_forwarded_for: true
+            trusted_proxies:
+                - 172.21.1.0/24
         ```
-    16. Guardar.
+    4. Guardar y salir con `Ctrl + X, Y, Enter`.
+    5. De regreso en Home Assistant, navegar a `Developer tools`.
+    6. Presionar `Restart`. Ahora puede crear automatizaciones que llamen este servicio y recibir notificaciones a través de Gotify.
 15. Configurar el Asistente por Voz.
     1. Navegar a "Settings" > "Devices & Services".
     2. Hacer clic en "Add Integration".
@@ -100,4 +88,4 @@ Configuraremos el stack de Docker de Home Assistant y levantaremos el stack a tr
 > [!TIP]
 > Puede probar su nuevo asistente de voz desde su teléfono mobil con la app de Home Assistant. Desde su Dashboard, hacer clic en los "..." en la parte superior y seleccionar "Assistant" para abrir el Asistente.
 
-[<img width="33.3%" src="buttons/prev-Create and configure nextcloud stack.es.svg" alt="Crear y configurar stack de Nextcloud">](Create%20and%20configure%20nextcloud%20stack.es.md)[<img width="33.3%" src="buttons/jump-Index.es.svg" alt="Índice">](README.es.md)[<img width="33.3%" src="buttons/next-Create and configure private external traffic stack optional.es.svg" alt="Crear y configurar stack de tráfico externo privado (Opcional)">](Create%20and%20configure%20private%20external%20traffic%20stack%20optional.es.md)
+[<img width="33.3%" src="buttons/prev-Create and configure arr applications stack.es.svg" alt="Crear y configurar stack de aplicaciones arr">](Create%20and%20configure%20arr%20applications%20stack.es.md)[<img width="33.3%" src="buttons/jump-Index.es.svg" alt="Índice">](README.es.md)[<img width="33.3%" src="buttons/next-Create and configure private external traffic stack optional.es.svg" alt="Crear y configurar stack de tráfico externo privado (Opcional)">](Create%20and%20configure%20private%20external%20traffic%20stack%20optional.es.md)

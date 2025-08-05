@@ -16,7 +16,7 @@ Technitium es un servidor DNS y DHCP que se ejecuta desde un contenedor de Docke
 5. Copiar todo el contenido del archivo al portapapeles. Guardar y salir con `Ctrl + X, Y, Enter`.
 6. Ejecutar: `./scripts/dns_firewalld_services.sh`. Configura Firewalld para los contenedores. El script abre el puerto para DNS para Technitium.
 7. Agregar stack en Portainer desde el navegador.
-    1. Acceder a Portainer a través de https://192.168.1.253:9443. Si sale una alerta de seguridad, puede aceptar el riesgo ya que Portainer usa un certificado de SSL autofirmado.
+    1. Acceder a Portainer a través de https://server.lan:9443. Si sale una alerta de seguridad, puede aceptar el riesgo ya que Portainer usa un certificado de SSL autofirmado.
     2. Darle clic en "Get Started" y luego seleccionar "local".
     3. Seleccionar "Stacks" y crear un nuevo stack.
     4. Ponerle nombre "technitium" y pegar el contenido del docker-compose.yml que copió al portapapeles y crear el stack. Desde ahora modificaciones al stack se deben de hacer a través de Portainer y no en el archivo.
@@ -44,7 +44,7 @@ Technitium es un servidor DNS y DHCP que se ejecuta desde un contenedor de Docke
     5. `Name`: `server`. Esto configurará nuestro servidor en nuestro dominio `lan` ya que el servidor tiene IP estático y no usa DHCP.
     6. `IPv4 Address`: `192.168.1.253`. Use el IP estático que le asignó al servidor.
     7. Hacer clic en el botón `Add Record`.
-    8. `Name`: `homeassistant`. Esto configurará Home Assistant en nuestro dominio `lan` ya que tiene IP estático y no usa DHCP.
+    8. `Name`: `homeassistant`. Esto configurará Home Assistant en nuestro dominio `lan` con una IP estática ya que no usará DHCP. Aún no hemos creado el servicio de Home Assistant, pero su IP estará lista.
     9. `IPv4 Address`: `192.168.1.11`. Use el IP estático que le asignó a Home Assistant en `home-assistant-stack.yml`.
     10. Hacer clic en el botón `Add Record`.
     11. `Name`: `technitium`. Esto configurará Technitium en nuestro dominio `lan` ya que no se agrega a si mismo.

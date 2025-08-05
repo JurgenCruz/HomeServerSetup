@@ -46,8 +46,6 @@ services:
     volumes:
       - /Apps/nextcloud/app:/var/www/html:z
       - /mnt/Tank/NextCloud:/var/www/html/data:z
-    ports:
-      - 10098:80
     depends_on:
       - nextcloud-redis
       - nextcloud-db
@@ -70,9 +68,4 @@ services:
 networks:
   nextcloud:
     name: nextcloud
-    driver_opts:
-      com.docker.network.bridge.name: br-nextcloud
-    ipam:
-      config:
-        - subnet: 172.21.2.0/24
-          ip_range: 172.21.2.0/24
+    external: true

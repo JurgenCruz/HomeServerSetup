@@ -5,6 +5,7 @@
 
 Prepararemos el archivo de configuración de la VPN anónima que requiere qBittorrent; configuraremos el stack de Docker de arr apps; y levantaremos el stack a través de Portainer. El stack consiste de los siguientes contenedores:
 
+- Gotify: Motor de notificaciones.
 - qBittorrent: Administrador de descargas a través del protocolo bittorrent.
 - Sonarr: Administrador de series.
 - Radarr: Administrador de películas.
@@ -25,14 +26,29 @@ Prepararemos el archivo de configuración de la VPN anónima que requiere qBitto
 7. Si se va a usar OpenVPN para bittorrent, actualizar el contenedor `qbittorrent` de acuerdo a la guía oficial.
 8. Copiar todo el contenido del archivo al portapapeles. Guardar y salir con `Ctrl + X, Y, Enter`.
 9. Agregar stack en Portainer desde el navegador.
-    1. Acceder a Portainer a través de https://192.168.1.253:9443. Si sale una alerta de seguridad, puede aceptar el riesgo, ya que Portainer usa un certificado de SSL autofirmado.
+    1. Acceder a Portainer a través de https://portainer.micasa.duckdns.org.
     2. Darle clic en "Get Started" y luego seleccionar "local".
     3. Seleccionar "Stacks" y crear un nuevo stack.
     4. Ponerle nombre "arr" y pegar el contenido del docker-compose.yml que copió al portapapeles y crear el stack. Desde ahora modificaciones al stack se deben de hacer a través de Portainer y no en el archivo.
 
+## Configurar Gotify
+
+1. Acceder a Gotify a través de https://gotify.micasa.duckdns.org.
+2. Usar `admin` y `admin` como usuario y contraseña.
+3. Hacer clic en `Admin` en la parte superior y cambiar la contraseña por una más segura. Se recomienda nuevamente el uso de Bitwarden para lo mismo.
+4. Hacer clic en `Apps` en la parte superior y crear 3 Apps:
+
+   |      Name      |         Description          | Priority |
+   |:--------------:|:----------------------------:|:--------:|
+   | Home Assistant | Home Assistant notifications |    0     |
+   |      Arr       |      Aar notifications       |    0     |
+   |      NAS       |   NAS system notifications   |    8     |
+
+5. Copiar y anota los tokens generados para cada App.
+
 ## Configurar qBittorrent
 
-1. Acceder a qBittorrent a través de http://192.168.1.253:10095.
+1. Acceder a qBittorrent a través de https://qbittorrent.micasa.duckdns.org.
 2. Usar `admin` y `adminadmin` como usuario y contraseña.
 3. Hacer clic en el botón `Options`.
 4. Configurar pestaña `Downloads`. Hacer los siguientes cambios:
@@ -64,7 +80,7 @@ Prepararemos el archivo de configuración de la VPN anónima que requiere qBitto
 
 ## Configurar Radarr
 
-1. Acceder a Radarr a través de http://192.168.1.253:7878.
+1. Acceder a Radarr a través de https://radarr.micasa.duckdns.org.
 2. Configurar contraseña. Se recomienda nuevamente el uso de Bitwarden para lo mismo. Dejar el método de autenticación como `Forms` y no deshabilitar la autenticación.
 3. Navegar a "Settings" > "Media Management" y configurar.
     1. "Standard Movie Format": `{Movie CleanTitle} {(Release Year)} [imdbid-{ImdbId}] - {Edition Tags }{[Custom Formats]}{[Quality Full]}{[MediaInfo 3D]}{[MediaInfo VideoDynamicRangeType]}{[Mediainfo AudioCodec}{ Mediainfo AudioChannels}]{MediaInfo AudioLanguages}[{MediaInfo VideoBitDepth}bit][{Mediainfo VideoCodec}]{-Release Group}`.
@@ -77,13 +93,21 @@ Prepararemos el archivo de configuración de la VPN anónima que requiere qBitto
     5. "Port": "8080".
     6. "Category": "movies".
     7. Hacer clic en "Test" y luego "Save".
-5. Navegar a "Settings" > "General".
-6. Copiar el "API Key" a un bloc de notas, ya que lo necesitaremos más tarde.
-7. Para configurar las pestañas de "Profiles", "Quality" y "Custom Formats" se recomienda el uso de la siguiente guía: https://trash-guides.info/Radarr/
+5. Navegar a "Settings" > "Connect" y configurar.
+    1. Agregar nueva conexión.
+    2. Seleccionar "Gotify".
+    3. "Name": "Gotify".
+    4. Habilitar los desencadenantes para los que desee recibir notificaciones.
+    5. "Gotify Server": "http://gotify".
+    6. "App Token": Ingresar el token que se generó en Gotify para las Apps Arr.
+    7. Hacer clic en "Test" y luego "Save".
+6. Navegar a "Settings" > "General".
+7. Copiar el "API Key" a un bloc de notas, ya que lo necesitaremos más tarde.
+8. Para configurar las pestañas de "Profiles", "Quality" y "Custom Formats" se recomienda el uso de la siguiente guía: https://trash-guides.info/Radarr/
 
 ## Configurar Sonarr
 
-1. Acceder a Sonarr a través de http://192.168.1.253:8989.
+1. Acceder a Sonarr a través de https://sonarr.micasa.duckdns.org.
 2. Configurar contraseña. Se recomienda nuevamente el uso de Bitwarden para lo mismo. Dejar el método de autenticación como `Forms` y no deshabilitar la autenticación.
 3. Navegar a "Settings" > "Media Management" y configurar.
     1. "Standard Episode Format": `{Series TitleYear} - S{season:00}E{episode:00} - {Episode CleanTitle} [{Custom Formats }{Quality Full}]{[MediaInfo VideoDynamicRangeType]}{[Mediainfo AudioCodec}{ Mediainfo AudioChannels]}{[MediaInfo VideoCodec]}{-Release Group}`.
@@ -99,13 +123,21 @@ Prepararemos el archivo de configuración de la VPN anónima que requiere qBitto
     5. "Port": "8080".
     6. "Category": "tv".
     7. Hacer clic en "Test" y luego "Save".
-5. Navegar a "Settings" > "General".
-6. Copiar el "API Key" a un bloc de notas, ya que lo necesitaremos más tarde.
-7. Para configurar las pestañas de "Profiles", "Quality" y "Custom Formats" se recomienda el uso de la siguiente guía: https://trash-guides.info/Sonarr/
+5. Navegar a "Settings" > "Connect" y configurar.
+    1. Agregar nueva conexión.
+    2. Seleccionar "Gotify".
+    3. "Name": "Gotify".
+    4. Habilitar los desencadenantes para los que desee recibir notificaciones.
+    5. "Gotify Server": "http://gotify".
+    6. "App Token": Ingresar el token que se generó en Gotify para las Apps Arr.
+    7. Hacer clic en "Test" y luego "Save".
+6. Navegar a "Settings" > "General".
+7. Copiar el "API Key" a un bloc de notas, ya que lo necesitaremos más tarde.
+8. Para configurar las pestañas de "Profiles", "Quality" y "Custom Formats" se recomienda el uso de la siguiente guía: https://trash-guides.info/Sonarr/
 
 ## Configurar Prowlarr
 
-1. Acceder a Prowlarr a través de http://192.168.1.253:8989.
+1. Acceder a Prowlarr a través de https://prowlarr.micasa.duckdns.org.
 2. Configurar contraseña. Se recomienda nuevamente el uso de Bitwarden para lo mismo. Dejar el método de autenticación como `Forms` y no deshabilitar la autenticación.
 3. Navegar a "Settings" > "Indexers" y configurar.
     1. Agregar nuevo proxy.
@@ -148,10 +180,18 @@ Prepararemos el archivo de configuración de la VPN anónima que requiere qBitto
     4. "Tags": Agregar "sonarr" si quiere usar este indexer con Sonarr. Agregar "radarr" si quiere usar este indexer con Radarr. Agregar "proxy" si este indexer necesita de FlareSolverr.
     5. Hacer clic en "Test" y luego "Save".
     6. Repetir los pasos para cualquier otro indexer que desee. Prowlarr empujará los detalles de los indexers a Radarr y Sonarr.
+7. Navegar a "Settings" > "Notifications" y configurar.
+    1. Agregar nueva conexión.
+    2. Seleccionar "Gotify".
+    3. "Name": "Gotify".
+    4. Habilitar los desencadenantes para los que desee recibir notificaciones.
+    5. "Gotify Server": "http://gotify".
+    6. "App Token": Ingresar el token que se generó en Gotify para las Apps Arr.
+    7. Hacer clic en "Test" y luego "Save".
 
 ## Configurar Bazarr
 
-1. Acceder a Bazarr a través de http://192.168.1.253:6767.
+1. Acceder a Bazarr a través de https://bazarr.micasa.duckdns.org.
 2. Configurar contraseña. Se recomienda nuevamente el uso de Bitwarden para lo mismo. Dejar el método de autenticación como `Forms` y no deshabilitar la autenticación.
 3. Navegar a "Settings" > "Languages" y configurar.
     1. "Languages Filter": Seleccionar los idiomas que le interese descargar. Es buena idea tener un idioma de respaldo en caso de que no existan para el de su preferencia.
@@ -177,11 +217,17 @@ Prepararemos el archivo de configuración de la VPN anónima que requiere qBitto
     3. "Host" > "Port": "7878".
     4. "Host" > "API Key": Pegar el API Key de Radarr que copiamos antes.
     5. Hacer clic en "Test" y luego "Save".
-7. Para configurar otras pestañas se recomienda el uso de la siguiente guía: https://trash-guides.info/Bazarr/
+7. Navegar a "Settings" > "Notifications" y configurar.
+    1. Agregar nueva conexión.
+    2. Seleccionar "Gotify".
+    3. "URL": "gotify://gotify/{token}". Reemplazar `{token}` con el token que se generó en Gotify para las Apps Arr.
+    4. Hacer clic en "Test" y luego "Save".
+    5. Hacer clic en "Save" en la parte superior.
+8. Para configurar otras pestañas se recomienda el uso de la siguiente guía: https://trash-guides.info/Bazarr/
 
 ## Configurar Jellyfin
 
-1. Acceder a Jellyfin a través de http://192.168.1.253:8096.
+1. Acceder a Jellyfin a través de https://jellyfin.micasa.duckdns.org.
 2. Seguir el asistente para crear un nuevo usuario y contraseña. Se recomienda nuevamente el uso de Bitwarden para lo mismo.
 3. Abrir panel lateral y navegar a "Administration" > "Dashboard".
 4. Si tiene GPU, navegar a "Playback" y configurar.
@@ -226,7 +272,7 @@ Prepararemos el archivo de configuración de la VPN anónima que requiere qBitto
 
 ## Configurar Jellyseerr
 
-1. Acceder a Jellyseerr a través de http://192.168.1.253:5055.
+1. Acceder a Jellyseerr a través de https://jellyseerr.micasa.duckdns.org.
 2. Ingresar con Jellyfin.
     1. Hacer clic en "Use Jellyfin Account".
     2. "Jellyfin URL": "http://jellyfin:8096"
@@ -267,6 +313,14 @@ Prepararemos el archivo de configuración de la VPN anónima que requiere qBitto
     1. Navegar a "Users".
     2. Hacer clic en "Import Jellyfin Users".
     3. Puede configurar los usuarios haciendo clic en "Edit" en la fila del usuario que desee configurar.
-6. Si desea configurar más opciones, Navegar a "Settings" y hacer los cambios deseados.
+6. Navegar a "Settings" > "Notifications" y configurar.
+    1. Seleccionar "Gotify".
+    2. Habilitar Agente.
+    3. "Server URL": "http://gotify".
+    4. "Application Token": Ingresar el token que se generó en Gotify para las Apps Arr.
+    5. "Priority": 5.
+    6. Habilitar los desencadenantes para los que desee recibir notificaciones.
+    7. Hacer clic en "Test" y luego "Save Changes".
+7. Si desea configurar más opciones, Navegar a "Settings" y hacer los cambios deseados.
 
-[<img width="33.3%" src="buttons/prev-Create and configure private external traffic stack optional.es.svg" alt="Crear y configurar stack de tráfico externo privado (Opcional)">](Create%20and%20configure%20private%20external%20traffic%20stack%20optional.es.md)[<img width="33.3%" src="buttons/jump-Index.es.svg" alt="Índice">](README.es.md)[<img width="33.3%" src="buttons/next-Configure dns.es.svg" alt="Configurar DNS">](Configure%20dns.es.md)
+[<img width="33.3%" src="buttons/prev-Create and configure nextcloud stack.es.svg" alt="Crear y configurar stack de Nextcloud">](Create%20and%20configure%20nextcloud%20stack.es.md)[<img width="33.3%" src="buttons/jump-Index.es.svg" alt="Índice">](README.es.md)[<img width="33.3%" src="buttons/next-Create and configure home assistant stack.es.svg" alt="Crear y configurar stack de Home Assistant">](Create%20and%20configure%20home%20assistant%20stack.es.md)
