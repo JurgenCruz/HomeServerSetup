@@ -45,6 +45,10 @@ We will prepare the anonymous VPN configuration file that qBittorrent requires; 
    |      NAS       |   NAS system notifications   |    8     |
 
 5. Copy and write down the tokens generated for each App.
+6. Optionally, you can upload icons for each App to distinguish at a glance the source of the notification.
+
+> [!TIP]
+> If you want to have a different icon for each Arr App (or if you simply want more granular control), you can register a channel for each Arr App instead of a single `Arr` channel.
 
 ## Configure qBittorrent
 

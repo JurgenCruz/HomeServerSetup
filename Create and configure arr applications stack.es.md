@@ -45,6 +45,10 @@ Prepararemos el archivo de configuración de la VPN anónima que requiere qBitto
    |      NAS       |   NAS system notifications   |    8     |
 
 5. Copiar y anota los tokens generados para cada App.
+6. Opcionalmente, puede subir iconos para cada App para distinguir la fuente de la notificación.
+
+> [!TIP]
+> Si quiere tener un icono diferente para cada App Arr (o si simplemente quiere tener un control más granular), puede registrar un canal por cada App Arr en vez de un solo canal `Arr`.
 
 ## Configurar qBittorrent
 
