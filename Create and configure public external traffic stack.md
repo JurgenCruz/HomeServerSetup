@@ -38,6 +38,7 @@ We will configure the public traffic Docker stack; we will configure the firewal
             - "Pass Auth to Host": enabled.
         3. In the `Access` tab fill out:
             - allow: 192.168.1.0/24. Use your LAN IP range if different.
+            - allow: 10.13.13.0/24. This is for the WireGuard VPN access.
         4. Click `Save`.
     6. Navigate to the “Proxy Hosts” tab and configure all the proxy hosts we will need. For now, only the Cockpit, Portainer and Nginx services exist. The rest will be created later.
         1. For each row in the table below, click `Add Proxy Host` and fill the data. If you don't want to share a service to the internet, you can use the `Private` "Access List" instead of `Public`. In the `SSL` tab always choose `*.myhome.duckdns.org` as `SSL certificate` and enable all options.

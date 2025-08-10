@@ -38,6 +38,7 @@ Configuraremos el stack de Docker de tráfico público; configuraremos el cortaf
             - "Pass Auth to Host": habilitado.
         3. En la pestaña `Access` llenar:
             - allow: 192.168.1.0/24. Usar el rango de IPs de su LAN si es diferente.
+            - allow: 10.13.13.0/24. Esta es para el acceso por la VPN de WireGuard.
         4. Darle clic en `Save`.
     6. Navegar a la pestaña de "Proxy Hosts" y configurar todos los proxy host que necesitaremos. Por el momento, solo los servicios de Cockpit, Portainer y Nginx existen. Los demás los crearemos después.
         1. Por cada fila en la tabla de abajo, darle clic en `Add Proxy Host` y llenar los datos. Si no quiere compartir un servicio en el internet, puede usar el "Access List" `Private` en vez de `Public`. En la pestaña de `SSL` siempre escoger `*.micasa.duckdns.org` creado en el paso 4 como `SSL certificate` y habilitar todas las opciones.
