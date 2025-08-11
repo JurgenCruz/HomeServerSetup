@@ -3,7 +3,10 @@
 [![en](https://img.shields.io/badge/lang-en-blue.svg)](Create%20and%20configure%20private%20external%20traffic%20stack%20optional.md)
 [![es](https://img.shields.io/badge/lang-es-blue.svg)](Create%20and%20configure%20private%20external%20traffic%20stack%20optional.es.md)
 
-If you are not going to use a local VPN, you can skip this section.
+This guide assumes an OpenWrt router is being used. OpenWrt routers have the possibility of running the local VPN directly from the router. This is better because, not only will it offload some work from the server, it also means that if the server were to go down, the VPN would still work and allow you to connect to your server to troubleshoot. If you don't have a VPN capable router however, you can follow this section to run the VPN from the server. If you have an OpenWrt router, you can follow this guide instead: https://openwrt.org/docs/%20guide-user/services/vpn/wireguard/server#luci_web_interface_instructions
+
+> [!NOTE]
+> When following that guide, you can use `10.13.13.1/24` as the subnet instead of `10.0.0.1/24` as the guide recommends so that it matches with this guide. Also, while setting up the `WireGuard Peers`, it is recommended to use a single IP CIDR (e.g. `10.13.13.2/32` instead of `10.0.0.10/24` like the guide suggests) for `Allowed IPs` so a peer gets the same IP assigned everytime. The guide also uses the default `0.0.0.0/0` for `Allowed IPs` during peer configuration generation. If you prefer to have split tunneling like this guide, remove the defaults and instead add `192.168.1.0/24` (use your LAN subnet if different) and `10.13.13.0/24`. Don't forget to change the `endpoint` to `wg.myhome.duckdns.org` when generating the configuration as well.
 
 We will configure the private traffic Docker stack; we will configure the firewall to allow the necessary port; and we will bring the stack up through Portainer. We will do Port Forwarding of port 51820 for WireGuard. Finally, we will configure the clients that are going to connect to it. This can be done in 2 ways: through a QR code or through a `.conf` file. Once connected to this VPN, we will be able to access services that we did not expose publicly with our Reverse Proxy such as Portainer and Cockpit, which are too critical to expose to attacks on the public internet. The stack consists of the following container:
 
