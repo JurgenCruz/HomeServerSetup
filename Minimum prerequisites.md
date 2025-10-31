@@ -13,6 +13,7 @@
 - Optional: 2.5 Gb Ethernet network card. If the motherboard already has an Ethernet port of at least 1 Gb, it can be skipped unless better data transfer performance is desired. The guide assumes that you connected the server to the router through this Ethernet port.
 - Optional: Video card capable of video encoding/decoding for hardware acceleration or for running AI models locally as part of home automation. The guide will assume an Nvidia video card.
 - Optional: HBA card in "passthrough" mode (i.e. not hardware RAID). If your motherboard has enough ports for all drives, it is not necessary. It is important to check the motherboard manual and see if it supports the video card, the network card (if it is not integrated) and the HBA at the same time, both physically (it has enough slots for the cards) and logically (it supports the multiple slots at the same time. Some motherboards can only have a certain combination of slots working at the same time).
+- Optional: Zigbee and/or Z-Wave USB dongles. If you wish to connect Zigbee and/or Z-Wave devices to automate your house.
 - The guide assumes that the user is familiar with their motherboard manual and BIOS and has correctly configured the BIOS for their hardware.
 
 [<img width="33.3%" src="buttons/prev-Design and justification.svg" alt="Design and justification">](Design%20and%20justification.md)[<img width="33.3%" src="buttons/jump-Index.svg" alt="Index">](README.md)[<img width="33.3%" src="buttons/next-Guide.svg" alt="Guide">](Guide.md)

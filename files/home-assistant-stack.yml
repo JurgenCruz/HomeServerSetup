@@ -17,6 +17,22 @@ services:
       - /Apps/homeassistant:/config:Z
       - /etc/localtime:/etc/localtime:ro
       - /run/dbus:/run/dbus:ro
+    devices:
+      - /dev/serial/by-id/usb-zigbee_dongle
+    restart: always
+  zwavejs:
+    image: zwavejs/zwave-js-ui:latest
+    container_name: zwavejs
+    environment:
+      - TZ=America/New_York
+    networks:
+      - homeassistant
+    #ports:
+    #  - 8091:8091
+    volumes:
+      - /Apps/zwavejs:/usr/src/app/store:Z
+    devices:
+      - /dev/serial/by-id/usb-zwave_dongle:/dev/zwave
     restart: always
   whisper:
     image: slackr31337/wyoming-whisper-gpu:latest
