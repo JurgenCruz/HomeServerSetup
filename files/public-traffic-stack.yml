@@ -39,12 +39,14 @@ networks:
           ip_range: 172.21.2.0/24
   arr:
     name: arr
+    enable_ipv6: true
     driver_opts:
       com.docker.network.bridge.name: br-arr
     ipam:
       config:
         - subnet: 172.21.3.0/24
           ip_range: 172.21.3.0/24
+        - subnet: fda6:80d8:cf96:1::/64
   portainer:
     name: portainer
     external: true

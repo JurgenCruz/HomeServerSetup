@@ -12,16 +12,17 @@ Configuraremos el stack de Docker de tráfico público; configuraremos el cortaf
 1. Ejecutar: `./scripts/create_nginx_folder.sh` para generar el directorio del contenedor en el SSD.
 2. Editar el archivo del stack: `nano ./files/public-traffic-stack.yml`.
 3. Reemplazar `TZ=America/New_York` por el huso horario de su sistema. Puede usar esta lista como referencia: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
-4. Copiar todo el contenido del archivo al portapapeles. Guardar y salir con `Ctrl + X, Y, Enter`.
-5. Ejecutar: `./scripts/public_traffic_firewalld_services.sh`. Configura Firewalld para los contenedores. El script abre los puertos HTTP y HTTPS para Nginx.
-6. Agregar stack en Portainer desde el navegador.
+4. Reemplazar `-subnet: fda6:80d8:cf96:1::/64` con el CIDR que generó durante la instalación de docker usando la subnet `1`.
+5. Copiar todo el contenido del archivo al portapapeles. Guardar y salir con `Ctrl + X, Y, Enter`.
+6. Ejecutar: `./scripts/public_traffic_firewalld_services.sh`. Configura Firewalld para los contenedores. El script abre los puertos HTTP y HTTPS para Nginx.
+7. Agregar stack en Portainer desde el navegador.
     1. Acceder a Portainer a través de https://server.lan:9443. Si sale una alerta de seguridad, puede aceptar el riesgo ya que Portainer usa un certificado de SSL autofirmado.
     2. Darle clic en "Get Started" y luego seleccionar "local".
     3. Seleccionar "Stacks" y crear un nuevo stack.
     4. Ponerle nombre "public-traffic" y pegar el contenido del public-traffic-stack.yml que copió al portapapeles y crear el stack. Desde ahora modificaciones al stack se deben de hacer a través de Portainer y no en el archivo.
-7. Configurar el router. Si no desea exponer sus servicios al internet, brincar este paso. Cada router es diferente, así que tendrá que consultar su manual para poder hacer los pasos siguientes.
+8. Configurar el router. Si no desea exponer sus servicios al internet, brincar este paso. Cada router es diferente, así que tendrá que consultar su manual para poder hacer los pasos siguientes.
     1. Redireccionar el puerto (Port Forwarding) 80 y 443 en protocolo TCP al servidor para que Nginx pueda hacer reverse proxy a los servicios internos.
-8. Configurar proxy hosts en Nginx usando el DDNS.
+9. Configurar proxy hosts en Nginx usando el DDNS.
     1. Acceder a Nginx a través de http://server.lan:8181.
     2. Usar `admin@example.com` y `changeme` como usuario y contraseña y modificar los detalles y contraseña por una segura. Se recomienda nuevamente el uso de Bitwarden para lo mismo.
     3. Navegar a la pestaña de `SSL Certificates`.
@@ -61,11 +62,11 @@ Configuraremos el stack de Docker de tráfico público; configuraremos el cortaf
     |     Sonarr     |    sonarr.micasa.duckdns.org     |  http  |    sonarr     | 8989 |    activado    |  activado  |   Public    | N/A                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
     |   Z-Wave JS    |    zwavejs.micasa.duckdns.org    |  http  |    zwavejs    | 8091 |    activado    |  activado  |   Private   | N/A                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 
-9. Puede probar que Nginx funciona accediendo a si mismo a través del URL con su subdominio: https://nginx.micasa.duckdns.org. Inténtelo desde adentro de su red local para probar el "split horizon DNS" y desde afuera para probar el DDNS. Desde afuera, debería recibir un error `403 Forbidden`.
-10. De regreso en Portainer, modificar el stack `public-traffic` que acabamos de crear.
+10. Puede probar que Nginx funciona accediendo a si mismo a través del URL con su subdominio: https://nginx.micasa.duckdns.org. Inténtelo desde adentro de su red local para probar el "split horizon DNS" y desde afuera para probar el DDNS. Desde afuera, debería recibir un error `403 Forbidden`.
+11. De regreso en Portainer, modificar el stack `public-traffic` que acabamos de crear.
     1. Debajo de `ports`, borrar o comentar el mapeo `8181:81`. Ahora podemos accesarlo a través del dominio.
     2. Darle clic en `Update the stack`.
-11. Modificar el stack de portainer: `nano /Apps/portainer-stack.yml`.
+12. Modificar el stack de portainer: `nano /Apps/portainer-stack.yml`.
     1. Borrar o comentar la sección entera de `ports`. Ahora podemos accesarlo a través del dominio.
     2. Guardar y salir con `Ctrl + X, Y, Enter`.
     3. Actualizar el stack después de los cambios: `docker compose -f /Apps/portainer-stack.yml up -d`.

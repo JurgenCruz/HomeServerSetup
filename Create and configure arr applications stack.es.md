@@ -74,7 +74,7 @@ Prepararemos el archivo de configuración de la VPN anónima que requiere qBitto
     1. Cambiar la contraseña por una más segura. Se recomienda nuevamente el uso de Bitwarden para lo mismo.
     2. Habilitar "Bypass authentication for clients on localhost".
     3. Habilitar "Bypass authentication for clients in whitelisted IP subnets".
-    4. Agregar `172.21.3.0/24` a la lista debajo. Esto permitirá a los contenedores en la red `arr` de Docker acceder sin contraseña.
+    4. Agregar `172.21.3.0/24` y el CIDR que generó durante la instalación de docker con la subet `1` a la lista debajo. Por ejemplo `fda6:80d8:cf96:1::/64`. Esto permitirá a los contenedores en la red `arr` de Docker acceder sin contraseña.
 9. Configurar pestaña `Advanced`. Hacer los siguientes cambios:
     1. Asegurar que el "Network Interface" sea `tun0`. Si no quiere decir que no está usando su VPN y el tráfico no será anónimo.
     2. Habilitar "Reannounce to all trackers when IP or port changed".
