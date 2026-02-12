@@ -76,7 +76,7 @@ We will configure the Home Assistant Docker stack and bring the stack up through
     17. Click "Ollama".
     18. Click the "..." button next to "http://ollama:11434".
     19. Click "Add conversation agent".
-    20. Select the model you wish to use. The recommended is `llama3.2`.
+    20. Select the model you wish to use. The recommended is `qwen2.5:7b-instruct`.
     21. Enable "Assist" under "Control Home Assistant".
     22. Click "Submit".
     23. If "Ollama Conversation" does not show "1 service and 1 entity", click the same "..." as before and click "Reload".
