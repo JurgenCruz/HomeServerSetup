@@ -124,6 +124,7 @@ services:
             - driver: nvidia
               count: all
               capabilities: [ gpu, compute, utility ]
+    restart: always
 networks:
   homeassistant:
     name: homeassistant
