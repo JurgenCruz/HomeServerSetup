@@ -9,9 +9,9 @@
 - Minimum 8GB of RAM. All the RAM that the motherboard can support is recommended since ZFS can use the RAM as cache for better performance.
 - Internet connection. If you want to watch media away from home, a good upload speed is recommended.
 - A USB stick of at least 1 GB for the Fedora Server ISO.
-- An anonymous VPN provider for bittorrent. Mulvad is recommended as it does not require any information to use the service and the only information exposed is the IP. Payment can be made with Monero for even greater privacy.
+- An anonymous VPN provider for bittorrent. Mullvad is recommended as it does not require any information to use the service and the only information exposed is the IP. Payment can be made with Monero for even greater privacy.
 - Optional: 2.5 Gb Ethernet network card. If the motherboard already has an Ethernet port of at least 1 Gb, it can be skipped unless better data transfer performance is desired. The guide assumes that you connected the server to the router through this Ethernet port.
-- Optional: Video card capable of video encoding/decoding for hardware acceleration or for running AI models locally as part of home automation. The guide will assume an Nvidia video card.
+- Optional: Video card capable of video encoding/decoding for hardware acceleration or for running local AI. The guide will assume an Nvidia video card.
 - Optional: HBA card in "passthrough" mode (i.e. not hardware RAID). If your motherboard has enough ports for all drives, it is not necessary. It is important to check the motherboard manual and see if it supports the video card, the network card (if it is not integrated) and the HBA at the same time, both physically (it has enough slots for the cards) and logically (it supports the multiple slots at the same time. Some motherboards can only have a certain combination of slots working at the same time).
 - Optional: Zigbee and/or Z-Wave USB dongles. If you wish to connect Zigbee and/or Z-Wave devices to automate your house.
 - The guide assumes that the user is familiar with their motherboard manual and BIOS and has correctly configured the BIOS for their hardware.

@@ -35,6 +35,7 @@ This is a guide on how to set up a home server from scratch. If you are not fami
     13. [Create and configure public external traffic stack](Create%20and%20configure%20public%20external%20traffic%20stack.md)
     14. [Create and configure Nextcloud stack](Create%20and%20configure%20nextcloud%20stack.md)
     15. [Create and configure arr applications stack](Create%20and%20configure%20arr%20applications%20stack.md)
+    16. [Create and configure AI stack](Create%20and%20configure%20ai%20stack.md)
     16. [Create and configure Home Assistant stack](Create%20and%20configure%20home%20assistant%20stack.md)
     17. [Create and configure private external traffic stack (Optional)](Create%20and%20configure%20private%20external%20traffic%20stack%20optional.md)
     18. [Configure scheduled tasks](Configure%20scheduled%20tasks.md)

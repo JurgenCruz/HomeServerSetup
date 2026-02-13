@@ -327,4 +327,4 @@ We will prepare the anonymous VPN configuration file that qBittorrent requires; 
     7. Click "Test" and then "Save Changes".
 7. If you wish to configure more options, Navigate to "Settings" and make the desired changes.
 
-[<img width="33.3%" src="buttons/prev-Create and configure nextcloud stack.svg" alt="Create and configure Nextcloud stack">](Create%20and%20configure%20nextcloud%20stack.md)[<img width="33.3%" src="buttons/jump-Index.svg" alt="Index">](README.md)[<img width="33.3%" src="buttons/next-Create and configure home assistant stack.svg" alt="Create and configure Home Assistant stack">](Create%20and%20configure%20home%20assistant%20stack.md)
+[<img width="33.3%" src="buttons/prev-Create and configure nextcloud stack.svg" alt="Create and configure Nextcloud stack">](Create%20and%20configure%20nextcloud%20stack.md)[<img width="33.3%" src="buttons/jump-Index.svg" alt="Index">](README.md)[<img width="33.3%" src="buttons/next-Create and configure ai stack.svg" alt="Create and configure AI stack">](Create%20and%20configure%20ai%20stack.md)

@@ -1,0 +1,136 @@
+name: ai
+
+services:
+  whisper:
+    image: slackr31337/wyoming-whisper-gpu:latest
+    container_name: whisper
+    environment:
+      - TZ=America/New_York
+      - MODEL=medium-int8
+      - LANGUAGE=en
+      - COMPUTE_TYPE=int8
+      - BEAM_SIZE=5
+    networks:
+      - ai
+    #ports:
+    #  - 10300:10300
+    volumes:
+      - /Apps/whisper:/data:Z
+    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [ gpu, compute, utility ]
+    restart: always
+  # whisper:
+  #   image: rhasspy/wyoming-whisper:latest
+  #   container_name: whisper
+  #   environment:
+  #     - TZ=America/New_York
+  #   networks:
+  #     - ai
+  ##   ports:
+  ##     - 10300:10300
+  #   volumes:
+  #     - /Apps/whisper:/data:Z
+  #   command: [ "--model", "medium-int8", "--language", "en" ]
+  #   restart: always
+  piper:
+    image: slackr31337/wyoming-piper-gpu:latest
+    container_name: piper
+    environment:
+      - TZ=America/New_York
+      - PIPER_VOICE=en_US-hfc_female-medium
+    networks:
+      - ai
+    #ports:
+    #  - 10200:10200
+    volumes:
+      - /Apps/piper:/data:Z
+    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [ gpu, compute, utility ]
+    restart: always
+  # piper:
+  #   image: rhasspy/wyoming-piper:latest
+  #   container_name: piper
+  #   environment:
+  #     - TZ=America/New_York
+  #   networks:
+  #     - ai
+  ##   ports:
+  ##     - 10200:10200
+  #   volumes:
+  #     - /Apps/piper:/data:Z
+  #   command: [ "--voice", "en_US-hfc_female-medium" ]
+  #   restart: always
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    environment:
+      - TZ=America/New_York
+    networks:
+      - ai
+    #ports:
+    #  - 11434:11434
+    volumes:
+      - /Apps/ollama:/root/.ollama:Z
+    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [ gpu, compute, utility ]
+    restart: always
+  openwebui:
+    image: ghcr.io/open-webui/open-webui:main-slim
+    container_name: openwebui
+    environment:
+      - TZ=America/New_York
+    networks:
+      - ai
+    #ports:
+    #  - 3000:8080
+    volumes:
+      - /Apps/openwebui:/app/backend/data:Z
+    restart: always
+  comfyui:
+    image: sinfallas/comfyui:0.9.2-nvidia
+    container_name: comfyui
+    environment:
+      - TZ=America/New_York
+      - PUID=XXX
+      - PGID=XXX
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility,video
+    networks:
+      - ai
+    #ports:
+    #  - 8188:8188
+    volumes:
+      - /Apps/comfyui/models:/app/models:Z
+      - /Apps/comfyui/output:/app/output:Z
+      - /Apps/comfyui/custom_nodes:/app/custom_nodes:Z
+    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [ gpu, compute, utility ]
+    restart: always
+networks:
+  ai:
+    name: ai
+    external: true

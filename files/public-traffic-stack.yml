@@ -11,6 +11,7 @@ services:
       - homeassistant
       - nextcloud
       - arr
+      - ai
     volumes:
       - /Apps/nginx/data:/data:Z
       - /Apps/nginx/etc-letsencrypt:/etc/letsencrypt:Z
@@ -47,6 +48,14 @@ networks:
         - subnet: 172.21.3.0/24
           ip_range: 172.21.3.0/24
         - subnet: fda6:80d8:cf96:1::/64
+  ai:
+    name: ai
+    driver_opts:
+      com.docker.network.bridge.name: br-ai
+    ipam:
+      config:
+        - subnet: 172.21.4.0/24
+          ip_range: 172.21.4.0/24
   portainer:
     name: portainer
     external: true

@@ -8,6 +8,7 @@ services:
       - TZ=America/New_York
     networks:
       homeassistant:
+      ai:
       lanvlan:
         ipv4_address: 192.168.1.11
     privileged: true
@@ -34,100 +35,12 @@ services:
     devices:
       - /dev/serial/by-id/usb-zwave_dongle:/dev/zwave
     restart: always
-  whisper:
-    image: slackr31337/wyoming-whisper-gpu:latest
-    container_name: whisper
-    environment:
-      - TZ=America/New_York
-      - MODEL=medium-int8
-      - LANGUAGE=en
-      - COMPUTE_TYPE=int8
-      - BEAM_SIZE=5
-    networks:
-      - homeassistant
-    #ports:
-    #  - 10300:10300
-    volumes:
-      - /Apps/whisper:/data:Z
-    runtime: nvidia
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: all
-              capabilities: [ gpu, compute, utility ]
-    restart: always
-  # whisper:
-  #   image: rhasspy/wyoming-whisper:latest
-  #   container_name: whisper
-  #   environment:
-  #     - TZ=America/New_York
-  #   networks:
-  #     - homeassistant
-  ##   ports:
-  ##     - 10300:10300
-  #   volumes:
-  #     - /Apps/whisper:/data:Z
-  #   command: [ "--model", "medium-int8", "--language", "en" ]
-  #   restart: always
-  piper:
-    image: slackr31337/wyoming-piper-gpu:latest
-    container_name: piper
-    environment:
-      - TZ=America/New_York
-      - PIPER_VOICE=en_US-hfc_female-medium
-    networks:
-      - homeassistant
-    #ports:
-    #  - 10200:10200
-    volumes:
-      - /Apps/piper:/data:Z
-    runtime: nvidia
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: all
-              capabilities: [ gpu, compute, utility ]
-    restart: always
-  # piper:
-  #   image: rhasspy/wyoming-piper:latest
-  #   container_name: piper
-  #   environment:
-  #     - TZ=America/New_York
-  #   networks:
-  #     - homeassistant
-  ##   ports:
-  ##     - 10200:10200
-  #   volumes:
-  #     - /Apps/piper:/data:Z
-  #   command: [ "--voice", "en_US-hfc_female-medium" ]
-  #   restart: always
-  ollama:
-    image: ollama/ollama:latest
-    container_name: ollama
-    environment:
-      - TZ=America/New_York
-    networks:
-      - homeassistant
-    #ports:
-    #  - 11434:11434
-    volumes:
-      - /Apps/ollama:/root/.ollama:Z
-    runtime: nvidia
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: all
-              capabilities: [ gpu, compute, utility ]
-    restart: always
 networks:
   homeassistant:
     name: homeassistant
+    external: true
+  ai:
+    name: ai
     external: true
   lanvlan:
     name: lanvlan
