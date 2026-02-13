@@ -19,5 +19,6 @@
 - qBittorrent with VPN: The bittorrent protocol allows access to a very large, distributed, free and, in most cases, public file library. In order to maintain online privacy, a remote anonymous VPN for the bittorrent protocol is necessary.
 - WireGuard as protocol for local VPN: To be able to access critical systems remotely, it is necessary not to expose them publicly but through a secure VPN. WireGuard is an open source, modern, secure and efficient VPN protocol and is ideal for creating a personal VPN connected to our local network.
 - DuckDNS: DuckDNS offers a free DDNS service that also supports multiple subdomain levels. For example: `myhome.duckdns.org` and `jellyfin.myhome.duckdns.org` will be mapped to the same IP. This is very useful as it allows us to have our own subdomains that the reverse proxy can use in its rules.
+- Local AI services: Group of microservices that enable leveraging AI locally for maximum privacy. Provides chat agent, image generation, virtual assistant, text-to-speech and speech-to-text engines.
 
 [<img width="33.3%" src="buttons/prev-Features.svg" alt="Features">](Features.md)[<img width="33.3%" src="buttons/jump-Index.svg" alt="Index">](README.md)[<img width="33.3%" src="buttons/next-Minimum prerequisites.svg" alt="Minimum prerequisites">](Minimum%20prerequisites.md)

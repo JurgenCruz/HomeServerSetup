@@ -327,4 +327,4 @@ Prepararemos el archivo de configuración de la VPN anónima que requiere qBitto
     7. Hacer clic en "Test" y luego "Save Changes".
 7. Si desea configurar más opciones, Navegar a "Settings" y hacer los cambios deseados.
 
-[<img width="33.3%" src="buttons/prev-Create and configure nextcloud stack.es.svg" alt="Crear y configurar stack de Nextcloud">](Create%20and%20configure%20nextcloud%20stack.es.md)[<img width="33.3%" src="buttons/jump-Index.es.svg" alt="Índice">](README.es.md)[<img width="33.3%" src="buttons/next-Create and configure home assistant stack.es.svg" alt="Crear y configurar stack de Home Assistant">](Create%20and%20configure%20home%20assistant%20stack.es.md)
+[<img width="33.3%" src="buttons/prev-Create and configure nextcloud stack.es.svg" alt="Crear y configurar stack de Nextcloud">](Create%20and%20configure%20nextcloud%20stack.es.md)[<img width="33.3%" src="buttons/jump-Index.es.svg" alt="Índice">](README.es.md)[<img width="33.3%" src="buttons/next-Create and configure ai stack.es.svg" alt="Crear y configurar stack de IA">](Create%20and%20configure%20ai%20stack.es.md)

@@ -9,9 +9,9 @@
 - Mínimo 8GB de RAM. Se recomienda toda la RAM que pueda soportar la tarjeta madre ya que ZFS puede hacer uso de la RAM como cache para mejor desempeño.
 - Conexión a internet. Si se desea ver los medios fuera de casa, es recomendable una buena velocidad de subida.
 - Una memoria USB de al menos 1 GB para el ISO de Fedora Server.
-- Un proveedor de VPN anónima para bittorrent. Se recomienda Mulvad ya que no requiere ninguna información para usar el servicio y la única información que se expone es la IP. El pago se puede hacer con Monero para aún mayor privacidad.
+- Un proveedor de VPN anónima para bittorrent. Se recomienda Mullvad ya que no requiere ninguna información para usar el servicio y la única información que se expone es la IP. El pago se puede hacer con Monero para aún mayor privacidad.
 - Opcional: Tarjeta de red Ethernet de 2.5 Gb. Si la tarjeta madre ya tiene un puerto Ethernet de al menos 1 Gb puede omitirse al menos que se desee mejor rendimiento en la transferencia de datos. La guía asume que conectó el servidor al router a través de este puerto Ethernet.
-- Opcional: Tarjeta de video capaz de codificación/decodificación de video para aceleración por hardware o para modelos de IA locales como parte de la automatización del hogar. La guía asumirá una tarjeta de video Nvidia.
+- Opcional: Tarjeta de video capaz de codificación/decodificación de video para aceleración por hardware o para ejecución de IA local. La guía asumirá una tarjeta de video Nvidia.
 - Opcional: Tarjeta HBA en modo "passthrough" (i.e. no RAID por hardware). Si su tarjeta madre tiene suficientes puertos para todos los discos, no es necesaria. Es importante revisar el manual de la tarjeta madre y ver si soporta la tarjeta de video, la de red (si no está integrada) y el HBA al mismo tiempo, tanto físicamente (tiene las suficientes ranuras para las tarjetas) como lógicamente (soporta las múltiples ranuras al mismo tiempo. Algunas tarjetas madre solo pueden tener cierta combinación de ranuras funcionando al mismo tiempo).
 - Opcional: Dongles USB Zigbee y/o Z-Wave. Si desea conectar dispositivos Zigbee y/o Z-Wave para automatizar su casa.
 - La guía asume que el usuario está familiarizado con el manual de su tarjeta madre y el BIOS y ha configurado correctamente el BIOS para su hardware.

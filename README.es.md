@@ -35,6 +35,7 @@ Esta es una guía de como configurar un servidor casero desde cero. Si usted no 
     13. [Crear y configurar stack de tráfico externo público](Create%20and%20configure%20public%20external%20traffic%20stack.es.md)
     14. [Crear y configurar stack de Nextcloud](Create%20and%20configure%20nextcloud%20stack.es.md)
     15. [Crear y configurar stack de aplicaciones arr](Create%20and%20configure%20arr%20applications%20stack.es.md)
+    16. [Crear y configurar stack de IA](Create%20and%20configure%20ai%20stack.es.md)
     16. [Crear y configurar stack de Home Assistant](Create%20and%20configure%20home%20assistant%20stack.es.md)
     17. [Crear y configurar stack de tráfico externo privado (Opcional)](Create%20and%20configure%20private%20external%20traffic%20stack%20optional.es.md)
     18. [Configurar tareas programadas](Configure%20scheduled%20tasks.es.md)
