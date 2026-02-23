@@ -138,6 +138,16 @@ services:
       - net.ipv4.conf.all.src_valid_mark=1
       - net.ipv6.conf.all.disable_ipv6=0
     restart: always
+  profilarr:
+    image: santiagosayshey/profilarr:latest
+    container_name: profilarr
+    environment:
+      - TZ=America/New_York
+    networks:
+      - arr
+    volumes:
+      - /Apps/profilarr:/config:Z
+    restart: always
 networks:
   arr:
     name: arr

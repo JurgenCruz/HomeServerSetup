@@ -12,6 +12,7 @@ We will prepare the anonymous VPN configuration file that qBittorrent requires; 
 - Prowlarr: Search engine manager.
 - Bazarr: Subtitle manager.
 - Flaresolverr: CAPTCHA solver.
+- Profilarr: Quality profile manager for Radarr & Sonarr.
 - Jellyfin: Media service.
 - Jellyseerr: Media request manager and catalog service.
 
@@ -87,8 +88,7 @@ We will prepare the anonymous VPN configuration file that qBittorrent requires; 
 1. Access Radarr through https://radarr.myhome.duckdns.org.
 2. Set password. It is again recommended to use Bitwarden for the same. Leave the authentication method as `Forms` and do not disable authentication.
 3. Navigate to "Settings" > "Media Management" and configure.
-    1. "Standard Movie Format": `{Movie CleanTitle} {(Release Year)} [imdbid-{ImdbId}] - {Edition Tags }{[Custom Formats]}{[Quality Full]}{[MediaInfo 3D]}{ [MediaInfo VideoDynamicRangeType]}{[Mediainfo AudioCodec}{ Mediainfo AudioChannels}]{MediaInfo AudioLanguages}[{MediaInfo VideoBitDepth}bit][{Mediainfo VideoCodec}]{-Release Group}`.
-    2. Click "Add Root Folder" and select "/MediaCenter/media/movies".
+    1. Click "Add Root Folder" and select "/MediaCenter/media/movies".
 4. Navigate to "Settings" > "Download Clients" and configure.
     1. Add new client.
     2. Select "qBittorrent".
@@ -107,18 +107,13 @@ We will prepare the anonymous VPN configuration file that qBittorrent requires; 
     7. Click "Test" and then "Save".
 6. Navigate to "Settings" > "General".
 7. Copy the API Key to a notepad as we will need it later.
-8. To configure the "Profiles", "Quality" and "Custom Formats" tabs, it is recommended to use the following guide: https://trash-guides.info/Radarr/
 
 ## Configure Sonarr
 
 1. Access Sonarr through https://sonarr.myhome.duckdns.org.
 2. Set password. It is again recommended to use Bitwarden for the same. Leave the authentication method as `Forms` and do not disable authentication.
 3. Navigate to "Settings" > "Media Management" and configure.
-    1. "Standard Episode Format": `{Series TitleYear} - S{season:00}E{episode:00} - {Episode CleanTitle} [{Custom Formats }{Quality Full}]{[MediaInfo VideoDynamicRangeType]}{[Mediainfo AudioCodec}{ Mediainfo AudioChannels]}{[MediaInfo VideoCodec]}{-Release Group}`.
-    2. "Daily Episode Format": `{Series TitleYear} - {Air-Date} - {Episode CleanTitle} [{Custom Formats }{Quality Full}]{[MediaInfo VideoDynamicRangeType]}{[Mediainfo AudioCodec}{ Mediainfo AudioChannels]} {[MediaInfo VideoCodec]}{-Release Group}`.
-    3. "Anime Episode Format": `{Series TitleYear} - S{season:00}E{episode:00} - {absolute:000} - {Episode CleanTitle} [{Custom Formats }{Quality Full}]{[MediaInfo VideoDynamicRangeType]}[{MediaInfo VideoBitDepth}bit]{[MediaInfo VideoCodec]}[{Mediainfo AudioCodec} { Mediainfo AudioChannels}]{MediaInfo AudioLanguages}{-Release Group}`.
-    4. "Season Folder Format": "Season {season:00}".
-    5. Click "Add Root Folder" and select "/MediaCenter/media/tv".
+    1. Click "Add Root Folder" and select "/MediaCenter/media/tv".
 4. Navigate to "Settings" > "Download Clients" and configure.
     1. Add new client.
     2. Select "qBittorrent".
@@ -137,7 +132,6 @@ We will prepare the anonymous VPN configuration file that qBittorrent requires; 
     7. Click "Test" and then "Save".
 6. Navigate to "Settings" > "General".
 7. Copy the API Key to a notepad as we will need it later.
-8. To configure the "Profiles", "Quality" and "Custom Formats" tabs, it is recommended to use the following guide: https://trash-guides.info/Sonarr/
 
 ## Configure Prowlarr
 
@@ -228,6 +222,30 @@ We will prepare the anonymous VPN configuration file that qBittorrent requires; 
     4. Click "Test" and then "Save".
     5. Click "Save" at the top.
 8. To configure other tabs, it is recommended to use the following guide: https://trash-guides.info/Bazarr/
+
+## Configure Profilarr
+
+1. Access Profilarr through https://profilarr.myhome.duckdns.org.
+2. Follow the wizard to create a new username and password. It is again recommended to use Bitwarden for the same.
+3. Right click on "Dictionarry Database" and copy the link.
+4. Click on "Link Repository", paste the link and click "Link".
+5. Navigate to the "External Apps" tab.
+6. Click on "Add New App" and configure.
+    1. "Name": "Sonarr".
+    2. "Type": "Sonarr".
+    3. "Arr Server": "http://sonarr:8989".
+    4. "API Key": Paste the Sonarr API Key that we copied before.
+    5. Clic "Test Connection" and then "Add".
+7. Click on "Add New App" and configure.
+    1. "Name": "Radarr".
+    2. "Type": "Radarr".
+    3. "Arr Server": "http://radarr:7878".
+    4. "API Key": Paste the Radarr API Key that we copied before.
+    5. Clic "Test Connection" and then "Add".
+8. Navigate to the "Quality Profiles" tab.
+9. Clic "Select" and select the profiles you wish to sync.
+10. Click "Import", select "Radarr" and "Sonarr" and click "Import".
+11. For more information on how to use Profilarr, read the docs here: https://dictionarry.dev/
 
 ## Configure Jellyfin
 

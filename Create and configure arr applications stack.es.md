@@ -12,6 +12,7 @@ Prepararemos el archivo de configuración de la VPN anónima que requiere qBitto
 - Prowlarr: Administrador de motores de búsqueda.
 - Bazarr: Administrador de subtítulos.
 - Flaresolverr: Solucionador de CAPTCHAs.
+- Profilarr: Administrador de perfiles de calidad para Radarr y Sonarr.
 - Jellyfin: Servicio de medios.
 - Jellyseerr: Administrador de peticiones de medios y servicio de catálogo.
 
@@ -87,8 +88,7 @@ Prepararemos el archivo de configuración de la VPN anónima que requiere qBitto
 1. Acceder a Radarr a través de https://radarr.micasa.duckdns.org.
 2. Configurar contraseña. Se recomienda nuevamente el uso de Bitwarden para lo mismo. Dejar el método de autenticación como `Forms` y no deshabilitar la autenticación.
 3. Navegar a "Settings" > "Media Management" y configurar.
-    1. "Standard Movie Format": `{Movie CleanTitle} {(Release Year)} [imdbid-{ImdbId}] - {Edition Tags }{[Custom Formats]}{[Quality Full]}{[MediaInfo 3D]}{[MediaInfo VideoDynamicRangeType]}{[Mediainfo AudioCodec}{ Mediainfo AudioChannels}]{MediaInfo AudioLanguages}[{MediaInfo VideoBitDepth}bit][{Mediainfo VideoCodec}]{-Release Group}`.
-    2. Hacer clic en "Add Root Folder" y seleccionar "/MediaCenter/media/movies".
+    1. Hacer clic en "Add Root Folder" y seleccionar "/MediaCenter/media/movies".
 4. Navegar a "Settings" > "Download Clients" y configurar.
     1. Agregar nuevo cliente.
     2. Seleccionar "qBittorrent".
@@ -107,18 +107,13 @@ Prepararemos el archivo de configuración de la VPN anónima que requiere qBitto
     7. Hacer clic en "Test" y luego "Save".
 6. Navegar a "Settings" > "General".
 7. Copiar el "API Key" a un bloc de notas, ya que lo necesitaremos más tarde.
-8. Para configurar las pestañas de "Profiles", "Quality" y "Custom Formats" se recomienda el uso de la siguiente guía: https://trash-guides.info/Radarr/
 
 ## Configurar Sonarr
 
 1. Acceder a Sonarr a través de https://sonarr.micasa.duckdns.org.
 2. Configurar contraseña. Se recomienda nuevamente el uso de Bitwarden para lo mismo. Dejar el método de autenticación como `Forms` y no deshabilitar la autenticación.
 3. Navegar a "Settings" > "Media Management" y configurar.
-    1. "Standard Episode Format": `{Series TitleYear} - S{season:00}E{episode:00} - {Episode CleanTitle} [{Custom Formats }{Quality Full}]{[MediaInfo VideoDynamicRangeType]}{[Mediainfo AudioCodec}{ Mediainfo AudioChannels]}{[MediaInfo VideoCodec]}{-Release Group}`.
-    2. "Daily Episode Format": `{Series TitleYear} - {Air-Date} - {Episode CleanTitle} [{Custom Formats }{Quality Full}]{[MediaInfo VideoDynamicRangeType]}{[Mediainfo AudioCodec}{ Mediainfo AudioChannels]}{[MediaInfo VideoCodec]}{-Release Group}`.
-    3. "Anime Episode Format": `{Series TitleYear} - S{season:00}E{episode:00} - {absolute:000} - {Episode CleanTitle} [{Custom Formats }{Quality Full}]{[MediaInfo VideoDynamicRangeType]}[{MediaInfo VideoBitDepth}bit]{[MediaInfo VideoCodec]}[{Mediainfo AudioCodec} { Mediainfo AudioChannels}]{MediaInfo AudioLanguages}{-Release Group}`.
-    4. "Season Folder Format": "Season {season:00}".
-    5. Hacer clic en "Add Root Folder" y seleccionar "/MediaCenter/media/tv".
+    1. Hacer clic en "Add Root Folder" y seleccionar "/MediaCenter/media/tv".
 4. Navegar a "Settings" > "Download Clientes" y configurar.
     1. Agregar nuevo cliente.
     2. Seleccionar "qBittorrent".
@@ -137,7 +132,6 @@ Prepararemos el archivo de configuración de la VPN anónima que requiere qBitto
     7. Hacer clic en "Test" y luego "Save".
 6. Navegar a "Settings" > "General".
 7. Copiar el "API Key" a un bloc de notas, ya que lo necesitaremos más tarde.
-8. Para configurar las pestañas de "Profiles", "Quality" y "Custom Formats" se recomienda el uso de la siguiente guía: https://trash-guides.info/Sonarr/
 
 ## Configurar Prowlarr
 
@@ -228,6 +222,30 @@ Prepararemos el archivo de configuración de la VPN anónima que requiere qBitto
     4. Hacer clic en "Test" y luego "Save".
     5. Hacer clic en "Save" en la parte superior.
 8. Para configurar otras pestañas se recomienda el uso de la siguiente guía: https://trash-guides.info/Bazarr/
+
+## Configurar Profilarr
+
+1. Acceder a Profilarr a través de https://profilarr.micasa.duckdns.org.
+2. Seguir el asistente para crear un nuevo usuario y contraseña. Se recomienda nuevamente el uso de Bitwarden para lo mismo.
+3. Hacer clic derecho en "Dictionarry Database" y copiar el enlace.
+4. Hacer clic en "Link Repository", pegar el enlace y dar clic en "Link".
+5. Navegar a la pestaña "External Apps".
+6. Hacer clic en "Add New App" y configurar.
+    1. "Name": "Sonarr".
+    2. "Type": "Sonarr".
+    3. "Arr Server": "http://sonarr:8989".
+    4. "API Key": Pegar el API Key de Sonarr que copiamos antes.
+    5. Hacer clic en "Test Connection" y luego "Add".
+7. Hacer clic en "Add New App" y configurar.
+    1. "Name": "Radarr".
+    2. "Type": "Radarr".
+    3. "Arr Server": "http://radarr:7878".
+    4. "API Key": Pegar el API Key de Radarr que copiamos antes.
+    5. Hacer clic en "Test Connection" y luego "Add".
+8. Navegar a la pestaña "Quality Profiles".
+9. Hacer clic en "Select" y seleccionar los perfiles que desea sincronizar.
+10. Hacer clic en "Import", seleccionar "Radarr" y "Sonarr" y hacer clic en "Import".
+11. Para más información de como usar Profilarr, lea la documentación aquí: https://dictionarry.dev/
 
 ## Configurar Jellyfin
 
