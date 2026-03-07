@@ -142,6 +142,8 @@ services:
     image: santiagosayshey/profilarr:latest
     container_name: profilarr
     environment:
+      - PUID=XXX
+      - PGID=XXX
       - TZ=America/New_York
     networks:
       - arr
