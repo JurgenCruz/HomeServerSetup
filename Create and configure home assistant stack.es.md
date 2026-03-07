@@ -108,6 +108,9 @@ Configuraremos el stack de Docker de Home Assistant y levantaremos el stack a tr
 > Si quiere usar un pequeño dispositivo externo para comandos de voz similar a Alexa, mire esta guia para armar su propio Wyoming Satellite: https://www.youtube.com/watch?v=Bd9qlR0mPB0.
 
 > [!TIP]
-> Puede probar su nuevo asistente de voz desde su teléfono mobil con la app de Home Assistant. Desde su Dashboard, hacer clic en los "..." en la parte superior y seleccionar "Assistant" para abrir el Asistente.
+> Puede probar su nuevo asistente de voz desde su teléfono móvil con la app de Home Assistant. Desde su Dashboard, hacer clic en los "..." en la parte superior y seleccionar "Assistant" para abrir el Asistente.
+
+> [!TIP]
+> Puede instalar Home Assistant Community Store (HACS) si quiere más integraciones. Desde Portainer, abra el contenedor de Home Assistant y haga clic en el button `Console`. Haga clic en `Connect`. Ejecute el siguiente comando: `wget -O - https://get.hacs.xyz | bash -`. Si no está comodo ejecutando comandos a ciegas, puede visitar el sitio oficial: https://hacs.xyz/. Después, reinicie Home Assitant, vaya a Settings > Devices & services y agregue la integración de HACS. Siga las instrucciones para finalizar la instalación.
 
 [<img width="33.3%" src="buttons/prev-Create and configure ai stack.es.svg" alt="Crear y configurar stack de IA">](Create%20and%20configure%20ai%20stack.es.md)[<img width="33.3%" src="buttons/jump-Index.es.svg" alt="Índice">](README.es.md)[<img width="33.3%" src="buttons/next-Create and configure private external traffic stack optional.es.svg" alt="Crear y configurar stack de tráfico externo privado (Opcional)">](Create%20and%20configure%20private%20external%20traffic%20stack%20optional.es.md)

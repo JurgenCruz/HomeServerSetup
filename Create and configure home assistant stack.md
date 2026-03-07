@@ -110,4 +110,7 @@ We will configure the Home Assistant Docker stack and bring the stack up through
 > [!TIP]
 > You can test your new voice assistant from your mobile phone with the Home Assistant app. From the Dashboard, click the "..." at the top and select "Assistant" to launch the Assistant.
 
+> [!TIP]
+> You can install Home Assistant Community Store (HACS) if you want more integrations. From Portainer, open the Home Assistant container and click the `Console` button. Click `Connect`. Run the following command: `wget -O - https://get.hacs.xyz | bash -`. If you are not confortable running blind commands, you can go to the oficial site: https://hacs.xyz/. Next, restart Home Assistant, go to Settings > Devices & services and add the HACS integration. Follow the instructions to finalize the installation.
+
 [<img width="33.3%" src="buttons/prev-Create and configure ai stack.svg" alt="Create and configure AI stack">](Create%20and%20configure%20ai%20stack.md)[<img width="33.3%" src="buttons/jump-Index.svg" alt="Index">](README.md)[<img width="33.3%" src="buttons/next-Create and configure private external traffic stack optional.svg" alt="Create and configure private external traffic stack (Optional)">](Create%20and%20configure%20private%20external%20traffic%20stack%20optional.md)
