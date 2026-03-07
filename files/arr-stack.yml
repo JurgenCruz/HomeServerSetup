@@ -103,16 +103,18 @@ services:
               count: all
               capabilities: [ gpu ]
     restart: always
-  jellyseerr:
-    image: fallenbagel/jellyseerr:latest
-    container_name: jellyseerr
+  seerr:
+    image: ghcr.io/seerr-team/seerr:latest
+    container_name: seerr
+    user: XXX:XXX
+    init: true
     environment:
       - LOG_LEVEL=info
       - TZ=America/New_York
     networks:
       - arr
     volumes:
-      - /Apps/jellyseerr:/app/config:Z
+      - /Apps/seerr:/app/config:Z
     restart: always
   qbittorrent:
     image: trigus42/qbittorrentvpn:latest

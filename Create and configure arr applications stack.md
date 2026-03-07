@@ -14,7 +14,7 @@ We will prepare the anonymous VPN configuration file that qBittorrent requires; 
 - Flaresolverr: CAPTCHA solver.
 - Profilarr: Quality profile manager for Radarr & Sonarr.
 - Jellyfin: Media service.
-- Jellyseerr: Media request manager and catalog service.
+- Seerr: Media request manager and catalog service.
 
 ## Create stack
 
@@ -292,9 +292,9 @@ We will prepare the anonymous VPN configuration file that qBittorrent requires; 
     1. "Preferred subtitle language": Your primary language. Save.
     2. You can configure the rest of your profile if you wish.
 
-## Configure Jellyseerr
+## Configure Seerr
 
-1. Access Jellyseerr through https://jellyseerr.myhome.duckdns.org.
+1. Access Seerr through https://seerr.myhome.duckdns.org.
 2. Login with Jellyfin.
     1. Click "Use Jellyfin Account".
     2. "Jellyfin URL": "http://jellyfin:8096"
@@ -343,6 +343,10 @@ We will prepare the anonymous VPN configuration file that qBittorrent requires; 
     5. "Priority": 5.
     6. Enable the triggers you wish to receive notifications for.
     7. Click "Test" and then "Save Changes".
-7. If you wish to configure more options, Navigate to "Settings" and make the desired changes.
+7. Navigate to "Network" and configure.
+    1. Enable "Enable Proxy Support".
+    2. Enable "Enable CSRF Protection".
+    3. Click "Save Changes".
+8. If you wish to configure more options, Navigate to "Settings" and make the desired changes. Otherwise, restart the container from Portainer so the last changes take effect.
 
 [<img width="33.3%" src="buttons/prev-Create and configure nextcloud stack.svg" alt="Create and configure Nextcloud stack">](Create%20and%20configure%20nextcloud%20stack.md)[<img width="33.3%" src="buttons/jump-Index.svg" alt="Index">](README.md)[<img width="33.3%" src="buttons/next-Create and configure ai stack.svg" alt="Create and configure AI stack">](Create%20and%20configure%20ai%20stack.md)

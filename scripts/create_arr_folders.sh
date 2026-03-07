@@ -3,7 +3,7 @@
 mkdir /Apps/bazarr
 mkdir -p /Apps/jellyfin/config
 mkdir /Apps/jellyfin/cache
-mkdir /Apps/jellyseerr
+mkdir /Apps/seerr
 mkdir /Apps/prowlarr
 mkdir -p /Apps/qbittorrent/wireguard
 mkdir /Apps/radarr
@@ -14,8 +14,8 @@ chown mediacenter:mediacenter /Apps/bazarr
 chmod 774 /Apps/bazarr
 chown -R mediacenter:mediacenter /Apps/jellyfin
 chmod -R 774 /Apps/jellyfin
-chown mediacenter:mediacenter /Apps/jellyseerr
-chmod 774 /Apps/jellyseerr
+chown mediacenter:mediacenter /Apps/seerr
+chmod 774 /Apps/seerr
 chown mediacenter:mediacenter /Apps/prowlarr
 chmod 774 /Apps/prowlarr
 chown -R mediacenter:mediacenter /Apps/qbittorrent

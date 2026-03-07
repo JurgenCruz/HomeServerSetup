@@ -14,7 +14,7 @@ Prepararemos el archivo de configuración de la VPN anónima que requiere qBitto
 - Flaresolverr: Solucionador de CAPTCHAs.
 - Profilarr: Administrador de perfiles de calidad para Radarr y Sonarr.
 - Jellyfin: Servicio de medios.
-- Jellyseerr: Administrador de peticiones de medios y servicio de catálogo.
+- Seerr: Administrador de peticiones de medios y servicio de catálogo.
 
 ## Crear stack
 
@@ -292,9 +292,9 @@ Prepararemos el archivo de configuración de la VPN anónima que requiere qBitto
     1. "Preferred subtitle language": Su idioma principal. Guardar.
     2. Puede configurar el resto de su perfil si lo desea.
 
-## Configurar Jellyseerr
+## Configurar Seerr
 
-1. Acceder a Jellyseerr a través de https://jellyseerr.micasa.duckdns.org.
+1. Acceder a Seerr a través de https://seerr.micasa.duckdns.org.
 2. Ingresar con Jellyfin.
     1. Hacer clic en "Use Jellyfin Account".
     2. "Jellyfin URL": "http://jellyfin:8096"
@@ -343,6 +343,10 @@ Prepararemos el archivo de configuración de la VPN anónima que requiere qBitto
     5. "Priority": 5.
     6. Habilitar los desencadenantes para los que desee recibir notificaciones.
     7. Hacer clic en "Test" y luego "Save Changes".
-7. Si desea configurar más opciones, Navegar a "Settings" y hacer los cambios deseados.
+7. Navegar a "Network" y configurar.
+    1. Habilitar "Enable Proxy Support".
+    2. Habilitar "Enable CSRF Protection".
+    3. Hacer clic en "Save Changes".
+8. Si desea configurar más opciones, navegar a "Settings" y hacer los cambios deseados. Si no, reiniciar el contenedor desde Portainer para los últimos cambios.
 
 [<img width="33.3%" src="buttons/prev-Create and configure nextcloud stack.es.svg" alt="Crear y configurar stack de Nextcloud">](Create%20and%20configure%20nextcloud%20stack.es.md)[<img width="33.3%" src="buttons/jump-Index.es.svg" alt="Índice">](README.es.md)[<img width="33.3%" src="buttons/next-Create and configure ai stack.es.svg" alt="Crear y configurar stack de IA">](Create%20and%20configure%20ai%20stack.es.md)
