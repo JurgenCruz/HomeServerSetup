@@ -41,20 +41,29 @@ We will configure our upstream DNS and use DNS-over-HTTPS (DoH) for better priva
     4. Configure the router IP: `nmcli con mod enp1s0 ipv4.gateway 192.168.1.254`. Normally the router assigns itself a static IP which is the second to last IP in the IP range.
     5. Configure the router as DNS and Cloudflare as fallback DNS: `nmcli con mod enp1s0 ipv4.dns "192.168.1.254 1.1.1.1"`. If you like to use another DNS like Google's, you can change it.
     6. Reactivate the device for the changes to take effect: `nmcli con up enp1s0`. This may terminate the SSH session. if so, `ssh` to the server again.
-7. Add services with static IP to the `lan` domain. Since they don't use DHCP, the router won't add them to the hosts list. We have not created Home Assistant service yet, but it will have its IP ready.
-    1. Navigate to "Network" > "DHCP and DNS" > "Hostnames".
+7. Set static IPv6 for server (Optional). Only if your router is using IPv6.
+    1. Navigate to "Network" > "DHCP" > "Leases".
     2. Click the `Add` button.
     3. `Hostname`: `server`.
-    4. `IP Address`: `192.168.1.253`.
+    4. `MAC Addresses`: select the MAC Address of the server from the list.
+    5. `IPv4`: `192.168.1.253`.
+    6. `DUID/IAIDs`: select the DUID for the server. Make sure the IAID is the one for the main network device and not for the macvlan shim we created before.
+    7. `IPv6 Token`: `fffd`.
+    8. Click the `Save` button.
+    9. Navigate to "Network" > "Interfaces" > "Global network options".
+    10. Make sure there is a ULA Prefix set and write it down. if not, you can generate a new one with https://simpledns.plus/private-ipv6 like before.
+    11. If you have more than one lan interface (like a guest or iot interface), make sure you set the IPv6 assignment hint to `1` for the `lan` interface.
+    12. Click the `Save & Apply` button. Your server should now have an IPv6 address that starts with that ULA prefix and ends with `fffd`. If not, make sure your `lan` interface is allowing ULA in the prefix filter or try resetting the server network to ask for a new IPv6 address.
+8. Add services with static IP to the `lan` domain. Since they don't use DHCP, the router won't add them to the hosts list. We have not created Home Assistant service yet, but it will have its IP ready.
+    1. Navigate to "Network" > "DHCP and DNS" > "Hostnames".
+    2. Click the `Add` button.
+    3. `Hostname`: `homeassistant`.
+    4. `IP Address`: `192.168.1.11`.
     5. Click the `Save` button.
-    6. Click the `Add` button.
-    7. `Hostname`: `homeassistant`.
-    8. `IP Address`: `192.168.1.11`.
-    9. Click the `Save` button.
-    10. Click the `Save & Apply` button.
-8. Add Split Horizon DNS for our subdomain.
+    6. Click the `Save & Apply` button.
+9. Add Split Horizon DNS for our subdomain.
     1. Navigate to "General" tab.
-    2. `Addresses`: `/.myhome.duckdns.org/192.168.1.253`
+    2. `Addresses`: `/.myhome.duckdns.org/192.168.1.253` & `/.myhome.duckdns.org/XXXX::fffd` where XXXX::fffd is the ULA IPv6 of the server. You can see this address in the "Leases" tab under "Active DHCPv6 Leases". If you don't have IPv6, just use the IPv4 line.
     3. Click the `Save & Apply` button.
 
 [<img width="33.3%" src="buttons/prev-Configure dns.svg" alt="Configure DNS">](Configure%20dns.md)[<img width="33.3%" src="buttons/jump-Index.svg" alt="Index">](README.md)[<img width="33.3%" src="buttons/next-Create and configure public external traffic stack optional.svg" alt="Create and configure public external traffic stack">](Create%20and%20configure%20public%20external%20traffic%20stack.md)

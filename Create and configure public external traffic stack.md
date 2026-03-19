@@ -39,6 +39,7 @@ We will configure the public traffic Docker stack; we will configure the firewal
             - "Pass Auth to Host": enabled.
         3. In the `Access` tab fill out:
             - allow: 192.168.1.0/24. Use your LAN IP range if different.
+            - allow: XXXX:XXXX:XXXX:1::/64. Where "XXXX:XXXX:XXXX" is your IPv6 ULA prefix and ":1" is the "lan" subnet. Skip if not using IPv6.
             - allow: 10.13.13.0/24. This is for the WireGuard VPN access.
         4. Click `Save`.
     6. Navigate to the “Proxy Hosts” tab and configure all the proxy hosts we will need. For now, only the Cockpit, Portainer and Nginx services exist. The rest will be created later.
