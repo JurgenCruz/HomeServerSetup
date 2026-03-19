@@ -9,18 +9,19 @@ Crearemos una red macvlan auxiliar para poder comunicarnos con Home Assistant qu
 
 ## Pasos
 
-1. Agregar conexión macvlan auxiliar: `nmcli con add con-name macvlan-shim type macvlan ifname macvlan-shim ip4 192.168.1.12/32 dev enp1s0 mode bridge`. `192.168.1.12` es el IP del servidor dentro de está red auxiliar. Si su red local está en otro prefijo, ajuste esta IP a uno dentro de su prefijo, pero fuera del rango de asignación del DHCP para evitar colisiones.
-2. Agregar ruta a conexión auxiliar para la red macvlan: `nmcli con mod macvlan-shim +ipv4.routes "192.168.1.0/27"`. `192.168.1.0/27` es el rango de IPs de la red macvlan que coincide con el prefijo de la red local y a su vez está fuera del rango de asignación del DHCP.
-3. Activar la conexión auxiliar: `nmcli con up macvlan-shim`.
-4. Editar el archivo del stack: `nano ./files/network-stack.yml`.
-5. Ajustar la red `lanvlan`.
-    1. Ajustar atributo `parent` con el dispositivo que usó para crear la red macvlan auxiliar anteriormente. Por ejemplo `enp1s0`.
+1. Determinar el dispositivo de red: `nmcli d | grep ethernet | grep connected | head -1` y anotar el nombre del dispositivo, por ejemplo `enp1s0`.
+2. Agregar conexión macvlan auxiliar: `nmcli con add con-name macvlan-shim type macvlan ifname macvlan-shim ip4 192.168.1.12/32 dev enp1s0 mode bridge`. `192.168.1.12` es el IP del servidor dentro de está red auxiliar. Si su red local está en otro prefijo, ajuste esta IP a uno dentro de su prefijo, pero fuera del rango de asignación del DHCP para evitar colisiones. `enp1s0` es el nombre del dispositivo de red del paso anterior. Cambiarlo por el nombre correcto.
+3. Agregar ruta a conexión auxiliar para la red macvlan: `nmcli con mod macvlan-shim +ipv4.routes "192.168.1.0/27"`. `192.168.1.0/27` es el rango de IPs de la red macvlan que coincide con el prefijo de la red local y a su vez está fuera del rango de asignación del DHCP.
+4. Activar la conexión auxiliar: `nmcli con up macvlan-shim`.
+5. Editar el archivo del stack: `nano ./files/network-stack.yml`.
+6. Ajustar la red `lanvlan`.
+    1. Ajustar atributo `parent` con el nombre del dispositivo que obtuvo al principio. Por ejemplo `enp1s0`.
     2. Ajustar atributo `subnet` con el rango de su red local.
     3. Ajustar atributo `gateway` con el IP de su router.
     4. Ajustar atributo `ip_range` con el rango de su red local que el DHCP no asigna. La guía configurará el DHCP para no asignar las primeras 64 direcciones, por eso usamos un rango 192.168.1.0/27. Si usted va a configurar su DHCP con otro rango no asignable, use ese aquí.
     5. Ajustar atributo `host` con la IP del servidor en la red macvlan auxiliar.
-6. Copiar todo el contenido del archivo al portapapeles. Guardar y salir con `Ctrl + X, Y, Enter`.
-7. Agregar stack en Portainer desde el navegador.
+7. Copiar todo el contenido del archivo al portapapeles. Guardar y salir con `Ctrl + X, Y, Enter`.
+8. Agregar stack en Portainer desde el navegador.
     1. Acceder a Portainer a través de https://server.lan:9443. Si sale una alerta de seguridad, puede aceptar el riesgo ya que Portainer usa un certificado de SSL autofirmado.
     2. Darle clic en "Get Started" y luego seleccionar "local".
     3. Seleccionar "Stacks" y crear un nuevo stack.

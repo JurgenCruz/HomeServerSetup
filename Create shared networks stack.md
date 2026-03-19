@@ -9,18 +9,19 @@ We will create an auxiliary macvlan network to be able to communicate with Home 
 
 ## Steps
 
-1. Add auxiliary macvlan connection: `nmcli con add con-name macvlan-shim type macvlan ifname macvlan-shim ip4 192.168.1.12/32 dev enp1s0 mode bridge`. `192.168.1.12` is the server's IP inside this auxiliary network. If your local network is in another prefix, adjust this IP to one inside the prefix but outside the DHCP assignable range to avoid collisions.
-2. Add route to auxiliary connection to macvlan network: `nmcli con mod macvlan-shim +ipv4.routes "192.168.1.0/27"`. `192.168.1.0/27` is the IP range of the macvlan network which matches with the local network's prefix at the same time it is outside the DHCP assignable IP range.
-3. Activate auxiliary connection: `nmcli con up macvlan-shim`.
-4. Edit the stack file: `nano ./files/network-stack.yml`.
-5. Set the `lanvlan` network.
-    1. Set the `parent` attribute with the device you used to create the auxiliary macvlan network before. For example`enp1s0`.
+1. Determine the network device: `nmcli d | grep ethernet | grep connected | head -1` and write down the name of the device, for example `enp1s0`.
+2. Add auxiliary macvlan connection: `nmcli con add con-name macvlan-shim type macvlan ifname macvlan-shim ip4 192.168.1.12/32 dev enp1s0 mode bridge`. `192.168.1.12` is the server's IP inside this auxiliary network. If your local network is in another prefix, adjust this IP to one inside the prefix but outside the DHCP assignable range to avoid collisions. `enp1s0` is the name of the network device of the previous step. Change it to the right name.
+3. Add route to auxiliary connection to macvlan network: `nmcli con mod macvlan-shim +ipv4.routes "192.168.1.0/27"`. `192.168.1.0/27` is the IP range of the macvlan network which matches with the local network's prefix at the same time it is outside the DHCP assignable IP range.
+4. Activate auxiliary connection: `nmcli con up macvlan-shim`.
+5. Edit the stack file: `nano ./files/network-stack.yml`.
+6. Set the `lanvlan` network.
+    1. Set the `parent` attribute with the device's name you got at the beginning. For example`enp1s0`.
     2. Set the `subnet` attribute with your local network's range.
     3. Set the `gateway` attribute with your router's IP.
     4. Set the`ip_range` attribute with your local network's range that the DHCP does not assign. The guide will configure the DHCP not to assign the first 64 addresses, thus we use a range of 192.168.1.0/27. If you will configure your DHCP with another non-assignable range, use that here.
     5. Set the `host` attribute with the server's IP in the auxiliary macvlan network.
-6. Copy all contents of the file to the clipboard. Save and exit with `Ctrl + X, Y, Enter`.
-7. Add stack in Portainer from the browser.
+7. Copy all contents of the file to the clipboard. Save and exit with `Ctrl + X, Y, Enter`.
+8. Add stack in Portainer from the browser.
     1. Access Portainer through https://server.lan:9443. If you get a security alert, you can accept the risk since Portainer uses a self-signed SSL certificate.
     2. Click "Get Started" and then select "local."
     3. Select "Stacks" and create a new stack.
