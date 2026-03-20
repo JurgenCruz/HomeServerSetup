@@ -4,8 +4,10 @@ domain=XXX
 token=YYY
 device=$(nmcli d | grep ethernet | grep connected | head -1)
 set -- $device
-ipv6=$(ip addr show dev "$1" | sed -e's/^.*inet6 \([^ ]*\)\/.*$/\1/;t;d' | grep -v '^fd00' | grep -v '^fe80' | head -1)
-if [ -z "$ipv6" ]; then
-    curl -s -S -o ~/duckv6.log "https://www.duckdns.org/update?domains=$domain&token=$token&ip=&ipv6=$ipv6&verbose=true" 2> ~/duckv6_status.log
+ipv6=$(ip -6 addr show dev "$1" | awk '/inet6/ {print $2}' | cut -d/ -f1 | grep -E '^(2|3)' | head -1)
+if [ -n "$ipv6" ]; then
+    curl -s -S -o /root/duckv6.log "https://www.duckdns.org/update?domains=$domain&token=$token&ip=&ipv6=$ipv6&verbose=true" 2> /root/duckv6_status.log
+else
+    echo "no ipv6 found: $ipv6 for device $device"
 fi
-curl -s -S -o ~/duck.log "https://www.duckdns.org/update?domains=$domain&token=$token&ip=&verbose=true" 2> ~/duck_status.log
+curl -s -S -o /root/duck.log "https://www.duckdns.org/update?domains=$domain&token=$token&ip=&verbose=true" 2> /root/duck_status.log
