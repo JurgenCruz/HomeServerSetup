@@ -30,7 +30,10 @@ Configuraremos el stack de Docker de Home Assistant y levantaremos el stack a tr
 14. Configurar con el asistente nombre de la instancia de Home Assistant y sus datos y preferencias.
 15. Escoja si quiere mandar datos de uso a la pagina de Home Assistant.
 16. Finalizar el asistente.
-17. Configurar Restful Command para notificaciones.
+17. Navegar a "Settings" > "System" > "Network".
+18. Bajo `Network adapter`, deshabilitar "Autoconfigure" y habilitar el adaptador con IP `192.168.1.10/24`. No deshabilitar el otro adaptador.
+19. Hacer clic en "Save".
+20. Configurar Restful Command para notificaciones.
     1. Editar la configuración de Home Assistant: `nano /Apps/homeassistant/configuration.yaml`.
     2. Agregar la siguiente sección al final del archivo. Reemplazar `{your_token_here}` con el token generado para Home Assistant en Gotify y `micasa` por su dominio registrado en DuckDNS. Registramos un restful command que se comunica con Gotify para mandar notificaciones.
         ```yml
@@ -52,7 +55,7 @@ Configuraremos el stack de Docker de Home Assistant y levantaremos el stack a tr
     4. Guardar y salir con `Ctrl + X, Y, Enter`.
     5. De regreso en Home Assistant, navegar a `Developer tools`.
     6. Presionar `Restart`. Ahora puede crear automatizaciones que llamen este servicio y recibir notificaciones a través de Gotify.
-18. Configurar el Asistente por Voz.
+21. Configurar el Asistente por Voz.
     1. Navegar a "Settings" > "Devices & Services".
     2. Hacer clic en "Add Integration".
     3. Buscar "Wyoming Protocol" y seleccionarlo.
@@ -83,12 +86,12 @@ Configuraremos el stack de Docker de Home Assistant y levantaremos el stack a tr
     28. Establecer "Text-to-speech" a `piper`.
     29. Puede cambiar el idioma del Asistente, Voz-a-texto y Texto-a-voz. También puede cambiar la voz para Texto-a-voz.
     30. Hacer clic en "Update".
-19. Configurar la Automatizacion de Zigbee (Solo si tiene un dongle Zigbee).
+22. Configurar la Automatizacion de Zigbee (Solo si tiene un dongle Zigbee).
     1. Navegar a "Settings" > "Devices & Services".
     2. Home Assistant debería detectar automáticamente y sugerir agregar la "Zigbee Home Automation". Agregar la integracion.
     3. Seleccionar de la lista la ruta de su dongle Zigbee y hacer clic en "Submit".
     4. Ahora puede registrar sus dispositivos Zigbee, pero esto está fuera del alcance de esta guía.
-20. Configurar la Automatizacion de Z-Wave (Solo si tiene un dongle Z-Wave).
+23. Configurar la Automatizacion de Z-Wave (Solo si tiene un dongle Z-Wave).
     1. Acceder en otra pestaña a https://zwavejs.myhome.duckdns.org.
     2. Hacer clic en el icono de configuración.
     3. Bajo `General`, habilitar `Auth`. Esto va a cerrar sesión.
