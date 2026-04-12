@@ -7,7 +7,7 @@ services:
     container_name: dummy
     hostname: dummy
     networks:
-      lanvlan:
+      - lanvlan
 networks:
   lanvlan:
     name: lanvlan

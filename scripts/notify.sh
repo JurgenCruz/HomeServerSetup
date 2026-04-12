@@ -11,4 +11,5 @@ if [[ -z "$1" ]]; then
 fi
 
 message=$(echo "$1" | jq -R)
-curl -X POST -H "Content-Type: application/json" -d "{ \"title\": \"Alert\", \"message\": $message}" https://gotify.myhome.duckdns.org/message?token={your_token_here}
+name=$(cat /etc/hostname)
+curl -X POST -H "Content-Type: application/json" -d "{ \"title\": \"$name is in trouble!!!\", \"message\": $message}" https://gotify.myhome.duckdns.org/message?token={your_token_here}
