@@ -86,7 +86,15 @@ Para instalar Fedora Server necesitaremos una memoria USB y descargar el ISO de 
 22. Entrar al BIOS nuevamente.
 23. Volver a cambiar el orden de inicio y poner Fedora hasta arriba de la lista. Guardar y salir.
 24. Ingresar la contraseña del disco.
-25. Desde su computadora (no el servidor) conectarse remotamente con SSH `ssh admin@server`
+25. Habilitar inicio de sesión a SSH con llave.
+    1. Desde su computadora (no el servidor), crear un par de llaves pública y privada: `ssh-keygen`. Seguir las instrucciones.
+    2. Usar la ubicación por defecto `~/.ssh/id_ed25519` para guardar las llaves. Si usa una ubicación diferente, úsela en vez de esta en los comandos siguientes.
+    3. Ingresar una contraseña para abrir y cerrar su llave privada.
+    4. Copiar la llave pública al servidor: `scp ~/.ssh/id_ed25519.pub admin@server:/home/admin/.ssh/{device_id}.pub`. Reemplazar `{device_id}` con un nombre para su computadora como `mi-pc` o `laptop`.
+    5. Conectarse remotamente con SSH `ssh admin@server`. Esta debería preguntar por la contraseña que estableció para `admin` durante la instalación.
+    6. Agregar la llave pública a la lista de llaves autorizadas: `cat ~/.ssh/{device_id}.pub >> ~/.ssh/authorized_keys`.
+    7. Reconectarse con SSH con su llave privada: `exit` después `ssh admin@server`. No le debería de pedir la contraseña del usuario (aunque sí puede pedirle la de la llave). Si se la pide, algo malo sucedió, así que **NO** proceda con el siguiente paso, o no podrá usar SSH para ingresar a su servidor y tendrá que arreglarlo desde el servidor mismo.
+    8. Deshabilitar autenticación por password para SSH: `echo 'PasswordAuthentication no' | sudo tee /etc/ssh/sshd_config.d/20-disable_password_login.conf && sudo systemctl restart sshd`. Si es desconectado, reconectar con `ssh admin@server`.
 26. Instalar git: `sudo dnf install -y git`.
 27. Descargar este repositorio: `git clone https://github.com/JurgenCruz/HomeServerSetup.git`.
 28. Borrar la carpeta de .git: `rm -rf HomeServerSetup/.git`.

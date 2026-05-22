@@ -86,7 +86,15 @@ To install Fedora Server we will need a USB stick and to download the ISO from t
 22. Enter the BIOS again.
 23. Change the startup order again and put Fedora at the top of the list. Save and exit.
 24. Enter the disk's password.
-25. From your computer (not the server) connect remotely with SSH `ssh admin@server`
+25. Enable SSH key login.
+    1. From your computer (not the server), create a public and private key pair: `ssh-keygen`. Follow the prompts.
+    2. Use the default location `~/.ssh/id_ed25519` to save the key files. If you enter a custom path, use that instead in the commands below.
+    3. Set a password to lock and unlock your private key.
+    4. Copy the public key to the server: `scp ~/.ssh/id_ed25519.pub admin@server:/home/admin/.ssh/{device_id}.pub`. Replace `{device_id}` with a name for your computer like `my-pc` or `laptop`.
+    5. Connect remotely with SSH `ssh admin@server`. It should ask for the password you set for `admin` during installation.
+    6. Append the public key to the list of authorized keys: `cat ~/.ssh/{device_id}.pub >> ~/.ssh/authorized_keys`.
+    7. Reconnect to SSH with your private key: `exit` then `ssh admin@server`. It should no longer ask for the user's password (although it can ask for the key's password). If it does, something went wrong so, do **NOT** proceed with the next step, or you won't be able to SSH into your server and will need to fix it from the server itself.
+    8. Disable password authentication for SSH: `echo 'PasswordAuthentication no' | sudo tee /etc/ssh/sshd_config.d/20-disable_password_login.conf && sudo systemctl restart sshd`. If you get disconnected, reconnect with `ssh admin@server`.
 26. Install git: `sudo dnf install -y git`.
 27. Download this repository: `git clone https://github.com/JurgenCruz/HomeServerSetup.git`.
 28. Delete the .git folder: `rm -rf HomeServerSetup/.git`.
