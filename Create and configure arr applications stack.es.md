@@ -265,9 +265,36 @@ Prepararemos el archivo de configuración de la VPN anónima que requiere qBitto
     2. Guardar.
 6. Navegar a "Plugins" > "Catalog" y configurar.
     1. Si va a haber Anime en su colección, instalar "AniDB" y "AniList".
-    2. Instalar "TMBd Box Sets", "TVmaze" y "TheTVDB".
+    2. Instalar "Webhook", "TMBd Box Sets", "TVmaze" y "TheTVDB".
 7. Para que los plugins surtan efecto reiniciar Jellyfin desde Portainer.
-8. Navegar a "Libraries" y configurar.
+8. Configurar Notificaciones.
+    1. Después de reiniciar, hacer clic en el plugin "Webhook" y hacer clic en "Settings".
+    2. "Server Url": "https://jellyfin.myhome.duckdns.org".
+    3. Hacer clic en "Add Gotify Destination".
+    4. "Webhook Name": "Gotify".
+    5. "Webhook Url": "http://gotify".
+    6. Habilitar los eventos de los cuales desea enviar notificación.
+    7. "Template":
+        ```
+        {
+          "title": "{{NotificationType}}",
+          "message": "
+            {{~#if_exist NotificationUsername~}}User: {{NotificationUsername}}\n{{~/if_exist~}}
+            {{~#if_exist ClientName~}}Client: {{ClientName}}\n{{~/if_exist~}}
+            {{~#if_exist DeviceName~}}Device: {{DeviceName}}\n{{~/if_exist~}}
+            {{~#if_exist RemoteEndPoint~}}Client IP: {{RemoteEndPoint}}\n{{~/if_exist~}}
+            {{~#if_exist PluginName~}}Plugin Name: {{PluginName}}\n{{~/if_exist~}}
+            {{~#if_exist PluginVersion~}}Plugin Version: {{PluginVersion}}\n{{~/if_exist~}}
+            {{~#if_exist PluginChangelog~}}Changelog: {{json_encode PluginChangelog}}{{~/if_exist~}}
+          ",
+          "priority": {{Priority}}
+        }
+        ```
+    8. "Token": Ingresar el token que se generó en Gotify para las Apps Arr.
+    9. "Priority": 5.
+    10. Hacer clic en "Save".
+    11. Para más información de plantillas que puede usar, visitar: https://github.com/jellyfin/jellyfin-plugin-webhook/tree/master/Jellyfin.Plugin.Webhook/Templates/Gotify.
+9. Navegar a "Libraries" y configurar.
     1. Agregar librería.
     2. "Content Type": "Movies".
     3. "Name": "Movies".
@@ -286,9 +313,9 @@ Prepararemos el archivo de configuración de la VPN anónima que requiere qBitto
     16. Ordenar "Image fetchers (Seasons)": "TheTVDB", "TVmaze", "TheMovieDb", "AniDB", "AniList".
     17. Ordenar "Image fetchers (Episodes)": "TheTVDB", "TVmaze", "TheMovieDb", "The Open Movie Database", "Embedded Image Extractor", "Screen Grabber".
     18. Configurar las demás opciones a su gusto y Guardar.
-9. Navegar a "Users" y configurar.
+10. Navegar a "Users" y configurar.
     1. Si más personas van a usar Jellyfin, Crear más usuarios y configurarlos como guste.
-10. Navegar a su perfil (Icono de usuario arriba a la derecha) > "Subtitles".
+11. Navegar a su perfil (Icono de usuario arriba a la derecha) > "Subtitles".
     1. "Preferred subtitle language": Su idioma principal. Guardar.
     2. Puede configurar el resto de su perfil si lo desea.
 

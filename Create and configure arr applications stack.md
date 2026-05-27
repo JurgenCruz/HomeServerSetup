@@ -265,9 +265,36 @@ We will prepare the anonymous VPN configuration file that qBittorrent requires; 
     2. Save.
 6. Navigate to "Plugins" > "Catalog" and configure.
     1. If there will be Anime in your collection, install "AniDB" and "AniList".
-    2. Install "TMBd Box Sets", "TVmaze" and "TheTVDB".
+    2. Install "Webhook", "TMBd Box Sets", "TVmaze" and "TheTVDB".
 7. For the plugins to take effect, restart Jellyfin from Portainer.
-8. Navigate to “Libraries” and configure.
+8. Configure Notifications.
+    1. After restarting, click the "Webhook" plugin and click "Settings".
+    2. "Server Url": "https://jellyfin.myhome.duckdns.org".
+    3. Click "Add Gotify Destination".
+    4. "Webhook Name": "Gotify".
+    5. "Webhook Url": "http://gotify".
+    6. Enable the events you wish to send notifications for.
+    7. "Template":
+        ```
+        {
+          "title": "{{NotificationType}}",
+          "message": "
+            {{~#if_exist NotificationUsername~}}User: {{NotificationUsername}}\n{{~/if_exist~}}
+            {{~#if_exist ClientName~}}Client: {{ClientName}}\n{{~/if_exist~}}
+            {{~#if_exist DeviceName~}}Device: {{DeviceName}}\n{{~/if_exist~}}
+            {{~#if_exist RemoteEndPoint~}}Client IP: {{RemoteEndPoint}}\n{{~/if_exist~}}
+            {{~#if_exist PluginName~}}Plugin Name: {{PluginName}}\n{{~/if_exist~}}
+            {{~#if_exist PluginVersion~}}Plugin Version: {{PluginVersion}}\n{{~/if_exist~}}
+            {{~#if_exist PluginChangelog~}}Changelog: {{json_encode PluginChangelog}}{{~/if_exist~}}
+          ",
+          "priority": {{Priority}}
+        }
+        ```
+    8. "Token": Enter the token you generated in Gotify for Arr Apps.
+    9. "Priority": "5".
+    10. Click "Save".
+    11. For more information on templates you can use, visit: https://github.com/jellyfin/jellyfin-plugin-webhook/tree/master/Jellyfin.Plugin.Webhook/Templates/Gotify.
+9. Navigate to “Libraries” and configure.
     1. Add library.
     2. "Content Type": "Movies".
     3. "Name": "Movies".
@@ -286,9 +313,9 @@ We will prepare the anonymous VPN configuration file that qBittorrent requires; 
     16. Sort "Image fetchers (Seasons)": "TheTVDB", "TVmaze", "TheMovieDb", "AniDB", "AniList".
     17. Sort "Image fetchers (Episodes)": "TheTVDB", "TVmaze", "TheMovieDb", "The Open Movie Database", "Embedded Image Extractor", "Screen Grabber".
     18. Configure the other options as you like and Save.
-9. Navigate to "Users" and configure.
+10. Navigate to "Users" and configure.
     1. If more people are going to use Jellyfin, Create more users and configure them as you like.
-10. Navigate to your profile (User icon top right) > "Subtitles".
+11. Navigate to your profile (User icon top right) > "Subtitles".
     1. "Preferred subtitle language": Your primary language. Save.
     2. You can configure the rest of your profile if you wish.
 
