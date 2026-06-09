@@ -8,7 +8,7 @@ Configuraremos el DHCP del router para usar Technitium como DNS para toda la LAN
 ## Pasos
 
 1. Navegar al portal web de su router.
-2. Configurar el DHCP para que use el IP de Technitium como DNS en vez del que el ISP brinda. Puede encontrar el IP de Technitium en Portainer si ve el stack en el editor y ve la configuración del contenedor `technitium`.
+2. Configurar el DHCP para que use el IP de Technitium como DNS en vez del que el ISP brinda. Puede encontrar el IP de Technitium en Dockhand si ve el stack en el editor y ve la configuración del contenedor `technitium`.
 3. Ajustar los campos `Starting Address` y `Ending Address` con el rango de IPs de su red local. Asegurarse de dejar algunos IPs no asignables al principio de la red. Por ejemplo si el rango de su red local es 192.168.1.0/24, empiece en 192.168.1.64.
 4. Ajustar el campo `Domain Name` a `lan`.
 5. Verificar que el DHCP del router esté funcionando (conectar un dispositivo a la red y verificar que se le asignara un IP en el rango configurado y que el DNS sea la IP del servidor).

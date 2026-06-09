@@ -7,7 +7,7 @@ services:
     environment:
       - TZ=America/New_York
     networks:
-      - portainer
+      - dockhand
       - homeassistant
       - nextcloud
       - arr
@@ -56,6 +56,6 @@ networks:
       config:
         - subnet: 172.21.4.0/24
           ip_range: 172.21.4.0/24
-  portainer:
-    name: portainer
+  dockhand:
+    name: dockhand
     external: true

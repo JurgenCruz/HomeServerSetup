@@ -3,7 +3,7 @@
 [![en](https://img.shields.io/badge/lang-en-blue.svg)](Configure%20technitium%20dns.md)
 [![es](https://img.shields.io/badge/lang-es-blue.svg)](Configure%20technitium%20dns.es.md)
 
-Technitium es un servidor DNS y DHCP que se ejecuta desde un contenedor de Docker. Configuraremos el stack de Docker de Technitium DNS; configuraremos el cortafuegos para permitir los puertos necesarios; y levantaremos el stack a través de Portainer. Ya que el DNS va a ejecutarse adentro del servidor, necesitamos asignar al servidor un IP estático en la red local. Configuraremos el servidor para no usar DHCP y asignarse un IP en la red. El stack consiste de los siguientes contenedores:
+Technitium es un servidor DNS y DHCP que se ejecuta desde un contenedor de Docker. Configuraremos el stack de Docker de Technitium DNS; configuraremos el cortafuegos para permitir los puertos necesarios; y levantaremos el stack a través de Dockhand. Ya que el DNS va a ejecutarse adentro del servidor, necesitamos asignar al servidor un IP estático en la red local. Configuraremos el servidor para no usar DHCP y asignarse un IP en la red. El stack consiste de los siguientes contenedores:
 
 - Technitium: Servidor DNS y DHCP.
 
@@ -15,11 +15,10 @@ Technitium es un servidor DNS y DHCP que se ejecuta desde un contenedor de Docke
 4. Ajustar el atributo `ipv4_address` en el contenedor `technitium` con un IP en el rango no asignable por el DHCP. Por ejemplo 192.168.1.10.
 5. Copiar todo el contenido del archivo al portapapeles. Guardar y salir con `Ctrl + X, Y, Enter`.
 6. Ejecutar: `./scripts/dns_firewalld_services.sh`. Configura Firewalld para los contenedores. El script abre el puerto para DNS para Technitium.
-7. Agregar stack en Portainer desde el navegador.
-    1. Acceder a Portainer a través de https://server.lan:9443. Si sale una alerta de seguridad, puede aceptar el riesgo ya que Portainer usa un certificado de SSL autofirmado.
-    2. Darle clic en "Get Started" y luego seleccionar "local".
-    3. Seleccionar "Stacks" y crear un nuevo stack.
-    4. Ponerle nombre "technitium" y pegar el contenido del docker-compose.yml que copió al portapapeles y crear el stack. Desde ahora modificaciones al stack se deben de hacer a través de Portainer y no en el archivo.
+7. Agregar stack en Dockhand desde el navegador.
+    1. Acceder a Dockhand a través de https://server.lan:3000.
+    2. Darle clic a "Stacks" en el menú izquierdo y crear un nuevo stack.
+    3. Ponerle nombre "technitium" y pegar el contenido del docker-compose.yml que copió al portapapeles y crear el stack. Desde ahora modificaciones al stack se deben de hacer a través de Dockhand y no en el archivo.
 8. Ejecutar: `./scripts/disable_resolved.sh`. Desactivamos el servicio de DNS local "systemd-resolved" para desocupar el puerto DNS que necesita Technitium.
 9. Ver el nombre del dispositivo de red físico activo, por ejemplo `enp1s0` o `eth0`: `nmcli device status`. Si existe más de un dispositivo físico, seleccionar el que esté conectado al router con mejor velocidad. Reemplazar en los comandos siguientes `enp1s0` por el dispositivo correcto.
 10. Asignar IP estático y rango CIDR: `nmcli con mod enp1s0 ipv4.addresses 192.168.1.253/24`. Normalmente los routers de hogar usan un rango CIDR de `/24` o su equivalente mascara de subred `255.255.255.0`. Revise el manual de su router para más información.
@@ -61,7 +60,7 @@ Technitium es un servidor DNS y DHCP que se ejecuta desde un contenedor de Docke
     22. `Name`: `*`. Esto configurará un subdominio comodín a que apunte a nuestro servidor.
     23. `IPv4 Address`: `192.168.1.253`. Use el IP estático que le asignó al servidor.
     24. Hacer clic en el botón `Back`.
-23. Si alguna pagina está siendo bloqueada y no desea bloquearla, Navegar a la pestaña `Allowed` y agregar el dominio a la lista.
+23. Si alguna página está siendo bloqueada y no desea bloquearla, Navegar a la pestaña `Allowed` y agregar el dominio a la lista.
 
 Dependiendo de su hardware, el DHCP se configurará de manera diferente. Por favor seleccione la opción que se ajuste a su situación. Si tiene control sobre del DNS que el DHCP de su router provee, seleccione `Configurar DHCP del router`. De lo contrario, seleccione `Configurar DHCP de Technitium`.
 

@@ -3,7 +3,7 @@
 [![en](https://img.shields.io/badge/lang-en-blue.svg)](Create%20shared%20networks%20stack.md)
 [![es](https://img.shields.io/badge/lang-es-blue.svg)](Create%20shared%20networks%20stack.es.md)
 
-Crearemos una red macvlan auxiliar para poder comunicarnos con Home Assistant que estará en una macvlan de Docker. La guía asumirá una red local con rango CIDR 192.168.1.0/24, con el router en la penúltima dirección (192.168.1.254) y el servidor en la antepenúltima (192.168.1.253). Si necesita usar otro rango, solo reemplazar por el rango correcto en el resto de la guía. Después, configuraremos el stack de Docker de redes compartidas y levantaremos el stack a través de Portainer. El stack consiste de las siguientes redes:
+Crearemos una red macvlan auxiliar para poder comunicarnos con Home Assistant que estará en una macvlan de Docker. La guía asumirá una red local con rango CIDR 192.168.1.0/24, con el router en la penúltima dirección (192.168.1.254) y el servidor en la antepenúltima (192.168.1.253). Si necesita usar otro rango, solo reemplazar por el rango correcto en el resto de la guía. Después, configuraremos el stack de Docker de redes compartidas y levantaremos el stack a través de Dockhand. El stack consiste de las siguientes redes:
 
 - lanvlan: Esta es una red virtual que permitirá a los contenedores ser asignados una IP directamente en nuestra LAN sin compartir puertos con el servidor.
 
@@ -21,10 +21,9 @@ Crearemos una red macvlan auxiliar para poder comunicarnos con Home Assistant qu
     4. Ajustar atributo `ip_range` con el rango de su red local que el DHCP no asigna. La guía configurará el DHCP para no asignar las primeras 64 direcciones, por eso usamos un rango 192.168.1.0/27. Si usted va a configurar su DHCP con otro rango no asignable, use ese aquí.
     5. Ajustar atributo `host` con la IP del servidor en la red macvlan auxiliar.
 7. Copiar todo el contenido del archivo al portapapeles. Guardar y salir con `Ctrl + X, Y, Enter`.
-8. Agregar stack en Portainer desde el navegador.
-    1. Acceder a Portainer a través de https://server.lan:9443. Si sale una alerta de seguridad, puede aceptar el riesgo ya que Portainer usa un certificado de SSL autofirmado.
-    2. Darle clic en "Get Started" y luego seleccionar "local".
-    3. Seleccionar "Stacks" y crear un nuevo stack.
-    4. Ponerle nombre "networks" y pegar el contenido del network-stack.yml que copió al portapapeles y crear el stack. Desde ahora modificaciones al stack se deben de hacer a través de Portainer y no en el archivo.
+8. Agregar stack en Dockhand desde el navegador.
+    1. Acceder a Dockhand a través de https://server.lan:3000.
+    2. Darle clic en "Stacks" en el menú izquierdo y crear un nuevo stack.
+    3. Ponerle nombre "networks" y pegar el contenido del network-stack.yml que copió al portapapeles y crear el stack. Desde ahora modificaciones al stack se deben de hacer a través de Dockhand y no en el archivo.
 
 [<img width="33.3%" src="buttons/prev-Install docker.es.svg" alt="Instalar Docker">](Install%20docker.es.md)[<img width="33.3%" src="buttons/jump-Index.es.svg" alt="Índice">](README.es.md)[<img width="33.3%" src="buttons/next-Configure dns.es.svg" alt="Configurar DNS">](Configure%20dns.es.md)

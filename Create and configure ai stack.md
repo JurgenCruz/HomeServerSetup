@@ -3,7 +3,7 @@
 [![en](https://img.shields.io/badge/lang-en-blue.svg)](Create%20and%20configure%20ai%20stack.md)
 [![es](https://img.shields.io/badge/lang-es-blue.svg)](Create%20and%20configure%20ai%20stack.es.md)
 
-We will configure the Artificial Intelligence Docker stack and bring the stack up through Portainer. The stack consists of the following containers:
+We will configure the Artificial Intelligence Docker stack and bring the stack up through Dockhand. The stack consists of the following containers:
 
 - Whisper: Speech-to-text through AI service.
 - Piper: Text-to-speech through AI service.
@@ -20,11 +20,10 @@ We will configure the Artificial Intelligence Docker stack and bring the stack u
 5. If you don't have an Nvidia GPU, under the `comfyui` section. change the property `image` to `sinfallas/comfyui:0.9.2-intel` if you have an Intel GPU or to `sinfallas/comfyui:0.9.2-amd` if you have AMD GPU.
 6. If you want, you can change the whisper container's model (`medium-int8`) to a smaller or bigger model depending on your hardware. Available options are: `tiny, base, small, medium, large & turbo`.
 7. Copy all contents of the file to the clipboard. Save and exit with `Ctrl + X, Y, Enter`.
-8. Add stack in Portainer from the browser.
-    1. Access Portainer through https://portainer.myhome.duckdns.org.
-    2. Click "Get Started" and then select "local."
-    3. Select "Stacks" and create a new stack.
-    4. Name it "ai" and paste the content of the ai-stack.yml that you copied to the clipboard and create the stack. From now on, modifications to the stack must be made through Portainer and not in the file.
+8. Add stack in Dockhand from the browser.
+    1. Access Dockhand through https://dockhand.myhome.duckdns.org.
+    2. Click "Stacks" on the left menu and create a new stack.
+    3. Name it "ai" and paste the content of the ai-stack.yml that you copied to the clipboard and create the stack. From now on, modifications to the stack must be made through Dockhand and not in the file.
 9. Configure ComfyUI.
     1. Access ComfyUI through https://comfyui.myhome.duckdns.org.
     2. Click "Manager".
@@ -45,7 +44,7 @@ We will configure the Artificial Intelligence Docker stack and bring the stack u
     10. Click the `Models` section.
     11. Click the `Manage Models` icon in the top right corner. Here you can download and delete models to your ollama instance. For Home Assistant, it is recommended to download `qwen2.5:7b-instruct`. For regular chatting, you can also use `gemma3:12b`, `mistral-nemo:12b` or `qwen3:14b`.
     12. Click the `Web Search` section.
-    13. If you want to allow your model to search the internet, enable `Web Search`. You can use `DDGS` search engine with `DuckDuckGo` as the backend or which ever engine you prefer. Click `Save`.
+    13. If you want to allow your model to search the internet, enable `Web Search`. You can use `DDGS` search engine with `DuckDuckGo` as the backend or whichever engine you prefer. Click `Save`.
     14. Click the `Images` section.
     15. Enable `Image Generation`.
     16. Set `Model` to the filename of the model you downloaded in ComfyUI including the extension.

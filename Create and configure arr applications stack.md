@@ -3,7 +3,7 @@
 [![en](https://img.shields.io/badge/lang-en-blue.svg)](Create%20and%20configure%20arr%20applications%20stack.md)
 [![es](https://img.shields.io/badge/lang-es-blue.svg)](Create%20and%20configure%20arr%20applications%20stack.es.md)
 
-We will prepare the anonymous VPN configuration file that qBittorrent requires; we will configure the arr apps Docker stack; and we will bring the stack up through Portainer. The stack consists of the following containers:
+We will prepare the anonymous VPN configuration file that qBittorrent requires; we will configure the arr apps Docker stack; and we will bring the stack up through Dockhand. The stack consists of the following containers:
 
 - Gotify: Notification engine.
 - qBittorrent: Download manager through the bittorrent protocol.
@@ -26,11 +26,10 @@ We will prepare the anonymous VPN configuration file that qBittorrent requires; 
 6. If a GPU is not going to be used, delete the `runtime` and `deploy` sections of the `jellyfin` container.
 7. If you are going to use OpenVPN for bittorrent, update the `qbittorrent` container according to the official guide.
 8. Copy all contents of the file to the clipboard. Save and exit with `Ctrl + X, Y, Enter`.
-9. Add stack in Portainer from the browser.
-    1. Access Portainer through https://portainer.myhome.duckdns.org.
-    2. Click "Get Started" and then select "local".
-    3. Select "Stacks" and create a new stack.
-    4. Name it "arr" and paste the content of the docker-compose.yml that you copied to the clipboard and create the stack. From now on, modifications to the stack must be made through Portainer and not in the file.
+9. Add stack in Dockhand from the browser.
+    1. Access Dockhand through https://dockhand.myhome.duckdns.org.
+    2. Click "Stacks" on the menu on the left and create a new stack.
+    3. Name it "arr" and paste the content of the docker-compose.yml that you copied to the clipboard and create the stack. From now on, modifications to the stack must be made through Dockhand and not in the file.
 
 ## Configure Gotify
 
@@ -47,6 +46,8 @@ We will prepare the anonymous VPN configuration file that qBittorrent requires; 
 
 5. Copy and write down the tokens generated for each App.
 6. Optionally, you can upload icons for each App to distinguish at a glance the source of the notification.
+7. Back in the Dockhand tab, navigate to "Settings" > "Notifications" and edit "Gotify" channel.
+8. Replace the "{token}" placeholder with the NAS token.
 
 > [!TIP]
 > If you want to have a different icon for each Arr App (or if you simply want more granular control), you can register a channel for each Arr App instead of a single `Arr` channel.
@@ -266,7 +267,7 @@ We will prepare the anonymous VPN configuration file that qBittorrent requires; 
 6. Navigate to "Plugins" > "Catalog" and configure.
     1. If there will be Anime in your collection, install "AniDB" and "AniList".
     2. Install "Webhook", "TMBd Box Sets", "TVmaze" and "TheTVDB".
-7. For the plugins to take effect, restart Jellyfin from Portainer.
+7. For the plugins to take effect, restart Jellyfin from Dockhand.
 8. Configure Notifications.
     1. After restarting, click the "Webhook" plugin and click "Settings".
     2. "Server Url": "https://jellyfin.myhome.duckdns.org".
@@ -374,6 +375,6 @@ We will prepare the anonymous VPN configuration file that qBittorrent requires; 
     1. Enable "Enable Proxy Support".
     2. Enable "Enable CSRF Protection".
     3. Click "Save Changes".
-8. If you wish to configure more options, Navigate to "Settings" and make the desired changes. Otherwise, restart the container from Portainer so the last changes take effect.
+8. If you wish to configure more options, Navigate to "Settings" and make the desired changes. Otherwise, restart the container from Dockhand so the last changes take effect.
 
 [<img width="33.3%" src="buttons/prev-Create and configure nextcloud stack.svg" alt="Create and configure Nextcloud stack">](Create%20and%20configure%20nextcloud%20stack.md)[<img width="33.3%" src="buttons/jump-Index.svg" alt="Index">](README.md)[<img width="33.3%" src="buttons/next-Create and configure ai stack.svg" alt="Create and configure AI stack">](Create%20and%20configure%20ai%20stack.md)

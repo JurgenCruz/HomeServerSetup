@@ -113,7 +113,7 @@ Smartd es un daemon parte del paquete "SMART monitor tools" que monitorea de man
 
 ### VPN
 
-Una Red Privada Virtual (Virtual Private Network) es un mecanismo para crear una conexión segura entre un dispositivo y una red o entre dos redes usando un medio inseguro como el internet. Esta es creada usando una conexión punto a punto por medio de protocolos de túnel. Una VPN nos permite acceder a nuestra red local como si estuviéramos físicamente conectados a ella. Podremos acceder a servicios que no expusimos públicamente con nuestro Reverse Proxy como Portainer y Cockpit, los cuales son demasiado críticos como para exponer a ataques en la internet publica. Más información: https://en.wikipedia.org/wiki/Virtual_private_network.
+Una Red Privada Virtual (Virtual Private Network) es un mecanismo para crear una conexión segura entre un dispositivo y una red o entre dos redes usando un medio inseguro como el internet. Esta es creada usando una conexión punto a punto por medio de protocolos de túnel. Una VPN nos permite acceder a nuestra red local como si estuviéramos físicamente conectados a ella. Podremos acceder a servicios que no expusimos públicamente con nuestro Reverse Proxy como Dockhand y Cockpit, los cuales son demasiado críticos como para exponer a ataques en la internet publica. Más información: https://en.wikipedia.org/wiki/Virtual_private_network.
 
 #### Split Tunneling
 

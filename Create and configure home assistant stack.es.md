@@ -3,7 +3,7 @@
 [![en](https://img.shields.io/badge/lang-en-blue.svg)](Create%20and%20configure%20home%20assistant%20stack.md)
 [![es](https://img.shields.io/badge/lang-es-blue.svg)](Create%20and%20configure%20home%20assistant%20stack.es.md)
 
-Configuraremos el stack de Docker de Home Assistant y levantaremos el stack a través de Portainer. El stack consiste de los siguientes contenedores:
+Configuraremos el stack de Docker de Home Assistant y levantaremos el stack a través de Dockhand. El stack consiste de los siguientes contenedores:
 
 - Home Assistant: Motor de automatización del hogar.
 - Z-WaveJS: Controlador de dispositivo Z-Wave.
@@ -20,15 +20,14 @@ Configuraremos el stack de Docker de Home Assistant y levantaremos el stack a tr
 8. Bajo el contenedor `homeassistant`, bajo `devices`, reemplazar el dispositivo `/dev/serial/by-id/usb-zigbee_dongle` con la ruta de su dongle Zigbee. Si no tiene un dongle Zigbee, borrar la sección `devices` de este contenedor.
 9. Bajo el contenedor `zwavejs`, bajo `devices`, reemplazar el dispostivo `/dev/serial/by-id/usb-zwavejs_dongle` con la ruta de su dongle Z-Wave. Si no tiene un dongle Z-Wave, borrar el contenedor entero. Note que el dispositivo está siendo mapeado a `:/dev/zwave`. Esto es importante porque es la ruta por defecto que el servicio va a buscar. Si no la mapea, tendra que configurar manualmente la ruta del dispositivo.
 10. Copiar todo el contenido del archivo al portapapeles. Guardar y salir con `Ctrl + X, Y, Enter`.
-11. Agregar stack en Portainer desde el navegador.
-    1. Acceder a Portainer a través de https://portainer.micasa.duckdns.org.
-    2. Darle clic en "Get Started" y luego seleccionar "local".
-    3. Seleccionar "Stacks" y crear un nuevo stack.
-    4. Ponerle nombre "home-assistant" y pegar el contenido del home-assistant-stack.yml que copió al portapapeles y crear el stack. Desde ahora modificaciones al stack se deben de hacer a través de Portainer y no en el archivo.
+11. Agregar stack en Dockhand desde el navegador.
+    1. Acceder a Dockhand a través de https://dockhand.micasa.duckdns.org.
+    2. Darle clic en "Stacks" en el menú izquierdo y crear un nuevo stack.
+    3. Ponerle nombre "home-assistant" y pegar el contenido del home-assistant-stack.yml que copió al portapapeles y crear el stack. Desde ahora modificaciones al stack se deben de hacer a través de Dockhand y no en el archivo.
 12. Acceder a Home Assistant a través de https://homeassistant.micasa.duckdns.org.
 13. Usar el asistente para crear una cuenta de usuario y contraseña. Se recomienda nuevamente el uso de Bitwarden para lo mismo.
 14. Configurar con el asistente nombre de la instancia de Home Assistant y sus datos y preferencias.
-15. Escoja si quiere mandar datos de uso a la pagina de Home Assistant.
+15. Escoja si quiere mandar datos de uso a la página de Home Assistant.
 16. Finalizar el asistente.
 17. Navegar a "Settings" > "System" > "Network".
 18. Bajo `Network adapter`, deshabilitar "Autoconfigure" y habilitar el adaptador con IP `192.168.1.10/24`. No deshabilitar el otro adaptador.
@@ -44,7 +43,7 @@ Configuraremos el stack de Docker de Home Assistant y levantaremos el stack a tr
                 content_type: "application/json"
                 payload: '{ "title": "{{ title }}", "message": "{{ message }}", "priority": {{ priority }} }'
         ```
-    3. Agregar la siguiente sección al final del archivo. Permitimos proxies desde las redes `172.21.1.0/24` y `172.21.4.0/24` que son las redes de `homeassistant` y `ai` respectivamente que configuramos en el stack en Portainer.
+    3. Agregar la siguiente sección al final del archivo. Permitimos proxies desde las redes `172.21.1.0/24` y `172.21.4.0/24` que son las redes de `homeassistant` y `ai` respectivamente que configuramos en el stack en Dockhand.
         ```yml
         http:
             use_x_forwarded_for: true
@@ -114,6 +113,6 @@ Configuraremos el stack de Docker de Home Assistant y levantaremos el stack a tr
 > Puede probar su nuevo asistente de voz desde su teléfono móvil con la app de Home Assistant. Desde su Dashboard, hacer clic en los "..." en la parte superior y seleccionar "Assistant" para abrir el Asistente.
 
 > [!TIP]
-> Puede instalar Home Assistant Community Store (HACS) si quiere más integraciones. Desde Portainer, abra el contenedor de Home Assistant y haga clic en el button `Console`. Haga clic en `Connect`. Ejecute el siguiente comando: `wget -O - https://get.hacs.xyz | bash -`. Si no está comodo ejecutando comandos a ciegas, puede visitar el sitio oficial: https://hacs.xyz/. Después, reinicie Home Assitant, vaya a Settings > Devices & services y agregue la integración de HACS. Siga las instrucciones para finalizar la instalación.
+> Puede instalar Home Assistant Community Store (HACS) si quiere más integraciones. Desde la pestaña de contenedores en Dockhand, en la fila del contenedor de Home Assistant, haga clic en el button `Terminal`. Haga clic en `Connect`. Ejecute el siguiente comando: `wget -O - https://get.hacs.xyz | bash -`. Si no está comodo ejecutando comandos a ciegas, puede visitar el sitio oficial: https://hacs.xyz/. Después, reinicie Home Assitant, vaya a Settings > Devices & services y agregue la integración de HACS. Siga las instrucciones para finalizar la instalación.
 
 [<img width="33.3%" src="buttons/prev-Create and configure ai stack.es.svg" alt="Crear y configurar stack de IA">](Create%20and%20configure%20ai%20stack.es.md)[<img width="33.3%" src="buttons/jump-Index.es.svg" alt="Índice">](README.es.md)[<img width="33.3%" src="buttons/next-Create and configure private external traffic stack optional.es.svg" alt="Crear y configurar stack de tráfico externo privado (Opcional)">](Create%20and%20configure%20private%20external%20traffic%20stack%20optional.es.md)

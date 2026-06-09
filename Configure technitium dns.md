@@ -3,7 +3,7 @@
 [![en](https://img.shields.io/badge/lang-en-blue.svg)](Configure%20technitium%20dns.md)
 [![es](https://img.shields.io/badge/lang-es-blue.svg)](Configure%20technitium%20dns.es.md)
 
-Technitium is a DNS and DHCP server that runs from a Docker container. We will configure the Technitium DNS Docker stack; we will configure the firewall to allow the necessary ports; and we will bring the stack up through Portainer. Since the DNS will run inside the server, we need to assign the server a static IP on the local network. We will configure the server to not use DHCP and assign itself an IP on the network. The stack consists of the following containers:
+Technitium is a DNS and DHCP server that runs from a Docker container. We will configure the Technitium DNS Docker stack; we will configure the firewall to allow the necessary ports; and we will bring the stack up through Dockhand. Since the DNS will run inside the server, we need to assign the server a static IP on the local network. We will configure the server to not use DHCP and assign itself an IP on the network. The stack consists of the following containers:
 
 - Technitium: DNS and DHCP server.
 
@@ -15,11 +15,10 @@ Technitium is a DNS and DHCP server that runs from a Docker container. We will c
 4. Set the attribute `ipv4_address` in the `technitium` container with an IP in the non-assignable range of the DHCP. For example 192.168.1.10.
 5. Copy all contents of the file to the clipboard. Save and exit with `Ctrl + X, Y, Enter`.
 6. Run: `./scripts/dns_firewalld_services.sh`. Configure Firewalld for containers. The script opens the port for DNS for Technitium.
-7. Add stack in Portainer from the browser.
-    1. Access Portainer through https://server.lan:9443. If you get a security alert, you can accept the risk since Portainer uses a self-signed SSL certificate.
-    2. Click "Get Started" and then select "local."
-    3. Select "Stacks" and create a new stack.
-    4. Name it "technitium" and paste the content of the docker-compose.yml that you copied to the clipboard and create the stack. From now on, modifications to the stack must be made through Portainer and not in the file.
+7. Add stack in Dockhand from the browser.
+    1. Access Dockhand through https://server.lan:3000.
+    2. Click "Stacks" on the left menu and create a new stack.
+    3. Name it "technitium" and paste the content of the docker-compose.yml that you copied to the clipboard and create the stack. From now on, modifications to the stack must be made through Dockhand and not in the file.
 8. Run: `./scripts/disable_resolved.sh`. We disable the local DNS service "systemd-resolved" to free up the DNS port that Technitium needs.
 9. Look for the name of the active physical network device, for example `enp1s0` or `eth0`: `nmcli device status`. If there is more than one physical device, select the one that is connected to the router with the best speed. Replace `enp1s0` in the following commands with the correct device.
 10. Assign static IP and CIDR range: `nmcli con mod enp1s0 ipv4.addresses 192.168.1.253/24`. Typically home routers use a CIDR range of `/24` or its equivalent subnet mask `255.255.255.0`. Check your router's manual for more information.

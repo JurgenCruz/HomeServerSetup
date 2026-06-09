@@ -1,12 +1,12 @@
 #!/bin/bash
 
-base_dir="/Apps/portainer/compose"
+base_dir="/Apps/dockhand/stacks/local"
 failure=0
 for sub_dir in "$base_dir"/*/; do
-  if [ -f "${sub_dir}docker-compose.yml" ]; then
-    if docker compose -f "${sub_dir}docker-compose.yml" ps --services --filter "status=running" | grep -q .; then
-      if docker compose -f "${sub_dir}docker-compose.yml" pull; then
-        if ! docker compose -f "${sub_dir}docker-compose.yml" up -d; then
+  if [ -f "${sub_dir}compose.yaml" ]; then
+    if docker compose -f "${sub_dir}compose.yaml" ps --services --filter "status=running" | grep -q .; then
+      if docker compose -f "${sub_dir}compose.yaml" pull; then
+        if ! docker compose -f "${sub_dir}compose.yaml" up -d; then
           failure=1
         fi
       else
@@ -16,8 +16,8 @@ for sub_dir in "$base_dir"/*/; do
   fi
 done
 
-if docker compose -f /Apps/portainer-stack.yml pull; then
-  if ! docker compose -f /Apps/portainer-stack.yml up -d; then
+if docker compose -f /Apps/dockhand-stack.yml pull; then
+  if ! docker compose -f /Apps/dockhand-stack.yml up -d; then
     failure=1
   fi
 else

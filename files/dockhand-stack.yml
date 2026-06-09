@@ -1,0 +1,29 @@
+name: dockhand
+
+services:
+  dockhand:
+    image: fnsys/dockhand:latest
+    container_name: dockhand
+    environment:
+      - PUID=XXX
+      - PGID=XXX
+      - TZ=America/New_York
+    group_add:
+      - "YYY"
+    networks:
+      - dockhand
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /Apps/dockhand:/app/data:Z
+    ports:
+      - 3000:3000
+    restart: always
+networks:
+  dockhand:
+    name: dockhand
+    driver_opts:
+      com.docker.network.bridge.name: br-dockhand
+    ipam:
+      config:
+        - subnet: 172.21.0.0/24
+          ip_range: 172.21.0.0/24

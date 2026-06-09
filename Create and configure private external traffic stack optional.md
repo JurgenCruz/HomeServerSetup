@@ -8,12 +8,12 @@ This guide assumes an OpenWrt router is being used. OpenWrt routers have the pos
 > [!NOTE]
 > When following that guide, you can use `10.13.13.1/24` as the subnet instead of `10.0.0.1/24` as the guide recommends so that it matches with this guide. Also, while setting up the `WireGuard Peers`, it is recommended to use a single IP CIDR (e.g. `10.13.13.2/32` instead of `10.0.0.10/24` like the guide suggests) for `Allowed IPs` so a peer gets the same IP assigned everytime. The guide also uses the default `0.0.0.0/0` for `Allowed IPs` during peer configuration generation. If you prefer to have split tunneling like this guide, remove the defaults and instead add `192.168.1.0/24` (use your LAN subnet if different) and `10.13.13.0/24`. Don't forget to change the `endpoint` to `wg.myhome.duckdns.org` when generating the configuration as well.
 
-We will configure the private traffic Docker stack; we will configure the firewall to allow the necessary port; and we will bring the stack up through Portainer. We will do Port Forwarding of port 51820 for WireGuard. Finally, we will configure the clients that are going to connect to it. This can be done in 2 ways: through a QR code or through a `.conf` file. Once connected to this VPN, we will be able to access services that we did not expose publicly with our Reverse Proxy such as Portainer and Cockpit, which are too critical to expose to attacks on the public internet. The stack consists of the following container:
+We will configure the private traffic Docker stack; we will configure the firewall to allow the necessary port; and we will bring the stack up through Dockhand. We will do Port Forwarding of port 51820 for WireGuard. Finally, we will configure the clients that are going to connect to it. This can be done in 2 ways: through a QR code or through a `.conf` file. Once connected to this VPN, we will be able to access services that we did not expose publicly with our Reverse Proxy such as Dockhand and Cockpit, which are too critical to expose to attacks on the public internet. The stack consists of the following container:
 
 - WireGuard: VPN for the local network.
 
 > [!NOTE]
-> WireGuard will be configured with split tunneling. If you want to redirect all client traffic, then you must change the `ALLOWEDIPS` variable in the stack in Portainer to `0.0.0.0/0`.
+> WireGuard will be configured with split tunneling. If you want to redirect all client traffic, then you must change the `ALLOWEDIPS` variable in the stack in Dockhand to `0.0.0.0/0`.
 
 ## Steps
 
@@ -25,17 +25,16 @@ We will configure the private traffic Docker stack; we will configure the firewa
 6. Replace `myhome` with the subdomain you registered on DuckDNS.org and set the `ALLOWEDIPS` variable in case `192.168 .1.0/24` is not the CIDR range of your local network. Do not remove `10.13.13.0` as it is the internal WireGuard network, and you will lose connectivity if you remove it. If you assigned a different IP to your DNS (for example if you used Technitium), update the `PEERDNS` variable with the right IP. Do not remove `10.13.13.1` as it is the internal WireGuard DNS and it won't work. The guide assumes 2 clients that will connect to the VPN with the IDs: `phone` and `laptop`. If you require more or fewer clients, add or remove or rename the client IDs as you wish.
 7. Copy all contents of the file to the clipboard. Save and exit with `Ctrl + X, Y, Enter`.
 8. Run: `./scripts/wireguard_firewalld_services.sh`. Configure Firewalld for WireGuard. The script opens the ports for WireGuard.
-9. Add stack in Portainer from the browser.
-    1. Access Portainer through https://portainer.myhome.duckdns.org.
-    2. Click "Get Started" and then select "local."
-    3. Select "Stacks" and create a new stack.
-    4. Name it "private-traffic" and paste the content of the private-traffic-stack.yml that you copied to the clipboard and create the stack. From now on, modifications to the stack must be made through Portainer and not in the file.
+9. Add stack in Dockhand from the browser.
+    1. Access Dockhand through https://dockhand.myhome.duckdns.org.
+    2. Click "Stacks" on the left menu and create a new stack.
+    3. Name it "private-traffic" and paste the content of the private-traffic-stack.yml that you copied to the clipboard and create the stack. From now on, modifications to the stack must be made through Dockhand and not in the file.
 10. Configure the router. Each router is different, so you will have to consult your manual to be able to do the following step.
     1. Forward port 51820 in UDP to the server.
 11. If you want to configure with a QR code, do the following:
-    1. Access Portainer on your local network from a device that is not the client you are configuring.
-    2. Navigate to `local` > `Containers`.
-    3. In the `wireguard` container row press the `exec console` button.
+    1. Access Dockhand on your local network from a device that is not the client you are configuring.
+    2. Navigate to `Containers`.
+    3. In the `wireguard` container row press the `terminal` button.
     4. Press `Connect`.
     5. Show the QR code for the client `phone` in the console with: `/app/show-peer phone`.
     6. From the device that will be the `phone` client (your cell phone for example), open the WireGuard application and select `Add tunnel`.

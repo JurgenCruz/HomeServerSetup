@@ -3,7 +3,7 @@
 [![en](https://img.shields.io/badge/lang-en-blue.svg)](Create%20and%20configure%20ai%20stack.md)
 [![es](https://img.shields.io/badge/lang-es-blue.svg)](Create%20and%20configure%20ai%20stack.es.md)
 
-Configuraremos el stack de Docker de Inteligencia Artificial y levantaremos el stack a través de Portainer. El stack consiste del siguiente contenedor:
+Configuraremos el stack de Docker de Inteligencia Artificial y levantaremos el stack a través de Dockhand. El stack consiste del siguiente contenedor:
 
 - Whisper: Servicio de Voz-a-texto a través de IA.
 - Piper: Servicio de Texto-a-voz a través de IA.
@@ -17,14 +17,13 @@ Configuraremos el stack de Docker de Inteligencia Artificial y levantaremos el s
 2. Editar el archivo del stack: `nano ./files/ai-stack.yml`.
 3. Reemplazar `TZ=America/New_York` por el huso horario de su sistema. Puede usar esta lista como referencia: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
 4. Si tiene una GPU Nvidia, saltar este paso. Borrar o comentar las secciones no comentadas `whisper` y `piper` y descomentar las secciones comentadas `whisper` y `piper`. Bajo las secciones `ollama` y `comfyui`, borrar o comentar las propiedades `runtime` y `deploy` por completo.
-5. Si no tiene una GPU Nvidia, bajo la seccion `comfyui`, cambiar la propiedad `image` a `sinfallas/comfyui:0.9.2-intel` si tiene GPU Intel o a `sinfallas/comfyui:0.9.2-amd` si tiene GPU AMD.
+5. Si no tiene una GPU Nvidia, bajo la sección `comfyui`, cambiar la propiedad `image` a `sinfallas/comfyui:0.9.2-intel` si tiene GPU Intel o a `sinfallas/comfyui:0.9.2-amd` si tiene GPU AMD.
 6. Si lo desea, puede cambiar el modelo del contenedor whisper (`medium-int8`) a uno más pequeño o más grande dependiendo de su hardware. Opciones disponibles: `tiny, base, small, medium, large & turbo`.
 7. Copiar todo el contenido del archivo al portapapeles. Guardar y salir con `Ctrl + X, Y, Enter`.
-8. Agregar stack en Portainer desde el navegador.
-    1. Acceder a Portainer a través de https://portainer.micasa.duckdns.org.
-    2. Darle clic en "Get Started" y luego seleccionar "local".
-    3. Seleccionar "Stacks" y crear un nuevo stack.
-    4. Ponerle nombre "ai" y pegar el contenido del ai-stack.yml que copió al portapapeles y crear el stack. Desde ahora modificaciones al stack se deben de hacer a través de Portainer y no en el archivo.
+8. Agregar stack en Dockhand desde el navegador.
+    1. Acceder a Dockhand a través de https://dockhand.micasa.duckdns.org.
+    2. Darle clic en "Stacks" en el menú izquierdo y crear un nuevo stack.
+    3. Ponerle nombre "ai" y pegar el contenido del ai-stack.yml que copió al portapapeles y crear el stack. Desde ahora modificaciones al stack se deben de hacer a través de Dockhand y no en el archivo.
 9. Configurar ComfyUI.
     1. Acceder a ComfyUI a través de https://comfyui.micasa.duckdns.org.
     2. Darle clic en "Manager".
