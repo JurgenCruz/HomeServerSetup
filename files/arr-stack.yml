@@ -66,6 +66,11 @@ services:
     security_opt:
       - label:type:flaresolverr.process
     restart: always
+    healthcheck:
+      test: [ "CMD", "curl", "-fkLsS", "-X", "POST", "http://localhost:8191/v1", "-d", '{"maxTimeout": 60000, "cmd": "request.get", "url": "https://prowlarr.servarr.com/v1/ping", "proxy": {}}', "-H", "Content-Type: application/json" ]
+      interval: 5m
+      timeout: 60s
+      retries: 2
   bazarr:
     image: lscr.io/linuxserver/bazarr:latest
     container_name: bazarr
