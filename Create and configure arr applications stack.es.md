@@ -63,7 +63,8 @@ Prepararemos el archivo de configuración de la VPN anónima que requiere qBitto
     3. Opcional: Si quiere guardar los archivos `.torrent` por si necesita descargar de nuevo algo puede habilitar "Copy .torrent files for finished downloads to" y asignar: "/MediaCenter/torrents/backup".
 5. Configurar pestaña `Connection`. Hacer los siguientes cambios:
     1. Deshabilitar "Use UPnP / NAT-PMP port forwarding from my router".
-    2. Si gusta puede ajustar los límites de conexiones.
+    2. Si su proveedor de VPN permite hacer port forwarding, seleccionar un puerto en su interfaz de VPN y escribir el mismo valor en "Port used for incoming connections".
+    3. Si gusta puede ajustar los límites de conexiones.
 6. Configurar pestaña `Speed`. Hacer los siguientes cambios:
     1. En la sección de "Alternative Rate Limits" > "Upload": Poner un tercio de la velocidad de subida de su proveedor.
     2. En la sección de "Alternative Rate Limits" > "Download": Poner un tercio de la velocidad de bajada de su proveedor.
@@ -79,9 +80,10 @@ Prepararemos el archivo de configuración de la VPN anónima que requiere qBitto
     4. Agregar `172.21.3.0/24` y el CIDR que generó durante la instalación de docker con la subet `1` a la lista debajo. Por ejemplo `fda6:80d8:cf96:1::/64`. Esto permitirá a los contenedores en la red `arr` de Docker acceder sin contraseña.
 9. Configurar pestaña `Advanced`. Hacer los siguientes cambios:
     1. Asegurar que el "Network Interface" sea `tun0`. Si no quiere decir que no está usando su VPN y el tráfico no será anónimo.
-    2. Habilitar "Reannounce to all trackers when IP or port changed".
-    3. Habilitar "Always announce to all trackers in a tier".
-    4. Habilitar "Always announce to all tiers".
+    2. "Optional IP address to bind to": `All addresses`.
+    3. Habilitar "Reannounce to all trackers when IP or port changed".
+    4. Habilitar "Always announce to all trackers in a tier".
+    5. Habilitar "Always announce to all tiers".
 10. Guardar.
 
 ## Configurar Radarr

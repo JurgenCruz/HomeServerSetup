@@ -63,7 +63,8 @@ We will prepare the anonymous VPN configuration file that qBittorrent requires; 
     3. Optional: If you want to save the `.torrent` files in case you need to download something again, you can enable "Copy .torrent files for finished downloads to" and assign: "/MediaCenter/torrents/backup".
 5. Configure `Connection` tab. Make the following changes:
     1. Disable "Use UPnP / NAT-PMP port forwarding from my router".
-    2. If you like, you can adjust the connection limits.
+    2. If your VPN provider allows port forwarding, select a port in your VPN interface and set the same value in "Port used for incoming connections".
+    3. If you like, you can adjust the connection limits.
 6. Configure `Speed` tab. Make the following changes:
     1. In the "Alternative Rate Limits" > "Upload" section: Set it to one third of your provider's upload speed.
     2. In the "Alternative Rate Limits" > "Download" section: Set it to one third of your provider's download speed.
@@ -79,9 +80,10 @@ We will prepare the anonymous VPN configuration file that qBittorrent requires; 
     4. Add `172.21.3.0/24` and the CIDR you generated during docker installation with the subnet `1` to the list below. For example `fda6:80d8:cf96:1::/64`. This will allow containers in Docker's `arr` network to be accessed without a password.
 9. Configure `Advanced` tab. Make the following changes:
     1. Ensure that the "Network Interface" is `tun0`. If not it means you are not using your VPN and the traffic will not be anonymous.
-    2. Enable "Reannounce to all trackers when IP or port changed".
-    3. Enable "Always announce to all trackers in a tier".
-    4. Enable "Always announce to all tiers".
+    2. "Optional IP address to bind to": `All addresses`.
+    3. Enable "Reannounce to all trackers when IP or port changed".
+    4. Enable "Always announce to all trackers in a tier".
+    5. Enable "Always announce to all tiers".
 10. Save.
 
 ## Configure Radarr
