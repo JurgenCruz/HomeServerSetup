@@ -30,9 +30,11 @@ We will configure the Home Assistant Docker stack and bring the stack up through
 15. Choose whether you want to send usage data to the Home Assistant page.
 16. Finish the wizard.
 17. Navigate to "Settings" > "System" > "Network".
-18. Under `Network adapter`, disable "Autoconfigure" and enable the adapter with IP `192.168.1.10/24`. Do not disable the other adapter.
-19. Click on "Save".
-20. Configure Restful Command for notifications.
+18. Under `HTTP server` in `Reverse proxy`, enable `Trust X-Forwarded-For`.
+19. Click "Add Trusted proxies" and add `172.21.1.0/24`. Repeat with `172.21.4.0/24`. We allow proxies from the `172.21.1.0/24` and `172.21.4.0/24` networks which are the `homeassistant` and `ai` networks respectively that we configured in the stack in Dockhand.
+20. Under `Network adapter`, disable "Autoconfigure" and enable the adapter with IP `192.168.1.10/24`. Do not disable the other adapter.
+21. Click on "Save".
+22. Configure Restful Command for notifications.
     1. Edit Home Assistant configuration: `nano /Apps/homeassistant/configuration.yaml`.
     2. Add the following section to the end of the file. Replace the `{your_token_here}` with the Home Assistant token you generated in Gotify and `myhome` with your domain registered in DuckDNS. We register a restful command that communicates with Gotify to send notifications.
         ```yml
@@ -43,18 +45,10 @@ We will configure the Home Assistant Docker stack and bring the stack up through
                 content_type: "application/json"
                 payload: '{ "title": "{{ title }}", "message": "{{ message }}", "priority": {{ priority }} }'
         ```
-    3. Add the following section to the end of the file. We allow proxies from the `172.21.1.0/24` and `172.21.4.0/24` networks which are the `homeassistant` and `ai` networks respectively that we configured in the stack in Dockhand.
-        ```yml
-        http:
-            use_x_forwarded_for: true
-            trusted_proxies:
-                - 172.21.1.0/24
-                - 172.21.4.0/24
-        ```
-    4. Save and exit with `Ctrl + X, Y, Enter`.
-    5. Back in Home Assistant, navigate to `Developer tools`.
-    6. Press `Restart`. Now you can create automations that call this service and get notifications through Gotify.
-21. Configure Voice Assistant.
+    3. Save and exit with `Ctrl + X, Y, Enter`.
+    4. Back in Home Assistant, navigate to `Developer tools`.
+    5. Press `Restart`. Now you can create automations that call this service and get notifications through Gotify.
+23. Configure Voice Assistant.
     1. Navigate to "Settings" > "Devices & Services".
     2. Click "Add Integration".
     3. Search for "Wyoming Protocol" and select it.
@@ -85,12 +79,12 @@ We will configure the Home Assistant Docker stack and bring the stack up through
     28. Set "Text-to-speech" to `piper`.
     29. You can change the Language for the assistant, Speech-to-Text and Text-to-Speech. You can also change the voice for Text-to-Speech.
     30. Click "Update".
-22. Configure Zigbee Automation (Only if you have Zigbee dongle).
+24. Configure Zigbee Automation (Only if you have Zigbee dongle).
     1. Navigate to "Settings" > "Devices & Services".
     2. Home Assistant should autodetect and suggest you to add the "Zigbee Home Automation". Add the integration.
     3. Select from the dropdown the device path of your Zigbee dongle and click "Submit".
     4. You can now register your Zigbee devices, but that is out of the scope of this guide.
-23. Configure Z-Wave Automation (Only if you have Z-Wave dongle).
+25. Configure Z-Wave Automation (Only if you have Z-Wave dongle).
     1. Access in another tab to https://zwavejs.myhome.duckdns.org.
     2. Click the settings icon.
     3. Under `General`, enable `Auth`. This will log you out.
