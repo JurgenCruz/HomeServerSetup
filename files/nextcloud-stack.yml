@@ -15,7 +15,8 @@ services:
     networks:
       - nextcloud
     volumes:
-      - /Apps/nextcloud/db:/var/lib/mysql:Z
+      - /Apps/nextcloud/db/data:/var/lib/mysql:Z
+      - /Apps/nextcloud/db/config:/etc/mysql/conf.d:Z
     command: --transaction-isolation=READ-COMMITTED
     restart: always
   nextcloud-redis:
