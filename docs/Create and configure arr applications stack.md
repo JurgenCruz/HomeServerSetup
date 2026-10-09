@@ -1,0 +1,377 @@
+# Create and configure arr applications stack
+
+We will prepare the anonymous VPN configuration file that qBittorrent requires; we will configure the arr apps Docker stack; and we will bring the stack up through Dockhand. The stack consists of the following containers:
+
+- Gotify: Notification engine.
+- qBittorrent: Download manager through the bittorrent protocol.
+- Sonarr: Series manager.
+- Radarr: Movie manager.
+- Prowlarr: Search engine manager.
+- Bazarr: Subtitle manager.
+- Flaresolverr: CAPTCHA solver.
+- Profilarr: Quality profile manager for Radarr & Sonarr.
+- Jellyfin: Media service.
+- Seerr: Media request manager and catalog service.
+
+## Create stack
+
+1. Run: `./scripts/create_arr_folders.sh` to generate the container directories on the SSD.
+2. Copy the anonymous VPN configuration file for bittorrent: `scp user@host:/path/to/vpn.conf /Apps/qbittorrent/wireguard/tun0.conf`. Change `{user@host:/path/to/vpn.conf}` to the address of the file on the computer that contains the file. This file must be provided by your VPN provider if you select WireGuard as the protocol. You can also use a USB stick to transfer the configuration file. If your provider requires using OpenVPN you will have to change the container configuration. For more information read the container's guide: https://github.com/Trigus42/alpine-qbittorrentvpn.
+3. Edit the stack file: `nano ./files/arr-stack.yml`.
+4. Replace `TZ=America/New_York` with your system time zone. You can use this list as a reference: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
+5. Replace the XXX with the `uid` and `gid` of the user `mediacenter`. You can use `id mediacenter` to get the `uid` and `gid`.
+6. If a GPU is not going to be used, delete the `runtime` and `deploy` sections of the `jellyfin` container.
+7. If you are going to use OpenVPN for bittorrent, update the `qbittorrent` container according to the official guide.
+8. Copy all contents of the file to the clipboard. Save and exit with `Ctrl + X, Y, Enter`.
+9. Add stack in Dockhand from the browser.
+    1. Access Dockhand through https://dockhand.myhome.duckdns.org.
+    2. Click "Stacks" on the menu on the left and create a new stack.
+    3. Name it "arr" and paste the content of the docker-compose.yml that you copied to the clipboard and create the stack. From now on, modifications to the stack must be made through Dockhand and not in the file.
+
+## Configure Gotify
+
+1. Access Gotify through https://gotify.myhome.duckdns.org.
+2. Use `admin` and `admin` as username and password.
+3. Click on `Admin` on the top and change the password to a more secure one. It is again recommended to use Bitwarden for the same.
+4. Click on `Apps` on the top and create 3 Apps:
+
+   |      Name      |         Description          | Priority |
+   |:--------------:|:----------------------------:|:--------:|
+   | Home Assistant | Home Assistant notifications |    0     |
+   |      Arr       |      Arr notifications       |    0     |
+   |      NAS       |   NAS system notifications   |    8     |
+
+5. Copy and write down the tokens generated for each App.
+6. Optionally, you can upload icons for each App to distinguish at a glance the source of the notification.
+7. Back in the Dockhand tab, navigate to "Settings" > "Notifications" and edit "Gotify" channel.
+8. Replace the "{token}" placeholder with the NAS token.
+
+> [!TIP]
+> If you want to have a different icon for each Arr App (or if you simply want more granular control), you can register a channel for each Arr App instead of a single `Arr` channel.
+
+## Configure qBittorrent
+
+1. Access qBittorrent through https://qbittorrent.myhome.duckdns.org.
+2. Use `admin` and `adminadmin` as username and password.
+3. Click the `Options` button.
+4. Configure `Downloads` tab. Make the following changes:
+    1. "Default Torrent Management Mode" : "Automatic".
+    2. "Default Save Path": "/MediaCenter/torrents".
+    3. Optional: If you want to save the `.torrent` files in case you need to download something again, you can enable "Copy .torrent files for finished downloads to" and assign: "/MediaCenter/torrents/backup".
+5. Configure `Connection` tab. Make the following changes:
+    1. Disable "Use UPnP / NAT-PMP port forwarding from my router".
+    2. If your VPN provider allows port forwarding, select a port in your VPN interface and set the same value in "Port used for incoming connections".
+    3. If you like, you can adjust the connection limits.
+6. Configure `Speed` tab. Make the following changes:
+    1. In the "Alternative Rate Limits" > "Upload" section: Set it to one third of your provider's upload speed.
+    2. In the "Alternative Rate Limits" > "Download" section: Set it to one third of your provider's download speed.
+    3. Enable "Schedule the use of alternative rate limits".
+    4. Choose the time when the Internet is used at home for other things. For example: 08:00 - 01:00 every day.
+7. Configure `BitTorrent` tab. Make the following changes:
+    1. Disable `Enable Local Peer Discovery to find more peers` since there is nothing local in the container.
+    2. If you like to stop seeding after a goal, you can enable and adjust the limits here. For example "When the rate reaches 1".
+8. Configure `Web UI` tab. Make the following changes:
+    1. Change the password to a more secure one. It is again recommended to use Bitwarden for the same.
+    2. Enable "Bypass authentication for clients on localhost".
+    3. Enable "Bypass authentication for clients in whitelisted IP subnets".
+    4. Add `172.21.3.0/24` and the CIDR you generated during docker installation with the subnet `1` to the list below. For example `fda6:80d8:cf96:1::/64`. This will allow containers in Docker's `arr` network to be accessed without a password.
+9. Configure `Advanced` tab. Make the following changes:
+    1. Ensure that the "Network Interface" is `tun0`. If not it means you are not using your VPN and the traffic will not be anonymous.
+    2. "Optional IP address to bind to": `All addresses`.
+    3. Enable "Reannounce to all trackers when IP or port changed".
+    4. Enable "Always announce to all trackers in a tier".
+    5. Enable "Always announce to all tiers".
+10. Save.
+
+## Configure Radarr
+
+1. Access Radarr through https://radarr.myhome.duckdns.org.
+2. Set password. It is again recommended to use Bitwarden for the same. Leave the authentication method as `Forms` and do not disable authentication.
+3. Navigate to "Settings" > "Media Management" and configure.
+    1. Click "Add Root Folder" and select "/MediaCenter/media/movies".
+4. Navigate to "Settings" > "Download Clients" and configure.
+    1. Add new client.
+    2. Select "qBittorrent".
+    3. "Name": "qBittorrent".
+    4. "Host": "qbittorrent".
+    5. "Port": "8080".
+    6. "Category": "movies".
+    7. Click "Test" and then "Save".
+5. Navigate to "Settings" > "Connect" and configure.
+    1. Add new connection.
+    2. Select "Gotify".
+    3. "Name": "Gotify".
+    4. Enable the triggers you wish to receive notifications for.
+    5. "Gotify Server": "http://gotify".
+    6. "App Token": Enter the token you generated in Gotify for Arr Apps.
+    7. Click "Test" and then "Save".
+6. Navigate to "Settings" > "General".
+7. Copy the API Key to a notepad as we will need it later.
+
+## Configure Sonarr
+
+1. Access Sonarr through https://sonarr.myhome.duckdns.org.
+2. Set password. It is again recommended to use Bitwarden for the same. Leave the authentication method as `Forms` and do not disable authentication.
+3. Navigate to "Settings" > "Media Management" and configure.
+    1. Click "Add Root Folder" and select "/MediaCenter/media/tv".
+4. Navigate to "Settings" > "Download Clients" and configure.
+    1. Add new client.
+    2. Select "qBittorrent".
+    3. "Name": "qBittorrent".
+    4. "Host": "qbittorrent".
+    5. "Port": "8080".
+    6. "Category": "tv".
+    7. Click "Test" and then "Save."
+5. Navigate to "Settings" > "Connect" and configure.
+    1. Add new connection.
+    2. Select "Gotify".
+    3. "Name": "Gotify".
+    4. Enable the triggers you wish to receive notifications for.
+    5. "Gotify Server": "http://gotify".
+    6. "App Token": Enter the token you generated in Gotify for Arr Apps.
+    7. Click "Test" and then "Save".
+6. Navigate to "Settings" > "General".
+7. Copy the API Key to a notepad as we will need it later.
+
+## Configure Prowlarr
+
+1. Access Prowlarr through https://prowlarr.myhome.duckdns.org.
+2. Set password. It is again recommended to use Bitwarden for the same. Leave the authentication method as `Forms` and do not disable authentication.
+3. Navigate to "Settings" > "Indexers" and configure.
+    1. Add new proxy.
+    2. Select "FlareSolverr".
+    3. "Name": "FlareSolverr".
+    4. "Tags": "proxy".
+    5. "Host": "http://flaresolverr:8191/".
+    6. Click "Test" and then "Save."
+4. Navigate to "Settings" > "Apps" and configure.
+    1. Add new application.
+    2. Select "Radarr"
+    3. "Name": "Radarr".
+    4. "Sync Level": "Full Sync".
+    5. "Tags": "radarr".
+    6. "Prowlarr Server": "http://prowlarr:9696".
+    7. "Radarr Server": "http://radarr:7878".
+    8. "API Key": paste the Radarr API Key that we copied before.
+    9. Click "Test" and then "Save."
+    10. Add new application.
+    11. Select "Sonarr"
+    12. "Name": "Sonarr".
+    13. "Sync Level": "Full Sync".
+    14. "Tags": "sonarr".
+    15. "Prowlarr Server": "http://prowlarr:9696".
+    16. "Sonarr Server": "http://sonarr:8989".
+    17. "API Key": paste the Sonarr API Key that we copied before.
+    18. Click "Test" and then "Save."
+5. Navigate to "Settings" > "Download Clients" and configure.
+    1. Add new client.
+    2. Select "qBittorrent".
+    3. "Name": "qBittorrent".
+    4. "Host": "qbittorrent".
+    5. "Port": "8080".
+    6. "Default Category": "manual".
+    7. Click "Test" and then "Save."
+6. Navigate to "Indexers" and configure.
+    1. Add indexer.
+    2. Choose the indexer of your preference.
+    3. Configure the indexer to your preference.
+    4. "Tags": Add "sonarr" if you want to use this indexer with Sonarr. Add "radarr" if you want to use this indexer with Radarr. Add "proxy" if this indexer requires FlareSolverr.
+    5. Click "Test" and then "Save."
+    6. Repeat the steps for any other indexers you want. Prowlarr will push the indexers' details to Radarr and Sonarr.
+7. Navigate to "Settings" > "Notifications" and configure.
+    1. Add new connection.
+    2. Select "Gotify".
+    3. "Name": "Gotify".
+    4. Enable the triggers you wish to receive notifications for.
+    5. "Gotify Server": "http://gotify".
+    6. "App Token": Enter the token you generated in Gotify for Arr Apps.
+    7. Click "Test" and then "Save".
+
+## Configure Bazarr
+
+1. Access Bazarr through https://bazarr.myhome.duckdns.org.
+2. Set password. It is again recommended to use Bitwarden for the same. Leave the authentication method as `Forms` and do not disable authentication.
+3. Navigate to "Settings" > "Languages" and configure.
+    1. "Languages Filter": Select the languages you are interested in downloading. It's a good idea to have a backup language in case one doesn't exist for your preferred one.
+    2. Click "Add New Profile".
+    3. "Name": The name of the primary language.
+    4. Add primary language and backup languages in the order of your preference.
+    5. "Cutoff": Select the primary language.
+    6. Save.
+    7. If you want other languages, you can repeat adding another profile.
+    8. Select the default language for series and movies.
+    9. Save.
+4. Navigate to "Settings" > "Providers" and configure.
+    1. Add the subtitle providers of your choice.
+5. Navigate to “Settings” > “Sonarr” and configure.
+    1. Enable Sonarr.
+    2. "Host" > "Address": "sonarr".
+    3. "Host" > "Port": "8989".
+    4. "Host" > "API Key": Paste the Sonarr API Key that we copied before.
+    5. Click "Test" and then "Save."
+6. Navigate to “Settings” > “Radarr” and configure.
+    1. Enable Radarr.
+    2. "Host" > "Address": "radarr".
+    3. "Host" > "Port": "7878".
+    4. "Host" > "API Key": Paste the Radarr API Key that we copied before.
+    5. Click "Test" and then "Save."
+7. Navigate to "Settings" > "Notifications" and configure.
+    1. Add new connection.
+    2. Select "Gotify".
+    3. "URL": "gotify://gotify/{token}". Replace `{token}` with the token you generated in Gotify for Arr Apps.
+    4. Click "Test" and then "Save".
+    5. Click "Save" at the top.
+8. To configure other tabs, it is recommended to use the following guide: https://trash-guides.info/Bazarr/
+
+## Configure Profilarr
+
+1. Access Profilarr through https://profilarr.myhome.duckdns.org.
+2. Follow the wizard to create a new username and password. It is again recommended to use Bitwarden for the same.
+3. Right click on "Dictionarry Database" and copy the link.
+4. Click on "Link Repository", paste the link and click "Link".
+5. Navigate to the "External Apps" tab.
+6. Click on "Add New App" and configure.
+    1. "Name": "Sonarr".
+    2. "Type": "Sonarr".
+    3. "Arr Server": "http://sonarr:8989".
+    4. "API Key": Paste the Sonarr API Key that we copied before.
+    5. Clic "Test Connection" and then "Add".
+7. Click on "Add New App" and configure.
+    1. "Name": "Radarr".
+    2. "Type": "Radarr".
+    3. "Arr Server": "http://radarr:7878".
+    4. "API Key": Paste the Radarr API Key that we copied before.
+    5. Clic "Test Connection" and then "Add".
+8. Navigate to the "Quality Profiles" tab.
+9. Clic "Select" and select the profiles you wish to sync.
+10. Click "Import", select "Radarr" and "Sonarr" and click "Import".
+11. For more information on how to use Profilarr, read the docs here: https://dictionarry.dev/
+
+## Configure Jellyfin
+
+1. Access Jellyfin through https://jellyfin.myhome.duckdns.org.
+2. Follow the wizard to create a new username and password. It is again recommended to use Bitwarden for the same.
+3. Open side panel and navigate to "Administration" > "Dashboard".
+4. If you have GPU, navigate to "Playback" and configure.
+    1. Select your GPU. The guide will assume "NVidia NVENC".
+    2. Enable the codecs that your GPU model supports.
+    3. Enable "Enable enhanced NVDEC decoder".
+    4. Enable "Enable hardware encoding".
+    5. Enable "Allow encoding in HEVC format".
+    6. If you like, you can configure other parameters to your liking.
+    7. Save.
+5. Navigate to "Networking" and configure:
+    1. "Known proxies": "nginx". If you are not going to expose the server to the internet, you can skip this step.
+    2. Save.
+6. Navigate to "Plugins" > "Catalog" and configure.
+    1. If there will be Anime in your collection, install "AniDB" and "AniList".
+    2. Install "Webhook", "TMBd Box Sets", "TVmaze" and "TheTVDB".
+7. For the plugins to take effect, restart Jellyfin from Dockhand.
+8. Configure Notifications.
+    1. After restarting, click the "Webhook" plugin and click "Settings".
+    2. "Server Url": "https://jellyfin.myhome.duckdns.org".
+    3. Click "Add Gotify Destination".
+    4. "Webhook Name": "Gotify".
+    5. "Webhook Url": "http://gotify".
+    6. Enable the events you wish to send notifications for.
+    7. "Template":
+        ```
+        {
+          "title": "{{NotificationType}}",
+          "message": "
+            {{~#if_exist NotificationUsername~}}User: {{NotificationUsername}}\n{{~/if_exist~}}
+            {{~#if_exist ClientName~}}Client: {{ClientName}}\n{{~/if_exist~}}
+            {{~#if_exist DeviceName~}}Device: {{DeviceName}}\n{{~/if_exist~}}
+            {{~#if_exist RemoteEndPoint~}}Client IP: {{RemoteEndPoint}}\n{{~/if_exist~}}
+            {{~#if_exist PluginName~}}Plugin Name: {{PluginName}}\n{{~/if_exist~}}
+            {{~#if_exist PluginVersion~}}Plugin Version: {{PluginVersion}}\n{{~/if_exist~}}
+            {{~#if_exist PluginChangelog~}}Changelog: {{json_encode PluginChangelog}}{{~/if_exist~}}
+          ",
+          "priority": {{Priority}}
+        }
+        ```
+    8. "Token": Enter the token you generated in Gotify for Arr Apps.
+    9. "Priority": "5".
+    10. Click "Save".
+    11. For more information on templates you can use, visit: https://github.com/jellyfin/jellyfin-plugin-webhook/tree/master/Jellyfin.Plugin.Webhook/Templates/Gotify.
+9. Navigate to “Libraries” and configure.
+    1. Add library.
+    2. "Content Type": "Movies".
+    3. "Name": "Movies".
+    4. "Folders": Add "/MediaCenter/media/movies".
+    5. Sort "Metadata downloaders": "TheMovieDb", "AniDB", "AniList", "The Open Movie Database".
+    6. Sort "Image fetchers": "TheMovieDb", "The Open Movie Database", "AniDB", "AniList", "Embedded Image Extractor", "Screen Grabber".
+    7. Configure the other options to your liking and Save.
+    8. Add library.
+    9. "Content Type": "Shows".
+    10. "Name": "Shows".
+    11. "Folders": Add "/MediaCenter/media/tv".
+    12. Sort "Metadata downloaders (TV Shows)": "TheTVDB", "TVmaze", "TheMovieDb", "AniDB", "AniList", "The Open Movie Database".
+    13. Sort "Metadata downloaders (Seasons)": "TVmaze", "TheMovieDb", "AniDB".
+    14. Sort "Metadata downloaders (Episodes)": "TheTVDB", "TVmaze", "TheMovieDb", "AniDB", "The Open Movie Database".
+    15. Sort "Image fetchers (TV Shows)": "TheTVDB", "TVmaze", "TheMovieDb", "AniList", "AniDB".
+    16. Sort "Image fetchers (Seasons)": "TheTVDB", "TVmaze", "TheMovieDb", "AniDB", "AniList".
+    17. Sort "Image fetchers (Episodes)": "TheTVDB", "TVmaze", "TheMovieDb", "The Open Movie Database", "Embedded Image Extractor", "Screen Grabber".
+    18. Configure the other options as you like and Save.
+10. Navigate to "Users" and configure.
+    1. If more people are going to use Jellyfin, Create more users and configure them as you like.
+11. Navigate to your profile (User icon top right) > "Subtitles".
+    1. "Preferred subtitle language": Your primary language. Save.
+    2. You can configure the rest of your profile if you wish.
+
+## Configure Seerr
+
+1. Access Seerr through https://seerr.myhome.duckdns.org.
+2. Login with Jellyfin.
+    1. Click "Use Jellyfin Account".
+    2. "Jellyfin URL": "http://jellyfin:8096"
+    3. Log in with your username and password.
+3. Configure libraries.
+    1. Click "Sync Libraries".
+    2. Enable "Movies", "Shows" and "Collections".
+    3. Click "Start Scan".
+    4. Click "Continue".
+4. Configure Sonarr and Radarr.
+    1. Click "Add Radarr Server".
+    2. Enable "Default Server".
+    3. "Server Name": "Movies".
+    4. "Hostname or IP Address": "radarr".
+    5. "Port": "7878".
+    6. "API Key": Paste the Radarr API Key that we copied before.
+    7. Click on "Test".
+    8. "Quality Profile": choose the default quality profile you want to use.
+    9. "Root Folder": "/MediaCenter/media/movies".
+    10. "Minimum Availability": "Announced."
+    11. Enable "Enable Scan".
+    12. Save.
+    13. Click "Add Sonarr Server".
+    14. Enable "Default Server".
+    15. "Server Name": "Series".
+    16. "Hostname or IP Address": "sonarr".
+    17. "Port": "8989".
+    18. "API Key": Paste the Sonarr API Key that we copied before.
+    19. Click on "Test".
+    20. "Quality Profile": choose the default quality profile you want to use.
+    21. "Root Folder": "/MediaCenter/media/tv".
+    22. "Anime Quality Profile": choose the default quality profile you want to use for Anime. Leave blank if you will not be having anime in your collection.
+    23. "Anime Root Folder": "/MediaCenter/media/tv".
+    24. Enable "Season Folders".
+    25. Enable "Enable Scan".
+    26. Save.
+5. Import users.
+    1. Navigate to "Users".
+    2. Click on "Import Jellyfin Users".
+    3. You can configure users by clicking "Edit" in the row of the user you want to configure.
+6. Navigate to "Settings" > "Notifications" and configure.
+    1. Select "Gotify".
+    2. Enable Agent.
+    3. "Server URL": "http://gotify".
+    4. "Application Token": Enter the token you generated in Gotify for Arr Apps.
+    5. "Priority": 5.
+    6. Enable the triggers you wish to receive notifications for.
+    7. Click "Test" and then "Save Changes".
+7. Navigate to "Network" and configure.
+    1. Enable "Enable Proxy Support".
+    2. Enable "Enable CSRF Protection".
+    3. Click "Save Changes".
+8. If you wish to configure more options, Navigate to "Settings" and make the desired changes. Otherwise, restart the container from Dockhand so the last changes take effect.

@@ -1,0 +1,24 @@
+# Create shared networks stack
+
+We will create an auxiliary macvlan network to be able to communicate with Home Assistant which will be in a Docker macvlan. The guide will assume a local network with CIDR range 192.168.1.0/24, with the router at the second to last address (192.168.1.254) and the server at the third to last address (192.168.1.253). If you need to use another range, just replace it with the correct range in the rest of the guide. Then, we will configure the shared networks Docker stack and bring the stack up through Dockhand. The stack consists of the following networks:
+
+- lanvlan: This is a virtual network that will allow containers to be assigned an IP directly in our LAN without sharing ports with the server.
+
+## Steps
+
+1. Determine the network device: `nmcli d | grep ethernet | grep connected | head -1` and write down the name of the device, for example `enp1s0`.
+2. Add auxiliary macvlan connection: `nmcli con add con-name macvlan-shim type macvlan ifname macvlan-shim ip4 192.168.1.12/32 dev enp1s0 mode bridge`. `192.168.1.12` is the server's IP inside this auxiliary network. If your local network is in another prefix, adjust this IP to one inside the prefix but outside the DHCP assignable range to avoid collisions. `enp1s0` is the name of the network device of the previous step. Change it to the right name.
+3. Add route to auxiliary connection to macvlan network: `nmcli con mod macvlan-shim +ipv4.routes "192.168.1.0/27"`. `192.168.1.0/27` is the IP range of the macvlan network which matches with the local network's prefix at the same time it is outside the DHCP assignable IP range.
+4. Activate auxiliary connection: `nmcli con up macvlan-shim`.
+5. Edit the stack file: `nano ./files/network-stack.yml`.
+6. Set the `lanvlan` network.
+    1. Set the `parent` attribute with the device's name you got at the beginning. For example`enp1s0`.
+    2. Set the `subnet` attribute with your local network's range.
+    3. Set the `gateway` attribute with your router's IP.
+    4. Set the`ip_range` attribute with your local network's range that the DHCP does not assign. The guide will configure the DHCP not to assign the first 64 addresses, thus we use a range of 192.168.1.0/27. If you will configure your DHCP with another non-assignable range, use that here.
+    5. Set the `host` attribute with the server's IP in the auxiliary macvlan network.
+7. Copy all contents of the file to the clipboard. Save and exit with `Ctrl + X, Y, Enter`.
+8. Add stack in Dockhand from the browser.
+    1. Access Dockhand through https://server.lan:3000.
+    2. Click "Stacks" on the left menu and create a new stack.
+    3. Name it "networks" and paste the content of the network-stack.yml that you copied to the clipboard and create the stack. From now on, modifications to the stack must be made through Dockhand and not in the file.
