@@ -7,6 +7,20 @@ export default defineConfig({
       label: 'English',
       lang: 'en',
       themeConfig: {
+        outline: {
+          label: 'On this page',
+          level: 'deep'
+        },
+        nav: [
+          {
+            text: 'Report an issue',
+            link: 'https://github.com/JurgenCruz/HomeServerSetup/issues/new/choose'
+          },
+          {
+            text: 'Ask a question',
+            link: 'https://github.com/JurgenCruz/HomeServerSetup/discussions/new?category=q-a'
+          }
+        ],
         sidebar: [
           {text: 'Introduction', link: '/'},
           {text: 'Objective', link: '/Objective'},
@@ -94,6 +108,20 @@ export default defineConfig({
       label: 'Spanish',
       lang: 'es',
       themeConfig: {
+        outline: {
+          label: 'En esta página',
+          level: 'deep'
+        },
+        nav: [
+          {
+            text: 'Reportar un problema',
+            link: 'https://github.com/JurgenCruz/HomeServerSetup/issues/new/choose'
+          },
+          {
+            text: 'Hacer una pregunta',
+            link: 'https://github.com/JurgenCruz/HomeServerSetup/discussions/new?category=q-a'
+          }
+        ],
         sidebar: {
           '/es/': {
             base: '/es/',
@@ -192,7 +220,6 @@ export default defineConfig({
     socialLinks: [
       {icon: 'github', link: 'https://github.com/JurgenCruz/HomeServerSetup'}
     ],
-    outline: false,
     search: {
       provider: 'local',
       options: {
