@@ -5,6 +5,8 @@
 
 This is the repo for the website with my guide on how to setup a Home Server from scratch: [My Guide](https://jurgencruz.github.io/HomeServerSetup/)
 
+Powered by [VitePress](https://vitepress.dev/)!
+
 ## Buy me a coffee
 
 You can always buy me a coffee here:
