@@ -1,0 +1,52 @@
+name: beszel
+
+services:
+  beszel:
+    image: henrygd/beszel:latest
+    container_name: beszel
+    environment:
+      - TZ=America/New_York
+      - APP_URL=https://beszel.myhome.duckdns.org
+    networks:
+      - beszel
+    #ports:
+    #  - 8090:8090
+    volumes:
+      - /Apps/beszel:/beszel_data:Z
+    restart: always
+  beszel-agent:
+    image: henrygd/beszel-agent-nvidia:latest
+    #image: henrygd/beszel-agent:alpine
+    container_name: beszel-agent
+    environment:
+      - TZ=America/New_York
+      - GPU_COLLECTOR=nvml
+      - HUB_URL=https://beszel.myhome.duckdns.org
+      - TOKEN=<token>
+      - KEY=<key>
+      - DISABLE_SSH=true
+    network_mode: host
+    volumes:
+      - /Apps/beszel-agent:/var/lib/beszel-agent:Z
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket:ro
+    devices:
+      #- /dev/sda:/dev/sda
+      - /dev/zfs:/dev/zfs
+    cap_add:
+      - SYS_RAWIO
+      - SYS_ADMIN
+    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities:
+                - utility
+    restart: always
+networks:
+  beszel:
+    name: beszel
+    external: true

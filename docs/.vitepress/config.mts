@@ -72,6 +72,7 @@ export default defineConfig({
               {text: 'Create and configure public external traffic stack', link: '/Create and configure public external traffic stack'},
               {text: 'Create and configure Nextcloud stack', link: '/Create and configure nextcloud stack'},
               {text: 'Create and configure arr applications stack', link: '/Create and configure arr applications stack'},
+              {text: 'Create and configure Beszel stack', link: '/Create and configure beszel stack'},
               {text: 'Create and configure AI stack', link: '/Create and configure ai stack'},
               {text: 'Create and configure Home Assistant stack', link: '/Create and configure home assistant stack'},
               {
@@ -179,6 +180,7 @@ export default defineConfig({
                   },
                   {text: 'Crear y configurar stack de Nextcloud', link: '/Create and configure nextcloud stack'},
                   {text: 'Crear y configurar stack de aplicaciones arr', link: '/Create and configure arr applications stack'},
+                  {text: 'Crear y configurar stack de Beszel', link: '/Create and configure beszel stack'},
                   {text: 'Crear y configurar stack de IA', link: '/Create and configure ai stack'},
                   {text: 'Crear y configurar stack de Home Assistant', link: '/Create and configure home assistant stack'},
                   {

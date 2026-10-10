@@ -10,6 +10,7 @@
 - Gotify as notifications engine: Gotify allows communication between services and clients through websockets and push notifications with no dependency on third-parties.
 - ARR application ecosystem: This group of microservices provides a home entertainment system with access to movies and series that is completely automated and customizable with an intuitive interface and complete control.
 - Technitium as DNS and DHCP server: Technitium helps us block domains from advertising, tracking and malware while allowing us to configure split horizon DNS and DHCP in a single service.
+- Beszel as system monitoring dashboard: Beszel is a simple and lightweight tool for server monitoring that can alert you when something goes wrong.
 - Home Assistant as a home automation system: Home Assistant is free software and completely independent of the cloud, providing privacy, security and complete control of your home.
 - Cockpit as server manager: Cockpit provides a one-stop remote server administration through a web browser with a graphical user interface for greater convenience.
 - Dockhand as a container manager: Although Cockpit has the ability to manage containers, it only supports Podman and not Docker. Dockhand allows us to manage containers remotely from a web browser with a graphical interface, instead of the terminal, and is compatible with Docker.

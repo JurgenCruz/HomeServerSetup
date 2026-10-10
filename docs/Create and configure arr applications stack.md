@@ -33,12 +33,14 @@ We will prepare the anonymous VPN configuration file that qBittorrent requires; 
 1. Access Gotify through https://gotify.myhome.duckdns.org.
 2. Use `admin` and `admin` as username and password.
 3. Click on `Admin` on the top and change the password to a more secure one. It is again recommended to use Bitwarden for the same.
-4. Click on `Apps` on the top and create 3 Apps:
+4. Click on `Apps` on the top and create the following Apps:
 
    |      Name      |         Description          | Priority |
    |:--------------:|:----------------------------:|:--------:|
    | Home Assistant | Home Assistant notifications |    0     |
    |      Arr       |      Arr notifications       |    0     |
+   |     Beszel     |     Beszel notifications     |    0     |
+   |    Dockhand    |    Dockhand notifications    |    0     |
    |      NAS       |   NAS system notifications   |    8     |
 
 5. Copy and write down the tokens generated for each App.

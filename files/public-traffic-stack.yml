@@ -12,6 +12,7 @@ services:
       - nextcloud
       - arr
       - ai
+      - beszel
     volumes:
       - /Apps/nginx/data:/data:Z
       - /Apps/nginx/etc-letsencrypt:/etc/letsencrypt:Z
@@ -56,6 +57,14 @@ networks:
       config:
         - subnet: 172.21.4.0/24
           ip_range: 172.21.4.0/24
+  beszel:
+    name: beszel
+    driver_opts:
+      com.docker.network.bridge.name: br-beszel
+    ipam:
+      config:
+        - subnet: 172.21.5.0/24
+          ip_range: 172.21.5.0/24
   dockhand:
     name: dockhand
     external: true

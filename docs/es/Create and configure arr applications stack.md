@@ -33,12 +33,14 @@ Prepararemos el archivo de configuración de la VPN anónima que requiere qBitto
 1. Acceder a Gotify a través de https://gotify.micasa.duckdns.org.
 2. Usar `admin` y `admin` como usuario y contraseña.
 3. Hacer clic en `Admin` en la parte superior y cambiar la contraseña por una más segura. Se recomienda nuevamente el uso de Bitwarden para lo mismo.
-4. Hacer clic en `Apps` en la parte superior y crear 3 Apps:
+4. Hacer clic en `Apps` en la parte superior y crear las siguientes Apps:
 
    |      Name      |         Description          | Priority |
    |:--------------:|:----------------------------:|:--------:|
    | Home Assistant | Home Assistant notifications |    0     |
    |      Arr       |      Aar notifications       |    0     |
+   |     Beszel     |     Beszel notifications     |    0     |
+   |    Dockhand    |    Dockhand notifications    |    0     |
    |      NAS       |   NAS system notifications   |    8     |
 
 5. Copiar y anota los tokens generados para cada App.
