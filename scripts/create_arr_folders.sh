@@ -5,6 +5,7 @@ mkdir -p /Apps/jellyfin/config
 mkdir /Apps/jellyfin/cache
 mkdir /Apps/seerr
 mkdir /Apps/prowlarr
+mkdir /Apps/flaresolverr
 mkdir -p /Apps/qbittorrent/wireguard
 mkdir /Apps/radarr
 mkdir /Apps/sonarr

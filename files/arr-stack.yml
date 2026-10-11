@@ -65,6 +65,10 @@ services:
       - arr
     security_opt:
       - label:type:flaresolverr.process
+    volumes:
+      - /Apps/flaresolverr:/config:Z
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=1
     restart: always
     healthcheck:
       test: [ "CMD", "curl", "-fkLsS", "-X", "POST", "http://localhost:8191/v1", "-d", '{"maxTimeout": 60000, "cmd": "request.get", "url": "https://prowlarr.servarr.com/v1/ping", "proxy": {}}', "-H", "Content-Type: application/json" ]
