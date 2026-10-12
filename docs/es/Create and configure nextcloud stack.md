@@ -1,6 +1,6 @@
 # Crear y configurar stack de Nextcloud
 
-Configuraremos el stack de Docker de Nextcloud y levantaremos el stack a través de Dockhand. El stack consiste del siguiente contenedor:
+Configuraremos el stack de Docker de Nextcloud y levantaremos el stack a través de Arcane. El stack consiste del siguiente contenedor:
 
 - Nextcloud: Motor de respaldo y sincronización de archivos.
 - Redis: Caché en memoria.
@@ -14,10 +14,10 @@ Configuraremos el stack de Docker de Nextcloud y levantaremos el stack a través
 3. Reemplazar `TZ=America/New_York` por el huso horario de su sistema. Puede usar esta lista como referencia: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
 4. Reemplazar `NEXTCLOUD_TRUSTED_DOMAINS=server.lan nextcloud.myhome.duckdns.org` con el hostname de su servidor y el subdominio que registró en DuckDNS.org. Si no se va a exponer el servicio al internet, puede dejar solamente el hostname de su servidor.
 5. Copiar todo el contenido del archivo al portapapeles. Guardar y salir con `Ctrl + X, Y, Enter`.
-6. Agregar stack en Dockhand desde el navegador.
-    1. Acceder a Dockhand a través de https://dockhand.micasa.duckdns.org.
-    2. Darle clic en "Stacks" en el menú izquierdo y crear un nuevo stack.
-    3. Ponerle nombre "nextcloud" y pegar el contenido del nextcloud-stack.yml que copió al portapapeles y crear el stack. Desde ahora modificaciones al stack se deben de hacer a través de Dockhand y no en el archivo.
+6. Agregar stack en Arcane desde el navegador.
+    1. Acceder a Arcane a través de https://arcane.micasa.duckdns.org.
+    2. Darle clic en "Projects" en el menú izquierdo y crear un nuevo proyecto.
+    3. Ponerle nombre "nextcloud" y pegar el contenido del nextcloud-stack.yml que copió al portapapeles y crear el stack. Desde ahora modificaciones al stack se deben de hacer a través de Arcane y no en el archivo.
 7. Acceder a Nextcloud a través de https://nextcloud.micasa.duckdns.org.
 8. Usar las siguientes credenciales: nombre de usuario: `admin`, contraseña `nextcloud`.
 9. Usar el asistente para completar la instalación.

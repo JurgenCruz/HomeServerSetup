@@ -1,6 +1,6 @@
 # Create and configure AI stack
 
-We will configure the Artificial Intelligence Docker stack and bring the stack up through Dockhand. The stack consists of the following containers:
+We will configure the Artificial Intelligence Docker stack and bring the stack up through Arcane. The stack consists of the following containers:
 
 - Whisper: Speech-to-text through AI service.
 - Piper: Text-to-speech through AI service.
@@ -17,10 +17,10 @@ We will configure the Artificial Intelligence Docker stack and bring the stack u
 5. If you don't have an Nvidia GPU, under the `comfyui` section. change the property `image` to `sinfallas/comfyui:0.9.2-intel` if you have an Intel GPU or to `sinfallas/comfyui:0.9.2-amd` if you have AMD GPU.
 6. If you want, you can change the whisper container's model (`medium-int8`) to a smaller or bigger model depending on your hardware. Available options are: `tiny, base, small, medium, large & turbo`.
 7. Copy all contents of the file to the clipboard. Save and exit with `Ctrl + X, Y, Enter`.
-8. Add stack in Dockhand from the browser.
-    1. Access Dockhand through https://dockhand.myhome.duckdns.org.
-    2. Click "Stacks" on the left menu and create a new stack.
-    3. Name it "ai" and paste the content of the ai-stack.yml that you copied to the clipboard and create the stack. From now on, modifications to the stack must be made through Dockhand and not in the file.
+8. Add stack in Arcane from the browser.
+    1. Access Arcane through https://arcane.myhome.duckdns.org.
+    2. Click "Projects" on the left menu and create a new project.
+    3. Name it "ai" and paste the content of the ai-stack.yml that you copied to the clipboard and create the stack. From now on, modifications to the stack must be made through Arcane and not in the file.
 9. Configure ComfyUI.
     1. Access ComfyUI through https://comfyui.myhome.duckdns.org.
     2. Click "Manager".

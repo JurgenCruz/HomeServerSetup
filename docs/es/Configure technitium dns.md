@@ -7,7 +7,7 @@ next: false
 
 # Configurar DNS de Technitium
 
-Technitium es un servidor DNS y DHCP que se ejecuta desde un contenedor de Docker. Configuraremos el stack de Docker de Technitium DNS; configuraremos el cortafuegos para permitir los puertos necesarios; y levantaremos el stack a través de Dockhand. Ya que el DNS va a ejecutarse adentro del servidor, necesitamos asignar al servidor un IP estático en la red local. Configuraremos el servidor para no usar DHCP y asignarse un IP en la red. El stack consiste de los siguientes contenedores:
+Technitium es un servidor DNS y DHCP que se ejecuta desde un contenedor de Docker. Configuraremos el stack de Docker de Technitium DNS; configuraremos el cortafuegos para permitir los puertos necesarios; y levantaremos el stack a través de Arcane. Ya que el DNS va a ejecutarse adentro del servidor, necesitamos asignar al servidor un IP estático en la red local. Configuraremos el servidor para no usar DHCP y asignarse un IP en la red. El stack consiste de los siguientes contenedores:
 
 - Technitium: Servidor DNS y DHCP.
 
@@ -19,10 +19,10 @@ Technitium es un servidor DNS y DHCP que se ejecuta desde un contenedor de Docke
 4. Ajustar el atributo `ipv4_address` en el contenedor `technitium` con un IP en el rango no asignable por el DHCP. Por ejemplo 192.168.1.10.
 5. Copiar todo el contenido del archivo al portapapeles. Guardar y salir con `Ctrl + X, Y, Enter`.
 6. Ejecutar: `./scripts/dns_firewalld_services.sh`. Configura Firewalld para los contenedores. El script abre el puerto para DNS para Technitium.
-7. Agregar stack en Dockhand desde el navegador.
-    1. Acceder a Dockhand a través de https://server.lan:3000.
-    2. Darle clic a "Stacks" en el menú izquierdo y crear un nuevo stack.
-    3. Ponerle nombre "technitium" y pegar el contenido del docker-compose.yml que copió al portapapeles y crear el stack. Desde ahora modificaciones al stack se deben de hacer a través de Dockhand y no en el archivo.
+7. Agregar stack en Arcane desde el navegador.
+    1. Acceder a Arcane a través de https://server.lan:3552.
+    2. Darle clic a "Projects" en el menú izquierdo y crear un nuevo proyecto.
+    3. Ponerle nombre "technitium" y pegar el contenido del docker-compose.yml que copió al portapapeles y crear el stack. Desde ahora modificaciones al stack se deben de hacer a través de Arcane y no en el archivo.
 8. Ejecutar: `./scripts/disable_resolved.sh`. Desactivamos el servicio de DNS local "systemd-resolved" para desocupar el puerto DNS que necesita Technitium.
 9. Ver el nombre del dispositivo de red físico activo, por ejemplo `enp1s0` o `eth0`: `nmcli device status`. Si existe más de un dispositivo físico, seleccionar el que esté conectado al router con mejor velocidad. Reemplazar en los comandos siguientes `enp1s0` por el dispositivo correcto.
 10. Asignar IP estático y rango CIDR: `nmcli con mod enp1s0 ipv4.addresses 192.168.1.253/24`. Normalmente los routers de hogar usan un rango CIDR de `/24` o su equivalente mascara de subred `255.255.255.0`. Revise el manual de su router para más información.

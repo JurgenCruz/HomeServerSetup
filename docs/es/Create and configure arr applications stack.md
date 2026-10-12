@@ -1,6 +1,6 @@
 # Crear y configurar stack de aplicaciones arr
 
-Prepararemos el archivo de configuración de la VPN anónima que requiere qBittorrent; configuraremos el stack de Docker de arr apps; y levantaremos el stack a través de Dockhand. El stack consiste de los siguientes contenedores:
+Prepararemos el archivo de configuración de la VPN anónima que requiere qBittorrent; configuraremos el stack de Docker de arr apps; y levantaremos el stack a través de Arcane. El stack consiste de los siguientes contenedores:
 
 - Gotify: Motor de notificaciones.
 - qBittorrent: Administrador de descargas a través del protocolo bittorrent.
@@ -23,10 +23,10 @@ Prepararemos el archivo de configuración de la VPN anónima que requiere qBitto
 6. Si no se va a usar GPU, borrar las secciones de `runtime` y `deploy` del contenedor `jellyfin`.
 7. Si se va a usar OpenVPN para bittorrent, actualizar el contenedor `qbittorrent` de acuerdo a la guía oficial.
 8. Copiar todo el contenido del archivo al portapapeles. Guardar y salir con `Ctrl + X, Y, Enter`.
-9. Agregar stack en Dockhand desde el navegador.
-    1. Acceder a Dockhand a través de https://dockhand.micasa.duckdns.org.
-    2. Darle clic en "Stacks" en el menu izquierdo y crear un nuevo stack.
-    3. Ponerle nombre "arr" y pegar el contenido del docker-compose.yml que copió al portapapeles y crear el stack. Desde ahora modificaciones al stack se deben de hacer a través de Dockhand y no en el archivo.
+9. Agregar stack en Arcane desde el navegador.
+    1. Acceder a Arcane a través de https://arcane.micasa.duckdns.org.
+    2. Darle clic en "Projects" en el menu izquierdo y crear un nuevo proyecto.
+    3. Ponerle nombre "arr" y pegar el contenido del docker-compose.yml que copió al portapapeles y crear el stack. Desde ahora modificaciones al stack se deben de hacer a través de Arcane y no en el archivo.
 
 ## Configurar Gotify
 
@@ -40,13 +40,13 @@ Prepararemos el archivo de configuración de la VPN anónima que requiere qBitto
    | Home Assistant | Home Assistant notifications |    0     |
    |      Arr       |      Aar notifications       |    0     |
    |     Beszel     |     Beszel notifications     |    0     |
-   |    Dockhand    |    Dockhand notifications    |    0     |
+   |     Arcane     |     Arcane notifications     |    0     |
    |      NAS       |   NAS system notifications   |    8     |
 
 5. Copiar y anota los tokens generados para cada App.
 6. Opcionalmente, puede subir iconos para cada App para distinguir la fuente de la notificación.
-7. De regreso en la pestaña de Dockhand, navegar a "Settings" > "Notifications" y editar el canal "Gotify".
-8. Reemplazar "{token}" con el token del NAS.
+7. De regreso en la pestaña de Arcane, navegar a "Settings" > "Notifications" > "Gotify".
+8. Reemplazar "{token}" con el token de Arcane.
 
 > [!TIP]
 > Si quiere tener un icono diferente para cada App Arr (o si simplemente quiere tener un control más granular), puede registrar un canal por cada App Arr en vez de un solo canal `Arr`.
@@ -268,7 +268,7 @@ Prepararemos el archivo de configuración de la VPN anónima que requiere qBitto
 6. Navegar a "Plugins" > "Catalog" y configurar.
     1. Si va a haber Anime en su colección, instalar "AniDB" y "AniList".
     2. Instalar "Webhook", "TMBd Box Sets", "TVmaze" y "TheTVDB".
-7. Para que los plugins surtan efecto reiniciar Jellyfin desde Dockhand.
+7. Para que los plugins surtan efecto reiniciar Jellyfin desde Arcane.
 8. Configurar Notificaciones.
     1. Después de reiniciar, hacer clic en el plugin "Webhook" y hacer clic en "Settings".
     2. "Server Url": "https://jellyfin.myhome.duckdns.org".
@@ -376,4 +376,4 @@ Prepararemos el archivo de configuración de la VPN anónima que requiere qBitto
     1. Habilitar "Enable Proxy Support".
     2. Habilitar "Enable CSRF Protection".
     3. Hacer clic en "Save Changes".
-8. Si desea configurar más opciones, navegar a "Settings" y hacer los cambios deseados. Si no, reiniciar el contenedor desde Dockhand para que los últimos cambios tengan efecto.
+8. Si desea configurar más opciones, navegar a "Settings" y hacer los cambios deseados. Si no, reiniciar el contenedor desde Arcane para que los últimos cambios tengan efecto.

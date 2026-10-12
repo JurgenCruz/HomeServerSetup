@@ -1,0 +1,30 @@
+name: arcane
+
+services:
+  arcane:
+    image: ghcr.io/getarcaneapp/manager:latest
+    container_name: arcane
+    environment:
+      - PROJECTS_DIRECTORY=/app/data/stacks
+      - ENCRYPTION_KEY={key}
+      - PUID=XXX
+      - PGID=XXX
+      - TZ=America/New_York
+    cgroup: host
+    networks:
+      - arcane
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /Apps/arcane:/app/data:Z
+    ports:
+      - 3552:3552
+    restart: always
+networks:
+  arcane:
+    name: arcane
+    driver_opts:
+      com.docker.network.bridge.name: br-arcane
+    ipam:
+      config:
+        - subnet: 172.21.0.0/24
+          ip_range: 172.21.0.0/24

@@ -1,6 +1,6 @@
 # Create shared networks stack
 
-We will create an auxiliary macvlan network to be able to communicate with Home Assistant which will be in a Docker macvlan. The guide will assume a local network with CIDR range 192.168.1.0/24, with the router at the second to last address (192.168.1.254) and the server at the third to last address (192.168.1.253). If you need to use another range, just replace it with the correct range in the rest of the guide. Then, we will configure the shared networks Docker stack and bring the stack up through Dockhand. The stack consists of the following networks:
+We will create an auxiliary macvlan network to be able to communicate with Home Assistant which will be in a Docker macvlan. The guide will assume a local network with CIDR range 192.168.1.0/24, with the router at the second to last address (192.168.1.254) and the server at the third to last address (192.168.1.253). If you need to use another range, just replace it with the correct range in the rest of the guide. Then, we will configure the shared networks Docker stack and bring the stack up through Arcane. The stack consists of the following networks:
 
 - lanvlan: This is a virtual network that will allow containers to be assigned an IP directly in our LAN without sharing ports with the server.
 
@@ -18,7 +18,7 @@ We will create an auxiliary macvlan network to be able to communicate with Home 
     4. Set the`ip_range` attribute with your local network's range that the DHCP does not assign. The guide will configure the DHCP not to assign the first 64 addresses, thus we use a range of 192.168.1.0/27. If you will configure your DHCP with another non-assignable range, use that here.
     5. Set the `host` attribute with the server's IP in the auxiliary macvlan network.
 7. Copy all contents of the file to the clipboard. Save and exit with `Ctrl + X, Y, Enter`.
-8. Add stack in Dockhand from the browser.
-    1. Access Dockhand through https://server.lan:3000.
-    2. Click "Stacks" on the left menu and create a new stack.
-    3. Name it "networks" and paste the content of the network-stack.yml that you copied to the clipboard and create the stack. From now on, modifications to the stack must be made through Dockhand and not in the file.
+8. Add stack in Arcane from the browser.
+    1. Access Arcane through https://server.lan:3552.
+    2. Click "Projects" on the left menu and create a new project.
+    3. Name it "networks" and paste the content of the network-stack.yml that you copied to the clipboard and create the stack. From now on, modifications to the stack must be made through Arcane and not in the file.

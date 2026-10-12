@@ -1,6 +1,6 @@
 #!/bin/bash
 
-base_dir="/Apps/dockhand/stacks/local"
+base_dir="/Apps/arcane/stacks"
 failure=0
 for sub_dir in "$base_dir"/*/; do
   if [ -f "${sub_dir}compose.yaml" ]; then
@@ -16,8 +16,8 @@ for sub_dir in "$base_dir"/*/; do
   fi
 done
 
-if docker compose -f /Apps/dockhand-stack.yml pull; then
-  if ! docker compose -f /Apps/dockhand-stack.yml up -d; then
+if docker compose -f /Apps/arcane-stack.yml pull; then
+  if ! docker compose -f /Apps/arcane-stack.yml up -d; then
     failure=1
   fi
 else

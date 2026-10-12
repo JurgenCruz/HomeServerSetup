@@ -7,7 +7,7 @@ services:
     environment:
       - TZ=America/New_York
     networks:
-      - dockhand
+      - arcane
       - homeassistant
       - nextcloud
       - arr
@@ -65,6 +65,6 @@ networks:
       config:
         - subnet: 172.21.5.0/24
           ip_range: 172.21.5.0/24
-  dockhand:
-    name: dockhand
+  arcane:
+    name: arcane
     external: true

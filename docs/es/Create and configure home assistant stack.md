@@ -1,6 +1,6 @@
 # Crear y configurar stack de Home Assistant
 
-Configuraremos el stack de Docker de Home Assistant y levantaremos el stack a través de Dockhand. El stack consiste de los siguientes contenedores:
+Configuraremos el stack de Docker de Home Assistant y levantaremos el stack a través de Arcane. El stack consiste de los siguientes contenedores:
 
 - Home Assistant: Motor de automatización del hogar.
 - Z-WaveJS: Controlador de dispositivo Z-Wave.
@@ -17,10 +17,10 @@ Configuraremos el stack de Docker de Home Assistant y levantaremos el stack a tr
 8. Bajo el contenedor `homeassistant`, bajo `devices`, reemplazar el dispositivo `/dev/serial/by-id/usb-zigbee_dongle` con la ruta de su dongle Zigbee. Si no tiene un dongle Zigbee, borrar la sección `devices` de este contenedor.
 9. Bajo el contenedor `zwavejs`, bajo `devices`, reemplazar el dispostivo `/dev/serial/by-id/usb-zwavejs_dongle` con la ruta de su dongle Z-Wave. Si no tiene un dongle Z-Wave, borrar el contenedor entero. Note que el dispositivo está siendo mapeado a `:/dev/zwave`. Esto es importante porque es la ruta por defecto que el servicio va a buscar. Si no la mapea, tendra que configurar manualmente la ruta del dispositivo.
 10. Copiar todo el contenido del archivo al portapapeles. Guardar y salir con `Ctrl + X, Y, Enter`.
-11. Agregar stack en Dockhand desde el navegador.
-    1. Acceder a Dockhand a través de https://dockhand.micasa.duckdns.org.
-    2. Darle clic en "Stacks" en el menú izquierdo y crear un nuevo stack.
-    3. Ponerle nombre "home-assistant" y pegar el contenido del home-assistant-stack.yml que copió al portapapeles y crear el stack. Desde ahora modificaciones al stack se deben de hacer a través de Dockhand y no en el archivo.
+11. Agregar stack en Arcane desde el navegador.
+    1. Acceder a Arcane a través de https://arcane.micasa.duckdns.org.
+    2. Darle clic en "Projects" en el menú izquierdo y crear un nuevo proyecto.
+    3. Ponerle nombre "home-assistant" y pegar el contenido del home-assistant-stack.yml que copió al portapapeles y crear el stack. Desde ahora modificaciones al stack se deben de hacer a través de Arcane y no en el archivo.
 12. Acceder a Home Assistant a través de https://homeassistant.micasa.duckdns.org.
 13. Usar el asistente para crear una cuenta de usuario y contraseña. Se recomienda nuevamente el uso de Bitwarden para lo mismo.
 14. Configurar con el asistente nombre de la instancia de Home Assistant y sus datos y preferencias.
@@ -28,7 +28,7 @@ Configuraremos el stack de Docker de Home Assistant y levantaremos el stack a tr
 16. Finalizar el asistente.
 17. Navegar a "Settings" > "System" > "Network".
 18. Bajo `HTTP server` en `Reverse proxy`, habilitar `Trust X-Forwarded-For`.
-19. Hacer clic en "Add Trusted proxies" y agregar `172.21.1.0/24`. Repetir con `172.21.4.0/24`. Permitimos proxies desde las redes `172.21.1.0/24` y `172.21.4.0/24` que son las redes de `homeassistant` y `ai` respectivamente que configuramos en el stack en Dockhand.
+19. Hacer clic en "Add Trusted proxies" y agregar `172.21.1.0/24`. Repetir con `172.21.4.0/24`. Permitimos proxies desde las redes `172.21.1.0/24` y `172.21.4.0/24` que son las redes de `homeassistant` y `ai` respectivamente que configuramos en el stack en Arcane.
 20. Bajo `Network adapter`, deshabilitar "Autoconfigure" y habilitar el adaptador con IP `192.168.1.10/24`. No deshabilitar el otro adaptador.
 21. Hacer clic en "Save".
 22. Configurar Restful Command para notificaciones.
@@ -104,4 +104,4 @@ Configuraremos el stack de Docker de Home Assistant y levantaremos el stack a tr
 > Puede probar su nuevo asistente de voz desde su teléfono móvil con la app de Home Assistant. Desde su Dashboard, hacer clic en los "..." en la parte superior y seleccionar "Assistant" para abrir el Asistente.
 
 > [!TIP]
-> Puede instalar Home Assistant Community Store (HACS) si quiere más integraciones. Desde la pestaña de contenedores en Dockhand, en la fila del contenedor de Home Assistant, haga clic en el button `Terminal`. Haga clic en `Connect`. Ejecute el siguiente comando: `wget -O - https://get.hacs.xyz | bash -`. Si no está comodo ejecutando comandos a ciegas, puede visitar el sitio oficial: https://hacs.xyz/. Después, reinicie Home Assitant, vaya a Settings > Devices & services y agregue la integración de HACS. Siga las instrucciones para finalizar la instalación.
+> Puede instalar Home Assistant Community Store (HACS) si quiere más integraciones. Desde la pestaña de contenedores en Arcane, haga clic en el contenedor de Home Assistant, vaya a la pestaña de `Shell`. Ejecute el siguiente comando: `wget -O - https://get.hacs.xyz | bash -`. Si no está comodo ejecutando comandos a ciegas, puede visitar el sitio oficial: https://hacs.xyz/. Después, reinicie Home Assitant, vaya a Settings > Devices & services y agregue la integración de HACS. Siga las instrucciones para finalizar la instalación.
