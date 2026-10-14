@@ -9,16 +9,17 @@ We will create an auxiliary macvlan network to be able to communicate with Home 
 1. Determine the network device: `nmcli d | grep ethernet | grep connected | head -1` and write down the name of the device, for example `enp1s0`.
 2. Add auxiliary macvlan connection: `nmcli con add con-name macvlan-shim type macvlan ifname macvlan-shim ip4 192.168.1.12/32 dev enp1s0 mode bridge`. `192.168.1.12` is the server's IP inside this auxiliary network. If your local network is in another prefix, adjust this IP to one inside the prefix but outside the DHCP assignable range to avoid collisions. `enp1s0` is the name of the network device of the previous step. Change it to the right name.
 3. Add route to auxiliary connection to macvlan network: `nmcli con mod macvlan-shim +ipv4.routes "192.168.1.0/27"`. `192.168.1.0/27` is the IP range of the macvlan network which matches with the local network's prefix at the same time it is outside the DHCP assignable IP range.
-4. Activate auxiliary connection: `nmcli con up macvlan-shim`.
-5. Edit the stack file: `nano ./files/network-stack.yml`.
-6. Set the `lanvlan` network.
+4. Disable IPv6 on the macvlan network: `nmcli con mod macvlan-shim ipv6.method disabled`.
+5. Activate auxiliary connection: `nmcli con up macvlan-shim`.
+6. Edit the stack file: `nano ./files/network-stack.yml`.
+7. Set the `lanvlan` network.
     1. Set the `parent` attribute with the device's name you got at the beginning. For example`enp1s0`.
     2. Set the `subnet` attribute with your local network's range.
     3. Set the `gateway` attribute with your router's IP.
     4. Set the`ip_range` attribute with your local network's range that the DHCP does not assign. The guide will configure the DHCP not to assign the first 64 addresses, thus we use a range of 192.168.1.0/27. If you will configure your DHCP with another non-assignable range, use that here.
     5. Set the `host` attribute with the server's IP in the auxiliary macvlan network.
-7. Copy all contents of the file to the clipboard. Save and exit with `Ctrl + X, Y, Enter`.
-8. Add stack in Arcane from the browser.
+8. Copy all contents of the file to the clipboard. Save and exit with `Ctrl + X, Y, Enter`.
+9. Add stack in Arcane from the browser.
     1. Access Arcane through https://server.lan:3552.
     2. Click "Projects" on the left menu and create a new project.
     3. Name it "networks" and paste the content of the network-stack.yml that you copied to the clipboard and create the stack. From now on, modifications to the stack must be made through Arcane and not in the file.
