@@ -15,3 +15,5 @@ mokutil --import /etc/pki/akmods/certs/public_key.der
 nvidia-ctk runtime configure --runtime=docker
 # Restart Docker service.
 systemctl restart docker.service
+systemctl enable nvidia-cdi-refresh.service
+systemctl enable nvidia-cdi-refresh.path
