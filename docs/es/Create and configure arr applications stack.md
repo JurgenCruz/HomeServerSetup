@@ -20,13 +20,14 @@ Prepararemos el archivo de configuración de la VPN anónima que requiere qBitto
 3. Editar el archivo del stack: `nano ./files/arr-stack.yml`.
 4. Reemplazar `TZ=America/New_York` por el huso horario de su sistema. Puede usar esta lista como referencia: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
 5. Reemplazar las XXX con el `uid` y `gid` del usuario `mediacenter`. Se puede usar `id mediacenter` para obtener el `uid` y `gid`.
-6. Si no se va a usar GPU, borrar las secciones de `runtime` y `deploy` del contenedor `jellyfin`.
-7. Si se va a usar OpenVPN para bittorrent, actualizar el contenedor `qbittorrent` de acuerdo a la guía oficial.
-8. Copiar todo el contenido del archivo al portapapeles. Guardar y salir con `Ctrl + X, Y, Enter`.
-9. Agregar stack en Arcane desde el navegador.
-    1. Acceder a Arcane a través de https://arcane.micasa.duckdns.org.
-    2. Darle clic en "Projects" en el menu izquierdo y crear un nuevo proyecto.
-    3. Ponerle nombre "arr" y pegar el contenido del docker-compose.yml que copió al portapapeles y crear el stack. Desde ahora modificaciones al stack se deben de hacer a través de Arcane y no en el archivo.
+6. Bajo la sección de Profilarr, cambiar la variable `ORIGIN` a su subdominio de DuckDNS.
+7. Si no se va a usar GPU, borrar las secciones de `runtime` y `deploy` del contenedor `jellyfin`.
+8. Si se va a usar OpenVPN para bittorrent, actualizar el contenedor `qbittorrent` de acuerdo a la guía oficial.
+9. Copiar todo el contenido del archivo al portapapeles. Guardar y salir con `Ctrl + X, Y, Enter`.
+10. Agregar stack en Arcane desde el navegador.
+     1. Acceder a Arcane a través de https://arcane.micasa.duckdns.org.
+     2. Darle clic en "Projects" en el menu izquierdo y crear un nuevo proyecto.
+     3. Ponerle nombre "arr" y pegar el contenido del docker-compose.yml que copió al portapapeles y crear el stack. Desde ahora modificaciones al stack se deben de hacer a través de Arcane y no en el archivo.
 
 ## Configurar Gotify
 
@@ -229,25 +230,51 @@ Prepararemos el archivo de configuración de la VPN anónima que requiere qBitto
 
 1. Acceder a Profilarr a través de https://profilarr.micasa.duckdns.org.
 2. Seguir el asistente para crear un nuevo usuario y contraseña. Se recomienda nuevamente el uso de Bitwarden para lo mismo.
-3. Hacer clic derecho en "Dictionarry Database" y copiar el enlace.
-4. Hacer clic en "Link Repository", pegar el enlace y dar clic en "Link".
-5. Navegar a la pestaña "External Apps".
-6. Hacer clic en "Add New App" y configurar.
+3. Navegar a "Settings" > "Notifications", hacer clic en "Add Service" y configurar.
+   1. "Service Type": "Webhook".
+   2. "Service Name": "Gotify".
+   3. "Webhook URL": "http://gotify/message?token={token}". Reemplazar `{token}` con el token que generó en Gotify para las Apps Arr.
+   4. Seleccionar los eventos que quiera recibir notificaciones bajo "Notification Types".
+4. Navegar a la pestaña "Arrs".
+5. Hacer clic en "Add Instance" y configurar.
     1. "Name": "Sonarr".
     2. "Type": "Sonarr".
-    3. "Arr Server": "http://sonarr:8989".
-    4. "API Key": Pegar el API Key de Sonarr que copiamos antes.
-    5. Hacer clic en "Test Connection" y luego "Add".
-7. Hacer clic en "Add New App" y configurar.
+    3. "URL": "http://sonarr:8989".
+    4. "External URL": "https://sonarr.micasa.duckdns.org".
+    5. "API Key": Pegar el API Key de Sonarr que copiamos antes.
+    6. Hacer clic en "Test Connection" y luego "Save".
+6. Hacer clic en "Sonarr" para configurarlo.
+    1. "Naming": "Dictionarry / Sonarr".
+    2. "Quality Definitions": "Dictionarry / Sonarr".
+    3. "Media Settings": "Dictionarry / Sonarr".
+    4. "Trigger": "Schedule". Puede escoger el itinerario que más le acomode.
+    5. Hacer clic en "Save" y "Sync".
+    6. "Delay Profiles": "Sonarr".
+    7. "Trigger": "Schedule". Puede escoger el itinerario que más le acomode.
+    8. Hacer clic en "Save" y "Sync".
+    9. "Quality Profiles": Select the profile that you want to sync to Sonarr.
+    10. "Trigger": "Schedule". Puede escoger el itinerario que más le acomode.
+    11. Hacer clic en "Save" y "Sync".
+7. Hacer clic en "Add Instance" y configurar.
     1. "Name": "Radarr".
     2. "Type": "Radarr".
-    3. "Arr Server": "http://radarr:7878".
-    4. "API Key": Pegar el API Key de Radarr que copiamos antes.
-    5. Hacer clic en "Test Connection" y luego "Add".
-8. Navegar a la pestaña "Quality Profiles".
-9. Hacer clic en "Select" y seleccionar los perfiles que desea sincronizar.
-10. Hacer clic en "Import", seleccionar "Radarr" y "Sonarr" y hacer clic en "Import".
-11. Para más información de como usar Profilarr, lea la documentación aquí: https://dictionarry.dev/
+    3. "URL": "http://radarr:7878".
+    4. "External URL": "https://radarr.myhome.duckdns.org".
+    5. "API Key": Pegar el API Key de Radarr que copiamos antes.
+    6. Hacer clic en "Test Connection" y luego "Add".
+8. Hacer clic en "Radarr" para configurarlo.
+    1. "Naming": "Dictionarry / Radarr".
+    2. "Quality Definitions": "Dictionarry / Radarr".
+    3. "Media Settings": "Dictionarry / Radarr".
+    4. "Trigger": "Schedule". Puede escoger el itinerario que más le acomode.
+    5. Hacer clic en "Save" y "Sync".
+    6. "Delay Profiles": "Radarr".
+    7. "Trigger": "Schedule". Puede escoger el itinerario que más le acomode.
+    8. Hacer clic en "Save" y "Sync".
+    9. "Quality Profiles": Select the profile that you want to sync to Radarr.
+    10. "Trigger": "Schedule". Puede escoger el itinerario que más le acomode.
+    11. Hacer clic en "Save" y "Sync".
+9. Para más información de como usar Profilarr, lea la documentación aquí: https://dictionarry.dev/
 
 ## Configurar Jellyfin
 
