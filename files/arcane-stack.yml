@@ -5,8 +5,8 @@ services:
     image: ghcr.io/getarcaneapp/manager:latest
     container_name: arcane
     environment:
-      - PROJECTS_DIRECTORY=/app/data/stacks
-      - ENCRYPTION_KEY={key}
+      - ARCANE_PROJECTS_DIRECTORY=/app/data/stacks
+      - ARCANE_ENCRYPTION_KEY={key}
       - PUID=XXX
       - PGID=XXX
       - TZ=America/New_York
