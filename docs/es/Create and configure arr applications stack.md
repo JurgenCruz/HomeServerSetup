@@ -190,42 +190,6 @@ Prepararemos el archivo de configuración de la VPN anónima que requiere qBitto
     6. "App Token": Ingresar el token que se generó en Gotify para las Apps Arr.
     7. Hacer clic en "Test" y luego "Save".
 
-## Configurar Bazarr
-
-1. Acceder a Bazarr a través de https://bazarr.micasa.duckdns.org.
-2. Configurar contraseña. Se recomienda nuevamente el uso de Bitwarden para lo mismo. Dejar el método de autenticación como `Forms` y no deshabilitar la autenticación.
-3. Navegar a "Settings" > "Languages" y configurar.
-    1. "Languages Filter": Seleccionar los idiomas que le interese descargar. Es buena idea tener un idioma de respaldo en caso de que no existan para el de su preferencia.
-    2. Hacer clic en "Add New Profile".
-    3. "Name": El nombre del idioma principal.
-    4. Agregar idioma principal e idiomas de respaldo en el orden de su preferencia.
-    5. "Cutoff": Seleccionar el idioma principal.
-    6. Guardar.
-    7. Si desea otros idiomas, puede repetir agregar otro perfil.
-    8. Seleccionar el idioma por defecto para series y películas.
-    9. Guardar.
-4. Navegar a "Settings" > "Providers" y configurar.
-    1. Agregar los proveedores de subtítulos de su preferencia.
-5. Navegar a "Settings" > "Sonarr" y configurar.
-    1. Habilitar Sonarr.
-    2. "Host" > "Address": "sonarr".
-    3. "Host" > "Port": "8989".
-    4. "Host" > "API Key": Pegar el API Key de Sonarr que copiamos antes.
-    5. Hacer clic en "Test" y luego "Save".
-6. Navegar a "Settings" > "Radarr" y configurar.
-    1. Habilitar Radarr.
-    2. "Host" > "Address": "radarr".
-    3. "Host" > "Port": "7878".
-    4. "Host" > "API Key": Pegar el API Key de Radarr que copiamos antes.
-    5. Hacer clic en "Test" y luego "Save".
-7. Navegar a "Settings" > "Notifications" y configurar.
-    1. Agregar nueva conexión.
-    2. Seleccionar "Gotify".
-    3. "URL": "gotify://gotify/{token}". Reemplazar `{token}` con el token que se generó en Gotify para las Apps Arr.
-    4. Hacer clic en "Test" y luego "Save".
-    5. Hacer clic en "Save" en la parte superior.
-8. Para configurar otras pestañas se recomienda el uso de la siguiente guía: https://trash-guides.info/Bazarr/
-
 ## Configurar Profilarr
 
 1. Acceder a Profilarr a través de https://profilarr.micasa.duckdns.org.
@@ -340,11 +304,61 @@ Prepararemos el archivo de configuración de la VPN anónima que requiere qBitto
     16. Ordenar "Image fetchers (Seasons)": "TheTVDB", "TVmaze", "TheMovieDb", "AniDB", "AniList".
     17. Ordenar "Image fetchers (Episodes)": "TheTVDB", "TVmaze", "TheMovieDb", "The Open Movie Database", "Embedded Image Extractor", "Screen Grabber".
     18. Configurar las demás opciones a su gusto y Guardar.
-10. Navegar a "Users" y configurar.
+10. Navegar a "API Keys".
+    1. Hacer clic en "New API Key" y nombrarla `Bazarr`.
+    2. Hacer clic en "Create" y copiar en bloc de notas.
+11. Navegar a "Users" y configurar.
     1. Si más personas van a usar Jellyfin, Crear más usuarios y configurarlos como guste.
-11. Navegar a su perfil (Icono de usuario arriba a la derecha) > "Subtitles".
+12. Navegar a su perfil (Icono de usuario arriba a la derecha) > "Subtitles".
     1. "Preferred subtitle language": Su idioma principal. Guardar.
     2. Puede configurar el resto de su perfil si lo desea.
+
+## Configurar Bazarr
+
+1. Acceder a Bazarr a través de https://bazarr.micasa.duckdns.org.
+2. Configurar contraseña. Se recomienda nuevamente el uso de Bitwarden para lo mismo. Dejar el método de autenticación como `Forms` y no deshabilitar la autenticación.
+3. Navegar a "Settings" > "Languages" y configurar.
+    1. "Languages Filter": Seleccionar los idiomas que le interese descargar. Es buena idea tener un idioma de respaldo en caso de que no existan para el de su preferencia.
+    2. Navegar a la pestaña "Profiles".
+    3. Hacer clic en "Add New Profile".
+    4. "Name": El nombre del idioma principal.
+    5. Agregar idioma principal e idiomas de respaldo en el orden de su preferencia.
+    6. "Cutoff": Seleccionar el idioma principal.
+    7. Guardar.
+    8. Si desea otros idiomas, puede repetir agregar otro perfil.
+    9. Seleccionar el idioma por defecto para series y películas.
+    10. Guardar.
+4. Navegar a "Settings" > "Providers" y configurar.
+    1. Agregar los proveedores de subtítulos de su preferencia.
+5. Navegar a "Settings" > "Library" > "Sonarr" y configurar.
+    1. Habilitar Sonarr.
+    2. "Host" > "Address": "sonarr".
+    3. "Host" > "Port": "8989".
+    4. "Host" > "API Key": Pegar el API Key de Sonarr que copiamos antes.
+    5. Hacer clic en "Test" y luego "Save".
+6. Navegar a "Settings" > "Library" > "Radarr" y configurar.
+    1. Habilitar Radarr.
+    2. "Host" > "Address": "radarr".
+    3. "Host" > "Port": "7878".
+    4. "Host" > "API Key": Pegar el API Key de Radarr que copiamos antes.
+    5. Hacer clic en "Test" y luego "Save".
+7. Navegar a "Settings" > "Integrations" > "Jellyfin" y configurar.
+   1. Habilitar Jellyfin.
+   2. "Server URL": "http://jellyfin:8096".
+   3. "API Key": Pegar la API Key generada en Jellyfin para Bazarr.
+   4. Hacer clic en "Test Connection".
+   5. "Movie Library" > "Library Name": "Movies".
+   6. Habilitar "Refresh movie metadata after downloading subtitles".
+   7. "Series Library" > "Library Name": "Shows".
+   8. Habilitar "Refresh series metadata after downloading subtitles".
+   9. Hacer clic en "Save".
+8. Navegar a "Settings" > "Notifications" y configurar.
+    1. Agregar nueva conexión.
+    2. Seleccionar "Gotify".
+    3. "URL": "gotify://gotify/{token}". Reemplazar `{token}` con el token que se generó en Gotify para las Apps Arr.
+    4. Hacer clic en "Test" y luego "Save".
+    5. Hacer clic en "Save" en la parte superior.
+9. Para configurar otras pestañas se recomienda el uso de la siguiente guía: https://trash-guides.info/Bazarr/
 
 ## Configurar Seerr
 
