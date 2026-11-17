@@ -255,6 +255,8 @@ Prepararemos el archivo de configuración de la VPN anónima que requiere qBitto
     9. "Quality Profiles": Select the profile that you want to sync to Sonarr.
     10. "Trigger": "Schedule". Puede escoger el itinerario que más le acomode.
     11. Hacer clic en "Save" y "Sync".
+    12. Hacer clic en la barra superior y seleccionar "Arr Instances" > "Sonarr" > "Drift".
+    13. Hacer clic en "Enabled" y "Save".
 7. Hacer clic en "Add Instance" y configurar.
     1. "Name": "Radarr".
     2. "Type": "Radarr".
@@ -274,6 +276,8 @@ Prepararemos el archivo de configuración de la VPN anónima que requiere qBitto
     9. "Quality Profiles": Select the profile that you want to sync to Radarr.
     10. "Trigger": "Schedule". Puede escoger el itinerario que más le acomode.
     11. Hacer clic en "Save" y "Sync".
+    12. Hacer clic en la barra superior y seleccionar "Arr Instances" > "Radarr" > "Drift".
+    13. Hacer clic en "Enabled" y "Save".
 9. Para más información de como usar Profilarr, lea la documentación aquí: https://dictionarry.dev/
 
 ## Configurar Jellyfin

@@ -255,6 +255,8 @@ We will prepare the anonymous VPN configuration file that qBittorrent requires; 
     9. "Quality Profiles": Select the profile that you want to sync to Sonarr.
     10. "Trigger": "Schedule". You can choose a schedule that best suits you.
     11. Click "Save" & "Sync".
+    12. Click the topbar a select "Arr Instances" > "Sonarr" > "Drift".
+    13. Click "Enabled" & "Save".
 7. Click on "Add Instance" and configure.
     1. "Name": "Radarr".
     2. "Type": "Radarr".
@@ -274,6 +276,8 @@ We will prepare the anonymous VPN configuration file that qBittorrent requires; 
     9. "Quality Profiles": Select the profile that you want to sync to Radarr.
     10. "Trigger": "Schedule". You can choose a schedule that best suits you.
     11. Click "Save" & "Sync".
+    12. Click the topbar a select "Arr Instances" > "Radarr" > "Drift".
+    13. Click "Enabled" & "Save".
 9. For more information on how to use Profilarr, read the docs here: https://dictionarry.dev/
 
 ## Configure Jellyfin
