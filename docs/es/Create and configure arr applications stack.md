@@ -243,20 +243,17 @@ Prepararemos el archivo de configuración de la VPN anónima que requiere qBitto
     4. "External URL": "https://sonarr.micasa.duckdns.org".
     5. "API Key": Pegar el API Key de Sonarr que copiamos antes.
     6. Hacer clic en "Test Connection" y luego "Save".
-6. Hacer clic en "Sonarr" para configurarlo.
+6. Hacer clic en "Sonarr" para configurarlo. Asegurarse que está en la pestaña "Sync".
     1. "Naming": "Dictionarry / Sonarr".
     2. "Quality Definitions": "Dictionarry / Sonarr".
     3. "Media Settings": "Dictionarry / Sonarr".
-    4. "Trigger": "Schedule". Puede escoger el itinerario que más le acomode.
-    5. Hacer clic en "Save" y "Sync".
-    6. "Delay Profiles": "Sonarr".
-    7. "Trigger": "Schedule". Puede escoger el itinerario que más le acomode.
+    4. Hacer clic en "Save" y "Sync".
+    5. "Delay Profiles": "Sonarr".
+    6. Hacer clic en "Save" y "Sync".
+    7. "Quality Profiles": Seleccionar los perfiles que quiera sincronizar a Sonarr.
     8. Hacer clic en "Save" y "Sync".
-    9. "Quality Profiles": Select the profile that you want to sync to Sonarr.
-    10. "Trigger": "Schedule". Puede escoger el itinerario que más le acomode.
-    11. Hacer clic en "Save" y "Sync".
-    12. Hacer clic en la barra superior y seleccionar "Arr Instances" > "Sonarr" > "Drift".
-    13. Hacer clic en "Enabled" y "Save".
+    9. Navegar a la pestaña "Drift".
+    10. Hacer clic en "Enabled" y "Save".
 7. Hacer clic en "Add Instance" y configurar.
     1. "Name": "Radarr".
     2. "Type": "Radarr".
@@ -264,20 +261,17 @@ Prepararemos el archivo de configuración de la VPN anónima que requiere qBitto
     4. "External URL": "https://radarr.myhome.duckdns.org".
     5. "API Key": Pegar el API Key de Radarr que copiamos antes.
     6. Hacer clic en "Test Connection" y luego "Add".
-8. Hacer clic en "Radarr" para configurarlo.
+8. Hacer clic en "Radarr" para configurarlo. Asegurarse que está en la pestaña "Sync".
     1. "Naming": "Dictionarry / Radarr".
     2. "Quality Definitions": "Dictionarry / Radarr".
     3. "Media Settings": "Dictionarry / Radarr".
-    4. "Trigger": "Schedule". Puede escoger el itinerario que más le acomode.
-    5. Hacer clic en "Save" y "Sync".
-    6. "Delay Profiles": "Radarr".
-    7. "Trigger": "Schedule". Puede escoger el itinerario que más le acomode.
+    4. Hacer clic en "Save" y "Sync".
+    5. "Delay Profiles": "Radarr".
+    6. Hacer clic en "Save" y "Sync".
+    7. "Quality Profiles": Seleccionar los perfiles que quiera sincronizar a Radarr.
     8. Hacer clic en "Save" y "Sync".
-    9. "Quality Profiles": Select the profile that you want to sync to Radarr.
-    10. "Trigger": "Schedule". Puede escoger el itinerario que más le acomode.
-    11. Hacer clic en "Save" y "Sync".
-    12. Hacer clic en la barra superior y seleccionar "Arr Instances" > "Radarr" > "Drift".
-    13. Hacer clic en "Enabled" y "Save".
+    9. Navegar a la pestaña "Drift".
+    10. Hacer clic en "Enabled" y "Save".
 9. Para más información de como usar Profilarr, lea la documentación aquí: https://dictionarry.dev/
 
 ## Configurar Jellyfin
