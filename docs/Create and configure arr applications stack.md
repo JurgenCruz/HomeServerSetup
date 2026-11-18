@@ -211,13 +211,16 @@ We will prepare the anonymous VPN configuration file that qBittorrent requires; 
     1. "Naming": "Dictionarry / Sonarr".
     2. "Quality Definitions": "Dictionarry / Sonarr".
     3. "Media Settings": "Dictionarry / Sonarr".
-    4. Click "Save" & "Sync".
-    5. "Delay Profiles": "Sonarr".
-    6. Click "Save" & "Sync".
-    7. "Quality Profiles": Select the profile that you want to sync to Sonarr.
+    4. "Trigger": "On Pull".
+    5. Click "Save" & "Sync".
+    6. "Delay Profiles": "Sonarr".
+    7. "Trigger": "On Pull".
     8. Click "Save" & "Sync".
-    9. Navigate to the "Drift" tab.
-    10. Click "Enabled" & "Save".
+    9. "Quality Profiles": Select the profile that you want to sync to Sonarr.
+    10. "Trigger": "On Pull".
+    11. Click "Save" & "Sync".
+    12. Navigate to the "Drift" tab.
+    13. Click "Enabled" & "Save".
 7. Click on "Add Instance" and configure.
     1. "Name": "Radarr".
     2. "Type": "Radarr".
@@ -229,13 +232,16 @@ We will prepare the anonymous VPN configuration file that qBittorrent requires; 
     1. "Naming": "Dictionarry / Radarr".
     2. "Quality Definitions": "Dictionarry / Radarr".
     3. "Media Settings": "Dictionarry / Radarr".
-    4. Click "Save" & "Sync".
-    5. "Delay Profiles": "Radarr".
-    6. Click "Save" & "Sync".
-    7. "Quality Profiles": Select the profile that you want to sync to Radarr.
+    4. "Trigger": "On Pull".
+    5. Click "Save" & "Sync".
+    6. "Delay Profiles": "Radarr".
+    7. "Trigger": "On Pull".
     8. Click "Save" & "Sync".
-    9. Navigate to the "Drift" tab.
-    10. Click "Enabled" & "Save".
+    9. "Quality Profiles": Select the profile that you want to sync to Radarr.
+    10. "Trigger": "On Pull".
+    11. Click "Save" & "Sync".
+    12. Navigate to the "Drift" tab.
+    13. Click "Enabled" & "Save".
 9. For more information on how to use Profilarr, read the docs here: https://dictionarry.dev/
 
 ## Configure Jellyfin
